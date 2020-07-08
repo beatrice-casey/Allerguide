@@ -1,0 +1,2 @@
+# FBUApp
+This app will allow users to find restaurants, bakeries, grocery stores, etc. that have foods/options for people with food allergies. For example, people who cannot eat gluten can specify that gluten is their allergy, and the app will show restaurants and other places that offer options that are gluten free. Users can rate the places they go to, upload picutres of the foods they eat and add comments to let other people know of their experience at a certain place. 
