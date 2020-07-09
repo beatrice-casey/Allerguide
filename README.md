@@ -31,16 +31,19 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 * user login
 * set/select allergies/food restrictions
 * set location
-* use Google Maps to find local restaurants + filter our ones that offer foods the user can eat
+* use Google Maps to find local restaurants + filter out ones that offer foods the user can eat
 * reviews page
     * Detailed view of a restaurant
     * user can read/write reviews of a restaurant
     * user can take pictures of stuff they've eaten/their experience
+* Clean UI
 
 **Optional Nice-to-have Stories**
 
-* Clean UI
+* View a map view of restaurants and see their location
 * Users can take a picture of a food item in grocery stores and be told if the food was processed in a factory that handles other foods that contain their allergen/if the food itself contains their allergens
+* User can add a restaurant to their favorites tab
+* User can add and change their profile picture
 
 ### 2. Screen Archetypes
 
@@ -71,18 +74,22 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 
 **Tab Navigation** (Tab to Screen)
 
-* Maps
+* Restaurant list
 * Favorites
 * Searh
 * Profile
 
 **Flow Navigation** (Screen to Screen)
 
-* Maps
+* Restaurants list
    * Details view
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
+* Favorites
+   * Details view
+* Search
+    * Restaurants list
+        * Details View
+* Profile
+    * Details View
 
 ## Wireframes
 ![](https://i.imgur.com/DnGllNv.jpg)
@@ -92,10 +99,35 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
+
 ### Models
-[Add table of models]
+
+
+| Property     |       Type       |       Description       |
+|  --------    |     --------     |       --------          |
+| Restaurant   | String           | Name of Restaurant      |
+| User         | Pointer to User  | Current user looking for restaurants|
+| Image        | File             | Images of food/place    |
+| Description  | String           | Description of place    |
+| Review text  | String           | User review of place    |
+| Review image | File             | Image from user of experience|
+| Rating       | Number           | Rating of place out of 5|
+| createdAt    | DateTime         | Time a review was made  |
+| Location     | JSON Object      | Location of restaurant  |
+                                  
+
 ### Networking
 - [Add list of network requests by screen ]
+- Home Feed Screen
+    * (Read/GET) Query restaurants list
+- Details Page
+    * (Create/POST) Create a new review
+    * (Read/GET) Query reviews
+- Favorites Page
+    * (Read/GET) Query restaurant favorites
+- Profile
+    * (Read/GET) Query user object
+- Search
+    * (Read/GET) Query restaurants list matching search location
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
