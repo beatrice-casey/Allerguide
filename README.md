@@ -28,7 +28,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 
 **Required Must-have Stories**
 
-* user login
+* user login/sign up
 * set/select allergies/food restrictions
 * set location
 * use Google Maps to find local restaurants + filter out ones that offer foods the user can eat
@@ -37,13 +37,18 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
     * user can read/write reviews of a restaurant
     * user can take pictures of stuff they've eaten/their experience
 * Clean UI
+* User can add a restaurant to their favorites tab
+* user can see posts they have made on their profile page
+* User can share their review of a restaurant
 
 **Optional Nice-to-have Stories**
 
 * View a map view of restaurants and see their location
 * Users can take a picture of a food item in grocery stores and be told if the food was processed in a factory that handles other foods that contain their allergen/if the food itself contains their allergens
-* User can add a restaurant to their favorites tab
 * User can add and change their profile picture
+* User can upload an image from their camera roll for either a review or their profile picture
+* User can search for restaurants in a different location that meet their requirements
+
 
 ### 2. Screen Archetypes
 
@@ -52,7 +57,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
    * select food restrictions
    * set locations
 * Stream
-   * Google maps with a list of places and previw information
+   * List of places and previw information
        * rating, name, picture
    * List of favorite places
 * Detail
@@ -102,22 +107,41 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 
 ### Models
 
+Restaurant
+
+| Property     |       Type       |       Description       |
+|  --------    |     --------     |       --------          |
+| Restaurant name| String         | Name of Restaurant      |
+| Image        | File             | Images of food/place    |
+| Description  | String           | Description of place    |
+| Rating       | Number           | Rating of place out of 5|
+| Location     | JSON Object      | Location of restaurant  |
+
+User
+
+| Property     |       Type       |       Description       |
+|  --------    |     --------     |       --------          |
+| Username     | String           | Name of user            |
+| Allergies    | List of Strings  | List of allergies of user|
+| Password     | String           | User's password for app    |
+ 
+ 
+Review/Post
 
 | Property     |       Type       |       Description       |
 |  --------    |     --------     |       --------          |
 | Restaurant   | String           | Name of Restaurant      |
-| User         | Pointer to User  | Current user looking for restaurants|
-| Image        | File             | Images of food/place    |
-| Description  | String           | Description of place    |
+| User         | Pointer to User  | Current user making review|
 | Review text  | String           | User review of place    |
 | Review image | File             | Image from user of experience|
 | Rating       | Number           | Rating of place out of 5|
 | createdAt    | DateTime         | Time a review was made  |
-| Location     | JSON Object      | Location of restaurant  |
+
+
+
                                   
 
 ### Networking
-- [Add list of network requests by screen ]
 - Home Feed Screen
     * (Read/GET) Query restaurants list
 - Details Page
@@ -129,5 +153,27 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
     * (Read/GET) Query user object
 - Search
     * (Read/GET) Query restaurants list matching search location
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+
+## App Expectations
+
+- [x]  Your app has multiple views
+    - Main view, details view, favorites view, profile
+- [x] Your app interacts with a database (e.g. Parse)
+    - will use Parse to hold user data
+- [x] You can log in/log out of your app as a user
+- [x] You can sign up with a new user profile
+- [x] Somewhere in your app you can use the camera to take a picture and do something with the picture (e.g. take a photo and share it to a feed, or take a photo and set a user’s profile picture)
+    - User can take photos of food/experience at restaurant and share in the reviews
+- [x] Your app integrates with a SDK (e.g. Google Maps SDK, Facebook SDK)
+    - Google Maps SDK
+- [x] Your app contains at least one more complex algorithm (talk over this with your manager)
+    - Filtering the API based on user input food restrictions
+    - Filtering by location
+- [x] Your app uses gesture recognizers (e.g. double tap to like, e.g. pinch to scale)
+    - Double tap to add to favorites
+- [x] Your app use an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
+    - Click on an image and it grows
+- [x] Your app incorporates an external library to add visual polish
+    - Glide to show pictures
+    - Material Design
