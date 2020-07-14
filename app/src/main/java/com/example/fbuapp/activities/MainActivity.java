@@ -1,34 +1,27 @@
 package com.example.fbuapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
-import android.widget.Toast;
+import android.view.MenuItem;
 
-import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
-import com.example.fbuapp.Restaurant;
+import com.example.fbuapp.fragments.RestaurantsFragment;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import okhttp3.Headers;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
@@ -39,45 +32,62 @@ public class MainActivity extends AppCompatActivity {
 
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
-    public String MAPS_API_KEY;
+
     public Location location;
-    public String LOCATION_URL;
-    public ArrayList<Restaurant> restaurants;
+
+
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startLocationUpdates();
-        MAPS_API_KEY = getString(R.string.google_maps_API_key);
-        LOCATION_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + location + "&radius=1500&type=restaurant&key=" + MAPS_API_KEY;
-        restaurants = new ArrayList<>();
+        //Log.i(TAG, "google maps URL: " + LOCATION_URL);
 
-        AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get(LOCATION_URL, new JsonHttpResponseHandler() {
+
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onSuccess(int statusCode, Headers headers, JsonHttpResponseHandler.JSON json) {
-                Log.d(TAG, "onSuccess client request");
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("results");
-                    restaurants.addAll(Restaurant.fromJSONArray(results));
-                    Log.i(TAG, "Results: " + results.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment fragment;
+                switch (menuItem.getItemId()) {
+                    case R.id.action_home:
+                        fragment = new RestaurantsFragment();
+                        //menuItem.setIcon(R.drawable.ic_home);
+                        break;
+                    case R.id.action_favorites:
+                        fragment = new RestaurantsFragment();
+                        //menuItem.setIcon(R.drawable.ic_create_fill);
+                        break;
+                    case R.id.action_search:
+                        fragment = new RestaurantsFragment();
+                        //menuItem.setIcon(R.drawable.ic_profile);
+                        break;
+                    case R.id.action_profile:
+                        fragment = new RestaurantsFragment();
+                        //menuItem.setIcon(R.drawable.ic_profile);
+                        break;
+                    default:
+                        fragment = new RestaurantsFragment();
+                        //menuItem.setIcon(R.drawable.ic_home);
+                        break;
                 }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.e(TAG, "Hit json exception ", throwable);
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                return true;
             }
         });
+        // Set default selection
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
+
+
 
     }
+
 
     // Trigger new location updates at interval
     protected void startLocationUpdates() {

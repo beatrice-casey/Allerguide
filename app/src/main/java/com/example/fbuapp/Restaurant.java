@@ -10,15 +10,26 @@ import java.util.List;
 public class Restaurant {
 
     String restaurantName;
-    //ArrayList<Integer> location;
+    String location;
     String image;
 
     public Restaurant() { }
 
     public Restaurant(JSONObject jsonObject) throws JSONException {
         restaurantName = jsonObject.getString("name");
-        //location = jsonObject.get("location");
+//        location = jsonObject.getString("location");
         image = jsonObject.getString("icon");
+
+//        if (jsonObject.has("geometry")) {
+//            JSONObject geometryArray = jsonObject.getJSONObject("geometry");
+//            if (geometryArray.has("location")) {
+//                JSONArray locationArray = geometryArray.getJSONArray("location");
+//                JSONObject latitude = locationArray.getJSONObject(0);
+//                JSONObject longitude = locationArray.getJSONObject(1);
+//                location = latitude.getString("lat") + longitude.getString("lng");
+//            }
+//
+//        }
 
     }
 
@@ -37,6 +48,8 @@ public class Restaurant {
     public String getImage() {
         return image;
     }
+
+  //  public String getLocation() { return location;}
 
 
 }
