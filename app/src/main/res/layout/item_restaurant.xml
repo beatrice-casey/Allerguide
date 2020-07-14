@@ -14,9 +14,10 @@
         android:layout_width="27dp"
         android:layout_height="24dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/tvRestaurant"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="22dp"
+        android:layout_toEndOf="@+id/ratingBar"
         android:background="#FFFFFF"
         android:drawableTop="@drawable/ic_baseline_favorite_border_24" />
 
