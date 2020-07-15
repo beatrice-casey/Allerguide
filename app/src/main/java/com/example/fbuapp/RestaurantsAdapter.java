@@ -76,7 +76,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         public void bind(Restaurant restaurant) {
             Log.i(TAG, "binding data");
             tvRestaurant.setText(restaurant.getRestaurantName());
-            //tvLocation.setText(restaurant.getLocation());
+            tvLocation.setText(restaurant.getLocation());
             Glide.with(context)
                     .load(restaurant.getImage())
                     .into(ivRestaurantImage);

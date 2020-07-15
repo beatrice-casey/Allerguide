@@ -17,20 +17,9 @@ public class Restaurant {
 
     public Restaurant(JSONObject jsonObject) throws JSONException {
         restaurantName = jsonObject.getString("name");
-//        location = jsonObject.getString("location");
+        location = jsonObject.getString("vicinity");
         image = jsonObject.getString("icon");
 
-//        if (jsonObject.has("geometry")) {
-//            JSONObject geometryArray = jsonObject.getJSONObject("geometry");
-//            if (geometryArray.has("location")) {
-//                JSONArray locationArray = geometryArray.getJSONArray("location");
-//                JSONObject latitude = locationArray.getJSONObject(0);
-//                JSONObject longitude = locationArray.getJSONObject(1);
-//                location = latitude.getString("lat") + longitude.getString("lng");
-//            }
-//
-//        }
-        
 
     }
 
@@ -50,7 +39,7 @@ public class Restaurant {
         return image;
     }
 
-  //  public String getLocation() { return location;}
+  public String getLocation() { return location;}
 
 
 }

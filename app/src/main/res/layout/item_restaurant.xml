@@ -51,16 +51,18 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="4dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="180dp"
+        android:layout_toStartOf="@+id/ivRestaurantImage"
         tools:text="Location of restaurant" />
 
     <ImageView
         android:id="@+id/ivRestaurantImage"
-        android:layout_width="93dp"
-        android:layout_height="66dp"
+        android:layout_width="56dp"
+        android:layout_height="64dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="0dp"
         tools:srcCompat="@tools:sample/avatars" />
 
 
