@@ -17,7 +17,7 @@ public class Restaurant {
 
     public Restaurant(JSONObject jsonObject) throws JSONException {
         restaurantName = jsonObject.getString("name");
-        location = jsonObject.getString("vicinity");
+        location = jsonObject.getString("formatted_address");
         image = jsonObject.getString("icon");
 
 

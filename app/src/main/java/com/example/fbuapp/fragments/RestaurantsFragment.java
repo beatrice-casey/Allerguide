@@ -73,8 +73,11 @@ public class RestaurantsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         MAPS_API_KEY = getString(R.string.google_maps_API_key);
         startLocationUpdates();
-        LOCATION_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude
-                + "," + longitude + "&radius=1500&type=restaurant&key=" + MAPS_API_KEY;
+//        LOCATION_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude
+//                + "," + longitude + "&radius=1500&type=restaurant&key=" + MAPS_API_KEY;
+
+       LOCATION_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=vegetarian+restaurants&location=" + latitude
+                        + "," + longitude + "&radius=1500&key=AIzaSyBq-RorQaqhAufw6L_8Gkfwk_3TyrgvQNo";
         Log.i(TAG, "URL: "+ LOCATION_URL);
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         restaurants = new ArrayList<>();
