@@ -61,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
-                            // Hooray! Let them use the app now.
-                            goMainActivity();
+                            // Show new card to set allergies
+                            selectAllergies();
                         } else {
                             // Sign up didn't succeed. Look at the ParseException
                             // to figure out what went wrong
@@ -75,6 +75,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    private void selectAllergies() {
+        Intent i = new Intent(this, SelectAllergies.class);
+        startActivity(i);
+        finish();
+    }
+
 
     private void loginUser(String username, String password) {
         ParseUser.logInInBackground(username, password, new LogInCallback() {

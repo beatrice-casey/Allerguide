@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.fbuapp.Allergies;
 import com.example.fbuapp.R;
 import com.example.fbuapp.Restaurant;
 import com.example.fbuapp.RestaurantsAdapter;
@@ -29,12 +30,17 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Headers;
 
@@ -57,6 +63,7 @@ public class RestaurantsFragment extends Fragment {
 
     private LocationRequest mLocationRequest;
 
+
     public RestaurantsFragment() {
         // Required empty public constructor
     }
@@ -76,9 +83,9 @@ public class RestaurantsFragment extends Fragment {
 //        LOCATION_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude
 //                + "," + longitude + "&radius=1500&type=restaurant&key=" + MAPS_API_KEY;
 
-       LOCATION_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=vegetarian+restaurants&location=" + latitude
-                        + "," + longitude + "&radius=1500&key=AIzaSyBq-RorQaqhAufw6L_8Gkfwk_3TyrgvQNo";
-        Log.i(TAG, "URL: "+ LOCATION_URL);
+
+        queryAllergies();
+
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         restaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), restaurants);
@@ -88,14 +95,66 @@ public class RestaurantsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvRestaurants.setLayoutManager(linearLayoutManager);
 
-        getRestaurantData();
 
+
+
+    }
+
+    private void queryAllergies() {
+
+                //Specify which class to query
+        ParseQuery<Allergies> query = ParseQuery.getQuery(Allergies.class);
+        //get the user who has the allergies
+        query.include(Allergies.KEY_USER);
+        query.whereEqualTo(Allergies.KEY_USER, ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<Allergies>() {
+            @Override
+            public void done(List<Allergies> allergies, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting allergies", e);
+                    return;
+                }
+                for(Allergies allergy : allergies) {
+                    Log.i(TAG, "Vegan: " + allergy.getVegan() + " Vegetarian: " + allergy.getVegetarian()
+                            + " GF: " + allergy.getGlutenFree() + " LF: " + allergy.getLactoseFree());
+                }
+                String restrictions = "";
+                if(allergies.get(0).getVegan()) {
+                    restrictions += "vegan+";
+                }
+                if(allergies.get(0).getVegetarian()) {
+
+                    restrictions += "vegetarian+";
+
+                }
+                if(allergies.get(0).getGlutenFree()) {
+
+                    restrictions += "gluten+free+";
+
+
+                }
+                if(allergies.get(0).getLactoseFree()) {
+                    restrictions += "lactose+free+";
+
+
+                }
+                Log.i(TAG, "restrictions are: " + restrictions);
+                LOCATION_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + restrictions + "restaurants&location=" + latitude
+                        + "," + longitude + "&radius=1500&key=AIzaSyBq-RorQaqhAufw6L_8Gkfwk_3TyrgvQNo";
+
+                getRestaurantData();
+            }
+
+        });
 
     }
 
     private void getRestaurantData() {
 
+        Log.i(TAG, "URL: "+ LOCATION_URL);
+
         AsyncHttpClient client = new AsyncHttpClient();
+
 
         client.get(LOCATION_URL, new JsonHttpResponseHandler() {
             @Override

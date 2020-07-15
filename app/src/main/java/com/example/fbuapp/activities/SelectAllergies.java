@@ -1,0 +1,99 @@
+package com.example.fbuapp.activities;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.TextView;
+
+import com.example.fbuapp.Allergies;
+import com.example.fbuapp.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+public class SelectAllergies extends AppCompatActivity {
+
+    private static final String TAG = "SelectAllergies";
+    MaterialCardView cardView;
+    CheckBox cbVegan;
+    CheckBox cbVegetarian;
+    CheckBox cbGlutenFree;
+    CheckBox cbLactoseFree;
+    MaterialButton btnSetAllergies;
+    TextView tvSelectAllergies;
+    TextView tvChangePreferences;
+    ParseUser user;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_select_allergies);
+
+        cardView = findViewById(R.id.selectAllergiesCard);
+        cbVegan = findViewById(R.id.cbVegan);
+        cbVegetarian = findViewById(R.id.cbVegetarian);
+        cbGlutenFree = findViewById(R.id.cbGlutenFree);
+        cbLactoseFree = findViewById(R.id.cbLactoseFree);
+        btnSetAllergies = findViewById(R.id.btnSetAllergies);
+        tvSelectAllergies = findViewById(R.id.tvSelectAllergies);
+        tvChangePreferences = findViewById(R.id.tvChangePreferences);
+
+        user = ParseUser.getCurrentUser();
+
+
+
+        btnSetAllergies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePreferences();
+            }
+        });
+    }
+
+    private void savePreferences() {
+        Allergies allergies = new Allergies();
+        if (cbVegan.isChecked()) {
+            allergies.setVegan(true);
+
+        }
+        if (cbVegetarian.isChecked()) {
+            allergies.setVegetarian(true);
+
+        }
+        if (cbGlutenFree.isChecked()) {
+            allergies.setGlutenFree(true);
+
+        }
+        if (cbLactoseFree.isChecked()) {
+            allergies.setLactoseFree(true);
+
+        }
+        allergies.setUser(user);
+
+
+
+        allergies.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error while saving", e);
+                }
+                goMainActivity();
+            }
+        });
+
+    }
+
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+}
