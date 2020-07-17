@@ -110,8 +110,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
                 LOCATION_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + restrictions + "restaurants&location=" + latitude
                         + "," + longitude + "&radius=1500&key=" + MAPS_API_KEY;
 
-                Log.i(TAG, "URL: " + LOCATION_URL);
-
                 loadRestaurants();
             }
 
@@ -130,7 +128,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     listRestaurants.addAll(Restaurant.fromJSONArray(results));
-                    Log.i(TAG, listRestaurants.toString());
                     restaurants.setValue(listRestaurants);
 
                 } catch (JSONException e) {

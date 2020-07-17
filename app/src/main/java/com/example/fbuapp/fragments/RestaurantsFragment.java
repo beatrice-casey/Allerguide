@@ -82,7 +82,6 @@ public class RestaurantsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProviders().of(this).get(RestaurantsViewModel.class);
 
-
     }
 
     @Override
@@ -96,7 +95,6 @@ public class RestaurantsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         MAPS_API_KEY = getString(R.string.google_maps_API_key);
-        //restaurants = new ArrayList<>();
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         linearLayoutManager = new LinearLayoutManager(getContext());
         rvRestaurants.setLayoutManager(linearLayoutManager);
@@ -110,8 +108,6 @@ public class RestaurantsFragment extends Fragment {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
                 // update UI
-                Toast.makeText(getContext(), "I'm getting data!", Toast.LENGTH_SHORT).show();
-                Log.i(TAG, restaurants.toString());
                 adapter.setRestaurants(restaurants);
             }
         });
