@@ -50,6 +50,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return restaurants.size();
     }
 
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Button btnFavorites;
