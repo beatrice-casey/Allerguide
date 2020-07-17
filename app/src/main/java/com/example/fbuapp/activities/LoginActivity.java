@@ -143,15 +143,11 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == COARSE_LOCATION_PERMISSION_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(LoginActivity.this,
-                        "Coarse Location Permission Granted",
-                        Toast.LENGTH_SHORT)
-                        .show();
                 Log.i(TAG, "Coarse permission granted");
             }
             else {
                 Toast.makeText(LoginActivity.this,
-                        "Coarse Location Permission Denied",
+                        "Location Permission Denied",
                         Toast.LENGTH_SHORT)
                         .show();
                 Log.i(TAG, "Coarse permission denied");
@@ -160,17 +156,9 @@ public class LoginActivity extends AppCompatActivity {
         else if (requestCode == FINE_LOCATION_PERMISSION_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(LoginActivity.this,
-                        "Fine location Permission Granted",
-                        Toast.LENGTH_SHORT)
-                        .show();
                 Log.i(TAG, "fine permission granted");
             }
             else {
-                Toast.makeText(LoginActivity.this,
-                        "fine location Permission Denied",
-                        Toast.LENGTH_SHORT)
-                        .show();
                 Log.i(TAG, "fine permission denied");
             }
         }

@@ -60,8 +60,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
 
 
 
-
-
     public LiveData<List<Restaurant>> getRestaurants() {
         startLocationUpdates();
         restaurants = new MutableLiveData<>();
@@ -176,13 +174,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
         if (ActivityCompat.checkSelfPermission(getApplication().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplication().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
 
             ActivityCompat.requestPermissions((Activity) getApplication().getApplicationContext(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
@@ -195,7 +186,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
                             @Override
                             public void onLocationResult(LocationResult locationResult) {
                                 // do work here
-                                //TODO: use this location to find restaurants near by
                                 Location location = locationResult.getLastLocation();
                                 latitude = Double.toString(location.getLatitude());
                                 longitude = Double.toString(location.getLongitude());
