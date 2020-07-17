@@ -1,6 +1,7 @@
 package com.example.fbuapp;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,6 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,6 +18,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.fbuapp.activities.LoginActivity;
+import com.example.fbuapp.activities.MainActivity;
 import com.example.fbuapp.fragments.RestaurantsFragment;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -51,6 +55,10 @@ public class RestaurantsViewModel extends AndroidViewModel {
     private LocationRequest mLocationRequest;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
+    private static final int COARSE_LOCATION_PERMISSION_CODE = 100;
+    private static final int FINE_LOCATION_PERMISSION_CODE = 101;
+
+
 
 
 
@@ -163,6 +171,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
         SettingsClient settingsClient = LocationServices.getSettingsClient(getApplication().getApplicationContext());
         settingsClient.checkLocationSettings(locationSettingsRequest);
 
+
         // new Google API SDK v11 uses getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(getApplication().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplication().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -174,8 +183,11 @@ public class RestaurantsViewModel extends AndroidViewModel {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            latitude = "40.3173";
-            longitude = "-74.6199";
+
+            ActivityCompat.requestPermissions((Activity) getApplication().getApplicationContext(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    FINE_LOCATION_PERMISSION_CODE);
             return;
         }
         getFusedLocationProviderClient(getApplication().getApplicationContext()).requestLocationUpdates(mLocationRequest, new

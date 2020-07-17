@@ -1,15 +1,22 @@
 package com.example.fbuapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.fbuapp.R;
+import com.example.fbuapp.fragments.RestaurantsFragment;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -22,11 +29,14 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private Button btnSignup;
+    private static final int COARSE_LOCATION_PERMISSION_CODE = 100;
+    private static final int FINE_LOCATION_PERMISSION_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        checkPermissions();
 
         if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
@@ -102,5 +112,67 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
 
+    }
+
+    private void checkPermissions() {
+
+        if(ContextCompat.checkSelfPermission(getApplication().getApplicationContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplication().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            // Permission is not granted
+            ActivityCompat.requestPermissions(LoginActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    FINE_LOCATION_PERMISSION_CODE);
+        }
+    }
+
+    // This function is called when the user accepts or decline the permission.
+    // Request Code is used to check which permission called this function.
+    // This request code is provided when the user is prompt for permission.
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == COARSE_LOCATION_PERMISSION_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(LoginActivity.this,
+                        "Coarse Location Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                Log.i(TAG, "Coarse permission granted");
+            }
+            else {
+                Toast.makeText(LoginActivity.this,
+                        "Coarse Location Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                Log.i(TAG, "Coarse permission denied");
+            }
+        }
+        else if (requestCode == FINE_LOCATION_PERMISSION_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(LoginActivity.this,
+                        "Fine location Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                Log.i(TAG, "fine permission granted");
+            }
+            else {
+                Toast.makeText(LoginActivity.this,
+                        "fine location Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                Log.i(TAG, "fine permission denied");
+            }
+        }
     }
 }
