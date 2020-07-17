@@ -1,5 +1,15 @@
 package com.example.fbuapp;
 
+import android.util.Log;
+
+import com.parse.DeleteCallback;
+import com.parse.Parse;
+import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,11 +17,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant {
+/**
+ * This class creates a list of Restaurant objects from the JSON array and also adds the restaurant to the Parse database if it it favorited
+ * TODO: fix delete favorite- app crashes when trying to delete a favorite.
+ */
+
+@ParseClassName("Restaurant")
+public class Restaurant extends ParseObject {
 
     String restaurantName;
     String location;
     String image;
+    public static final String KEY_RESTAURANT = "restaurantName";
 
     public Restaurant() { }
 
@@ -39,7 +56,50 @@ public class Restaurant {
         return image;
     }
 
-  public String getLocation() { return location;}
+    public String getLocation() { return location;}
+
+    public void setRestaurant(String restaurant) {
+        put(KEY_RESTAURANT, restaurant);
+    }
+
+    public ParseObject getRestaurant() {return getParseObject(KEY_RESTAURANT); }
+
+
+    public Favorite saveFavorite(ParseUser currentUser, ParseObject restaurant) {
+        Favorite favorite = new Favorite();
+        favorite.setRestaurant(restaurant);
+        favorite.setUser(currentUser);
+        favorite.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("Favorite", "Error saving", e);
+                }
+            }
+        });
+
+        return favorite;
+    }
+
+    public void deleteFavorite(Favorite favorite, ParseObject restaurant) {
+        //favorite.setUser(ParseUser.getCurrentUser());
+        favorite.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("Restaurant", "Error saving delete", e);
+                }
+            }
+        });
+        restaurant.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("Restaurant", "Error saving delete", e);
+                }
+            }
+        });
+    }
 
 
 }

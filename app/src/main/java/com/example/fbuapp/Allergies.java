@@ -4,6 +4,10 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+/**
+ * This class handles getting and setting the allergies from the parse server for a particular user
+ */
+
 @ParseClassName("Allergies")
 public class Allergies extends ParseObject {
 

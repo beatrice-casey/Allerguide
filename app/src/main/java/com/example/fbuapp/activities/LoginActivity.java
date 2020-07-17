@@ -22,6 +22,14 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+/**
+ * This class is the login activity- the first screen the user sees the first time they open the app.
+ * If the user is already signed in, the app will begin at the Restaurants Fragment. This class
+ * also handles location permissions to ensure that the app can get the user's current location
+ * in order to find restaurants near them. After the user signs up, they are taken to a page
+ * to select their allergies before they are able to view the list of restaurants.
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";

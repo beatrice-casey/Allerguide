@@ -17,6 +17,14 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+/**
+ * This class handles the selection of allergies. It uses a material design card to allow the user
+ * to select the appropriate allergies. This data is saved via the parse server so that the
+ * user's allergies are remembered anytime they log into the app. Once the user selects their
+ * allergies, they are allowed to use the app and can view the list of restaurants that have
+ * food that are allergy-freindly according to what they specified.
+ */
+
 public class SelectAllergies extends AppCompatActivity {
 
     private static final String TAG = "SelectAllergies";

@@ -25,6 +25,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
+/**
+ * This class sets up the bottom navigation view and determines which fragment will be shown.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
 

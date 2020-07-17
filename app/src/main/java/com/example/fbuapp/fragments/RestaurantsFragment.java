@@ -53,20 +53,16 @@ import okhttp3.Headers;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
+/**
+ * This class is the fragment that shows the user the list of restaurants near them. This class handles ONLY the view.
+ */
+
 public class RestaurantsFragment extends Fragment {
 
     public static final String TAG = "RestaurantsFragment";
     protected RecyclerView rvRestaurants;
     protected List<Restaurant> restaurants;
     protected RestaurantsAdapter adapter;
-    public String LOCATION_URL;
-    public String MAPS_API_KEY;
-
-    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
-
-    public String latitude;
-    public String longitude;
 
     private LocationRequest mLocationRequest;
     private RestaurantsViewModel mViewModel;
@@ -94,7 +90,6 @@ public class RestaurantsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MAPS_API_KEY = getString(R.string.google_maps_API_key);
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         linearLayoutManager = new LinearLayoutManager(getContext());
         rvRestaurants.setLayoutManager(linearLayoutManager);

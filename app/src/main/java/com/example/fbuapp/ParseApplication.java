@@ -8,6 +8,10 @@ import com.parse.ParseObject;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+/**
+ * This class registers and initialises the parse model.
+ */
+
 public class ParseApplication extends Application {
     @Override
     public void onCreate() {
@@ -16,6 +20,8 @@ public class ParseApplication extends Application {
 
         //Register parse model
         ParseObject.registerSubclass(Allergies.class);
+        ParseObject.registerSubclass(Favorite.class);
+        ParseObject.registerSubclass(Restaurant.class);
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured
         // any network interceptors must be added with the Configuration Builder given this syntax

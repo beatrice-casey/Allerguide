@@ -43,6 +43,12 @@ import okhttp3.Headers;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
+/**
+ * This class is the View Model that handles getting the data that will be displayed. It makes the API call and queries to the parse
+ * server to get the user's allergies in order to make the appropriate API call.
+ * It also handles location updates and will update the API call according to location.
+ */
+
 public class RestaurantsViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Restaurant>> restaurants;
