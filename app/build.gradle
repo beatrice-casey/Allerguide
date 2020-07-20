@@ -65,5 +65,8 @@ dependencies {
     // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
     implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
 
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
+
 
 }

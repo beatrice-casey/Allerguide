@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    tools:context=".activities.RestaurantDetailsActivity">
+
+
+    <TextView
+        android:id="@+id/tvRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Restaurant Name" />
+
+    <Button
+        android:id="@+id/btnFavorites"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="54dp"
+        android:layout_toStartOf="@+id/ivRestaurantImages"
+        android:layout_toEndOf="@+id/tvRestaurant"
+        android:backgroundTint="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvRestaurant"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="123dp"
+        android:layout_toStartOf="@+id/ivRestaurantImages"
+        tools:text="Location of Restaurants" />
+
+    <ImageView
+        android:id="@+id/ivRestaurantImages"
+        android:layout_width="113dp"
+        android:layout_height="102dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLocation"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="212dp"
+        android:layout_toStartOf="@+id/ivRestaurantImages"
+        tools:text="Menu link" />
+
+    <TextView
+        android:id="@+id/tvReviewTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="144dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Reviews:"
+        android:textSize="18sp" />
+
+    <RatingBar
+        android:id="@+id/rbDetails"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="149dp"
+        android:layout_marginEnd="232dp"
+        android:layout_toEndOf="@+id/tvReviewTag" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_post_add_24" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvReviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="175dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp" />
+
+</RelativeLayout>
