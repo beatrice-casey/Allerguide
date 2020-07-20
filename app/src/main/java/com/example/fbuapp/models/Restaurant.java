@@ -1,9 +1,8 @@
-package com.example.fbuapp;
+package com.example.fbuapp.models;
 
 import android.util.Log;
 
 import com.parse.DeleteCallback;
-import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -25,9 +24,9 @@ import java.util.List;
 @ParseClassName("Restaurant")
 public class Restaurant extends ParseObject {
 
-    String restaurantName;
-    String location;
-    String image;
+    public String restaurantName;
+    public String location;
+    public String image;
     public static final String KEY_RESTAURANT = "restaurantName";
     public static final String KEY_USER = "User";
 

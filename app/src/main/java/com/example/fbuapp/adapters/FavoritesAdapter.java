@@ -1,4 +1,4 @@
-package com.example.fbuapp;
+package com.example.fbuapp.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.example.fbuapp.R;
+import com.example.fbuapp.models.Favorite;
+import com.example.fbuapp.models.Restaurant;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

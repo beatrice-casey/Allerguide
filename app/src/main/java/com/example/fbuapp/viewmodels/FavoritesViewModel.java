@@ -1,4 +1,4 @@
-package com.example.fbuapp;
+package com.example.fbuapp.viewmodels;
 
 import android.app.Application;
 import android.util.Log;
@@ -8,9 +8,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.fbuapp.models.Restaurant;
+import com.example.fbuapp.models.Favorite;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 

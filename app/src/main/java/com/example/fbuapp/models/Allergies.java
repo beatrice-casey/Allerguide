@@ -1,4 +1,4 @@
-package com.example.fbuapp;
+package com.example.fbuapp.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;

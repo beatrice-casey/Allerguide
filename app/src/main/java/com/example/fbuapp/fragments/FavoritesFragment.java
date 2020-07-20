@@ -14,12 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.fbuapp.FavoritesAdapter;
-import com.example.fbuapp.FavoritesViewModel;
+import com.example.fbuapp.adapters.FavoritesAdapter;
+import com.example.fbuapp.viewmodels.FavoritesViewModel;
 import com.example.fbuapp.R;
-import com.example.fbuapp.Restaurant;
-import com.example.fbuapp.RestaurantsAdapter;
-import com.example.fbuapp.RestaurantsViewModel;
+import com.example.fbuapp.models.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;

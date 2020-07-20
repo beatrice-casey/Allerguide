@@ -2,11 +2,12 @@ package com.example.fbuapp;
 
 import android.app.Application;
 
+import com.example.fbuapp.models.Allergies;
+import com.example.fbuapp.models.Favorite;
+import com.example.fbuapp.models.Restaurant;
+import com.example.fbuapp.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * This class registers and initialises the parse model.

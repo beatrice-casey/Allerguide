@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.fbuapp.Allergies;
+import com.example.fbuapp.models.Allergies;
 import com.example.fbuapp.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;

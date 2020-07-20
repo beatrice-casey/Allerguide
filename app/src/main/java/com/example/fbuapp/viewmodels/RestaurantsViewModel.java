@@ -1,4 +1,4 @@
-package com.example.fbuapp;
+package com.example.fbuapp.viewmodels;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,17 +10,15 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.example.fbuapp.activities.LoginActivity;
-import com.example.fbuapp.activities.MainActivity;
-import com.example.fbuapp.fragments.RestaurantsFragment;
+import com.example.fbuapp.R;
+import com.example.fbuapp.models.Allergies;
+import com.example.fbuapp.models.Restaurant;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
