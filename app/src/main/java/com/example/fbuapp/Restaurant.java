@@ -66,6 +66,7 @@ public class Restaurant extends ParseObject {
 
 
     public Favorite saveFavorite(ParseUser currentUser, ParseObject restaurant) {
+        Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
         Favorite favorite = new Favorite();
         favorite.setRestaurant(restaurant);
         favorite.setUser(currentUser);
@@ -77,17 +78,30 @@ public class Restaurant extends ParseObject {
                 }
             }
         });
+        restaurant.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null ) {
+                    Log.e("Favorite", "Error saving", e);
+                }
+            }
+        });
+        Log.i("Restuarant: ", "favorite object is " + favorite);
 
         return favorite;
     }
 
     public void deleteFavorite(Favorite favorite, ParseObject restaurant) {
-        //favorite.setUser(ParseUser.getCurrentUser());
+        Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
+        Log.i("Restuarant: ", "favorite object is " + favorite);
+        ParseUser currentUser = User.getCurrentUser();
+        favorite.setUser(currentUser);
+        favorite.setRestaurant(restaurant);
         favorite.deleteInBackground(new DeleteCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Log.e("Restaurant", "Error saving delete", e);
+                    Log.e("Favorite", "Error saving delete", e);
                 }
             }
         });

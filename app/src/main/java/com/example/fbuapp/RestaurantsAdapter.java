@@ -80,6 +80,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             tvLocation = itemView.findViewById(R.id.tvLocation);
             ivRestaurantImage = itemView.findViewById(R.id.ivRestaurantImage);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+            favorite = new Favorite();
             Log.i(TAG, "Setting up elements");
 
             btnFavorites.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +91,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                         isFavorite = true;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                         restaurants.get(getAdapterPosition()).setRestaurant(tvRestaurant.getText().toString());
-                        restaurants.get(getAdapterPosition()).saveFavorite(ParseUser.getCurrentUser(), restaurants.get(getAdapterPosition()));
+                        favorite = restaurants.get(getAdapterPosition()).saveFavorite(ParseUser.getCurrentUser(), restaurants.get(getAdapterPosition()));
                         restaurants.get(getAdapterPosition()).saveInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {
