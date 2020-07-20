@@ -131,7 +131,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
     private void loadRestaurants() {
         AsyncHttpClient client = new AsyncHttpClient();
 
-
         client.get(LOCATION_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JsonHttpResponseHandler.JSON json) {
@@ -139,6 +138,12 @@ public class RestaurantsViewModel extends AndroidViewModel {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
+                    int i;
+                    for(i = 0; i < Restaurant.fromJSONArray(results).size(); i++) {
+                        if (listRestaurants.contains(Restaurant.fromJSONArray(results).get(i).restaurantName)) {
+                            results.remove(i);
+                        }
+                    }
                     listRestaurants.addAll(Restaurant.fromJSONArray(results));
                     restaurants.setValue(listRestaurants);
 

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:visibility="visible">
 
 
     <Button
         android:id="@+id/btnFavorites"
-        android:layout_width="28dp"
-        android:layout_height="40dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_toEndOf="@+id/ratingBar"
-        android:background="#FFFFFF"
-        android:drawableTop="@drawable/ic_baseline_favorite_border_24" />
+        android:backgroundTint="@android:color/transparent" />
 
     <TextView
         android:id="@+id/tvRestaurant"

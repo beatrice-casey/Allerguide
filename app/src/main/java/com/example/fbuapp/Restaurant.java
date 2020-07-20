@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * This class creates a list of Restaurant objects from the JSON array and also adds the restaurant to the Parse database if it it favorited
- * 
+ *
  */
 
 @ParseClassName("Restaurant")
@@ -29,6 +29,7 @@ public class Restaurant extends ParseObject {
     String location;
     String image;
     public static final String KEY_RESTAURANT = "restaurantName";
+    public static final String KEY_USER = "User";
 
     public Restaurant() { }
 
@@ -62,7 +63,16 @@ public class Restaurant extends ParseObject {
         put(KEY_RESTAURANT, restaurant);
     }
 
-    public ParseObject getRestaurant() {return getParseObject(KEY_RESTAURANT); }
+    public String getRestaurantFromParse() {return getString(KEY_RESTAURANT); }
+
+    public ParseUser getUser() {
+        return getParseUser(KEY_USER);
+    }
+
+    public void setUser(ParseUser user) {
+        put(KEY_USER, user);
+    }
+
 
 
     public Favorite saveFavorite(ParseUser currentUser, ParseObject restaurant) {
@@ -70,6 +80,7 @@ public class Restaurant extends ParseObject {
         Favorite favorite = new Favorite();
         favorite.setRestaurant(restaurant);
         favorite.setUser(currentUser);
+        setUser(currentUser);
         favorite.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -96,6 +107,7 @@ public class Restaurant extends ParseObject {
         Log.i("Restuarant: ", "favorite object is " + favorite);
         ParseUser currentUser = User.getCurrentUser();
         favorite.setUser(currentUser);
+        setUser(currentUser);
         favorite.setRestaurant(restaurant);
         favorite.deleteInBackground(new DeleteCallback() {
             @Override

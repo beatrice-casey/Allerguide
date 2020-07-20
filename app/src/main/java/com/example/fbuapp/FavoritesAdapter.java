@@ -14,20 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.List;
 
-/**
- * This is the adapter that binds the data from the view model to the view. It also updates the view based on new data from the view model.
- */
-
-public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private Context context;
     protected List<Restaurant> restaurants;
@@ -35,7 +29,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private boolean isFavorite;
     private Favorite favorite;
 
-    public RestaurantsAdapter(Context context, List<Restaurant> restaurants) {
+
+    public FavoritesAdapter(Context context, List<Restaurant> restaurants) {
         this.context = context;
         this.restaurants = restaurants;
     }
@@ -48,14 +43,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //Log.i(TAG, "onBindViewHolder " + position);
-        Restaurant restaurant = restaurants.get(position);
-        holder.bind(restaurant);
-
-    }
-
-    @Override
     public int getItemCount() {
         return restaurants.size();
     }
@@ -65,7 +52,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Restaurant restaurant = restaurants.get(position);
+
+        holder.bind(restaurant);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected Button btnFavorites;
         protected TextView tvRestaurant;
@@ -93,8 +87,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                         restaurants.get(getAdapterPosition()).setRestaurant(tvRestaurant.getText().toString());
                         restaurants.get(getAdapterPosition()).saveFavorite(ParseUser.getCurrentUser(), restaurants.get(getAdapterPosition()));
 
-                    }
-                    else {
+                    } else {
                         isFavorite = false;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
                         restaurants.get(getAdapterPosition()).deleteFavorite(favorite, restaurants.get(getAdapterPosition()));
@@ -105,25 +98,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         }
 
-        @Override
-        public void onClick(View view) {
-
-        }
-
         public void bind(Restaurant restaurant) {
-            Log.i(TAG, "binding data");
-            tvRestaurant.setText(restaurant.getRestaurantName());
-            tvLocation.setText(restaurant.getLocation());
-            Glide.with(context)
-                    .load(restaurant.getImage())
-                    .into(ivRestaurantImage);
-            checkFavorite();
-            if (isFavorite) {
-                btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-            }
-            else {
-                btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
-            }
+            //Log.i(TAG, "binding data");
+            tvRestaurant.setText(restaurant.getRestaurantFromParse());
+            //tvLocation.setText(restaurant.getLocation());
+//            Glide.with(context)
+//                    .load(restaurant.getImage())
+//                    .into(ivRestaurantImage);
+            btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
 
 
         }
@@ -149,7 +131,12 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             });
 
         }
+
+        @Override
+        public void onClick(View view) {
+
+        }
     }
-
-
 }
+
+

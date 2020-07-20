@@ -17,8 +17,8 @@ import com.parse.SaveCallback;
 public class Favorite extends Restaurant{
 
     public static final String KEY_USER = "User";
-
     public static final String KEY_RESTAURANT = "Restaurant";
+    public static final String KEY_CREATED = "createdAt";
 
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
@@ -31,5 +31,7 @@ public class Favorite extends Restaurant{
     public ParseObject getRestaurant() {return getParseObject(KEY_RESTAURANT); }
 
     public void setRestaurant(ParseObject restaurant) { put(KEY_RESTAURANT, restaurant);}
+
+
 
 }
