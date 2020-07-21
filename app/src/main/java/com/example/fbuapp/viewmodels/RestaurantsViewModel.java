@@ -119,6 +119,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
                 Log.i(TAG, "restrictions are: " + restrictions);
                 LOCATION_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + restrictions + "restaurants&location=" + latitude
                         + "," + longitude + "&radius=1500&key=" + MAPS_API_KEY;
+                Log.i(TAG, "URL: " + LOCATION_URL);
 
                 loadRestaurants();
             }

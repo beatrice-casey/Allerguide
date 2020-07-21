@@ -27,6 +27,7 @@ public class Restaurant {
     public String restaurantName;
     public String location;
     public String image;
+    public String restaurantID;
 
     public Restaurant() { }
 
@@ -34,7 +35,7 @@ public class Restaurant {
         restaurantName = jsonObject.getString("name");
         location = jsonObject.getString("formatted_address");
         image = jsonObject.getString("icon");
-
+        restaurantID = jsonObject.getString("place_id");
 
     }
 
@@ -55,6 +56,8 @@ public class Restaurant {
     }
 
     public String getLocation() { return location;}
+
+    public String getRestaurantID() { return restaurantID; }
 
 
 

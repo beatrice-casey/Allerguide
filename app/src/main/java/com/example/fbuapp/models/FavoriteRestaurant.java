@@ -47,6 +47,7 @@ public class FavoriteRestaurant extends ParseObject {
         Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
         Favorite favorite = new Favorite();
         favorite.setRestaurant(favoriteRestaurant);
+        favorite.setRestaurantName(favoriteRestaurant.getRestaurantNameFromParse());
         favorite.setUser(currentUser);
         favorite.saveInBackground(new SaveCallback() {
             @Override
@@ -124,6 +125,7 @@ public class FavoriteRestaurant extends ParseObject {
                     for(i = 0; i < favorites.size(); i++) {
                         if (favorites.get(i).getRestaurantNameFromParse().equals(restaurantName)) {
                             existingRestaurant = favorites.get(i);
+                            Log.i(TAG, "The restaurant is: " + existingRestaurant.getRestaurantNameFromParse());
                         }
                     }
 

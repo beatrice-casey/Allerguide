@@ -10,11 +10,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
 import com.example.fbuapp.models.Restaurant;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
+
+import okhttp3.Headers;
 
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
@@ -30,6 +37,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
     private TextView tvReviews;
     private FloatingActionButton btnCreateReview;
     private RecyclerView rvReviews;
+    private String RESTAURANT_WEBSITE_URL;
+    private String restaurantWebsite;
 
 
     @Override
@@ -52,8 +61,42 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         context = this;
         Log.i(TAG, "Restaurant: " + restaurant.getRestaurantName());
 
+
         tvRestaurant.setText(restaurant.getRestaurantName());
         tvLocation.setText(restaurant.getLocation());
 
+        tvMenu.setText(getRestaurantWebsite());
+        Log.i(TAG, "Done setting elements");
+
+    }
+
+    private String getRestaurantWebsite() {
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RESTAURANT_WEBSITE_URL = "https://maps.googleapis.com/maps/api/place/details/json?place_id=" +
+                restaurant.getRestaurantID() + "&fields=website&key=" + getString(R.string.google_maps_API_key);
+        Log.i(TAG, "URL: " + RESTAURANT_WEBSITE_URL);
+
+        client.get(RESTAURANT_WEBSITE_URL, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JsonHttpResponseHandler.JSON json) {
+                Log.d(TAG, "onSuccess client request");
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    restaurantWebsite = jsonObject.getString("result");
+                    Log.i(TAG, restaurantWebsite);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG, "Hit json exception ", throwable);
+            }
+        });
+        return restaurantWebsite;
     }
 }
