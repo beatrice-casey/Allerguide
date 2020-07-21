@@ -111,7 +111,7 @@ public class FavoriteRestaurant extends ParseObject {
 
     }
 
-    private boolean queryForRestaurant(String restaurantName) {
+    private boolean queryForRestaurant(final String restaurantName) {
         //Specify which class to query
         ParseQuery<FavoriteRestaurant> query = ParseQuery.getQuery(FavoriteRestaurant.class);
         query.include(Favorite.KEY_RESTAURANT);
@@ -130,7 +130,13 @@ public class FavoriteRestaurant extends ParseObject {
                 } else {
                     queryResult = true;
                     Log.i(TAG, "query result: " + favorites);
-                    existingRestaurant = favorites.get(0);
+                    int i;
+                    for(i = 0; i < favorites.size(); i++) {
+                        if (favorites.get(i).getRestaurantNameFromParse().equals(restaurantName)) {
+                            existingRestaurant = favorites.get(i);
+                        }
+                    }
+
                 }
             }
 

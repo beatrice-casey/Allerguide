@@ -53,14 +53,16 @@ public class FavoritesViewModel extends AndroidViewModel {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-                int i;
-                for(i = 0; i < favorites.size(); i++) {
-                    FavoriteRestaurant favoriteRestaurant = (FavoriteRestaurant) favorites.get(i).getRestaurant();
-                    listRestaurants.add(favoriteRestaurant);
-                }
-                restaurants.setValue(listRestaurants);
-                Log.i("FavoritesViewModel", "Restaurants in Parse: " + favorites.get(0).getRestaurant());
+                if (favorites.size() != 0) {
+                    int i;
+                    for (i = 0; i < favorites.size(); i++) {
+                        FavoriteRestaurant favoriteRestaurant = (FavoriteRestaurant) favorites.get(i).getRestaurant();
+                        listRestaurants.add(favoriteRestaurant);
+                    }
+                    restaurants.setValue(listRestaurants);
+                    Log.i("FavoritesViewModel", "Restaurants in Parse: " + favorites.get(0).getRestaurant());
 
+                }
             }
         });
     }

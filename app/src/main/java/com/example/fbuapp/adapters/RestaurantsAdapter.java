@@ -102,7 +102,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                         isFavorite = true;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                         favoriteRestaurant.saveRestaurant(restaurants.get(getAdapterPosition()), ParseUser.getCurrentUser());
-                        favoriteRestaurant.saveFavorite( );
+                        //favoriteRestaurant.saveFavorite();
 
 
                     }
