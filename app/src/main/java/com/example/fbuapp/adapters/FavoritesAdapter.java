@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fbuapp.R;
 import com.example.fbuapp.models.Favorite;
-import com.example.fbuapp.models.Restaurant;
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -26,13 +26,13 @@ import java.util.List;
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private Context context;
-    protected List<Restaurant> restaurants;
+    protected List<FavoriteRestaurant> restaurants;
     public static final String TAG = "RestaurantsAdapter";
     private boolean isFavorite;
     private Favorite favorite;
 
 
-    public FavoritesAdapter(Context context, List<Restaurant> restaurants) {
+    public FavoritesAdapter(Context context, List<FavoriteRestaurant> restaurants) {
         this.context = context;
         this.restaurants = restaurants;
     }
@@ -49,14 +49,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         return restaurants.size();
     }
 
-    public void setRestaurants(List<Restaurant> restaurants) {
+    public void setRestaurants(List<FavoriteRestaurant> restaurants) {
         this.restaurants = restaurants;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Restaurant restaurant = restaurants.get(position);
+        FavoriteRestaurant restaurant = restaurants.get(position);
 
         holder.bind(restaurant);
     }
@@ -84,15 +84,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                 public void onClick(View view) {
                     checkFavorite();
                     if (!isFavorite) {
-                        isFavorite = true;
-                        btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-                        restaurants.get(getAdapterPosition()).setRestaurant(tvRestaurant.getText().toString());
-                        restaurants.get(getAdapterPosition()).saveFavorite(ParseUser.getCurrentUser(), restaurants.get(getAdapterPosition()));
 
                     } else {
                         isFavorite = false;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
-                        restaurants.get(getAdapterPosition()).deleteFavorite(favorite, restaurants.get(getAdapterPosition()));
+                        //restaurants.get(getAdapterPosition()).deleteFavorite(favorite, restaurants.get(getAdapterPosition()));
                     }
 
                 }
@@ -100,9 +96,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         }
 
-        public void bind(Restaurant restaurant) {
+        public void bind(FavoriteRestaurant restaurant) {
             //Log.i(TAG, "binding data");
-            tvRestaurant.setText(restaurant.getRestaurantFromParse());
+            tvRestaurant.setText(restaurant.getRestaurantNameFromParse());
             //tvLocation.setText(restaurant.getLocation());
 //            Glide.with(context)
 //                    .load(restaurant.getImage())

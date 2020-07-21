@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fbuapp.adapters.FavoritesAdapter;
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.viewmodels.FavoritesViewModel;
 import com.example.fbuapp.R;
 import com.example.fbuapp.models.Restaurant;
@@ -27,7 +28,7 @@ public class FavoritesFragment extends Fragment {
 
     public static final String TAG = "RestaurantsFragment";
     protected RecyclerView rvRestaurants;
-    protected List<Restaurant> restaurants;
+    protected List<FavoriteRestaurant> restaurants;
     protected FavoritesAdapter adapter;
 
     private FavoritesViewModel mViewModel;
@@ -64,9 +65,9 @@ public class FavoritesFragment extends Fragment {
         rvRestaurants.setAdapter(adapter);
 
 
-        mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
+        mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<FavoriteRestaurant>>() {
             @Override
-            public void onChanged(List<Restaurant> restaurants) {
+            public void onChanged(List<FavoriteRestaurant> restaurants) {
                 // update UI
                 adapter.setRestaurants(restaurants);
             }

@@ -18,11 +18,14 @@ import com.bumptech.glide.Glide;
 import com.example.fbuapp.R;
 import com.example.fbuapp.activities.RestaurantDetailsActivity;
 import com.example.fbuapp.models.Favorite;
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
@@ -39,6 +42,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public static final String TAG = "RestaurantsAdapter";
     private boolean isFavorite;
     private Favorite favorite;
+    private FavoriteRestaurant favoriteRestaurant;
 
     public RestaurantsAdapter(Context context, List<Restaurant> restaurants) {
         this.context = context;
@@ -86,6 +90,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             ivRestaurantImage = itemView.findViewById(R.id.ivRestaurantImage);
             ratingBar = itemView.findViewById(R.id.ratingBar);
             favorite = new Favorite();
+            favoriteRestaurant = new FavoriteRestaurant();
             Log.i(TAG, "Setting up elements");
             itemView.setOnClickListener(this);
 
@@ -96,14 +101,15 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     if (!isFavorite) {
                         isFavorite = true;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-                        restaurants.get(getAdapterPosition()).setRestaurant(tvRestaurant.getText().toString());
-                        restaurants.get(getAdapterPosition()).saveFavorite(ParseUser.getCurrentUser(), restaurants.get(getAdapterPosition()));
+                        favoriteRestaurant.saveRestaurant(restaurants.get(getAdapterPosition()), ParseUser.getCurrentUser());
+                        favoriteRestaurant.saveFavorite( );
+
 
                     }
                     else {
                         isFavorite = false;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
-                        restaurants.get(getAdapterPosition()).deleteFavorite(favorite, restaurants.get(getAdapterPosition()));
+                        favoriteRestaurant.deleteFavorite(favorite, restaurants.get(getAdapterPosition()));
                     }
 
                 }

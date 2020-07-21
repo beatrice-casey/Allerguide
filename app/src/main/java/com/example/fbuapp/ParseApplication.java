@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.fbuapp.models.Allergies;
 import com.example.fbuapp.models.Favorite;
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.User;
 import com.parse.Parse;
@@ -22,7 +23,7 @@ public class ParseApplication extends Application {
         //Register parse model
         ParseObject.registerSubclass(Allergies.class);
         ParseObject.registerSubclass(Favorite.class);
-        ParseObject.registerSubclass(Restaurant.class);
+        ParseObject.registerSubclass(FavoriteRestaurant.class);
         ParseObject.registerSubclass(User.class);
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured

@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Favorite;
 import com.parse.FindCallback;
@@ -20,15 +21,15 @@ import java.util.List;
 
 public class FavoritesViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<Restaurant>> restaurants;
-    public List<Restaurant> listRestaurants;
+    public MutableLiveData<List<FavoriteRestaurant>> restaurants;
+    public List<FavoriteRestaurant> listRestaurants;
     public static final String TAG = "FavoritesViewModel";
 
     public FavoritesViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public LiveData<List<Restaurant>> getRestaurants() {
+    public LiveData<List<FavoriteRestaurant>> getRestaurants() {
         restaurants = new MutableLiveData<>();
         listRestaurants = new ArrayList<>();
         queryFavorites();
@@ -54,7 +55,7 @@ public class FavoritesViewModel extends AndroidViewModel {
                 }
                 int i;
                 for(i = 0; i < favorites.size(); i++) {
-                    Restaurant favoriteRestaurant = (Restaurant) favorites.get(i).getRestaurant();
+                    FavoriteRestaurant favoriteRestaurant = (FavoriteRestaurant) favorites.get(i).getRestaurant();
                     listRestaurants.add(favoriteRestaurant);
                 }
                 restaurants.setValue(listRestaurants);

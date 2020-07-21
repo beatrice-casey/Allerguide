@@ -9,7 +9,7 @@ import com.parse.ParseUser;
  */
 
 @ParseClassName("Favorites")
-public class Favorite extends Restaurant {
+public class Favorite extends FavoriteRestaurant {
 
     public static final String KEY_USER = "User";
     public static final String KEY_RESTAURANT = "Restaurant";
