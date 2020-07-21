@@ -43,15 +43,9 @@ public class FavoriteRestaurant extends ParseObject {
 
 
 
-    public Favorite saveFavorite(ParseUser currentUser, Restaurant restaurant) {
+    public Favorite saveFavorite(ParseUser currentUser, FavoriteRestaurant favoriteRestaurant) {
         Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
         Favorite favorite = new Favorite();
-        FavoriteRestaurant favoriteRestaurant;
-        if (queryForRestaurant(restaurant.getRestaurantName())) {
-            favoriteRestaurant = existingRestaurant;
-        } else {
-            favoriteRestaurant = saveRestaurant(restaurant, currentUser);
-        }
         favorite.setRestaurant(favoriteRestaurant);
         favorite.setUser(currentUser);
         favorite.saveInBackground(new SaveCallback() {
@@ -69,45 +63,41 @@ public class FavoriteRestaurant extends ParseObject {
     }
 
     public FavoriteRestaurant saveRestaurant(Restaurant restaurant, ParseUser currentUser) {
-        FavoriteRestaurant favoriteRestaurant = new FavoriteRestaurant();
-        favoriteRestaurant.setRestaurant(restaurant.getRestaurantName());
-        favoriteRestaurant.setUser(currentUser);
-        favoriteRestaurant.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null ) {
-                    Log.e("Restaurant", "Error saving", e);
-                }
-            }
-        });
-        return favoriteRestaurant;
-    }
-
-
-    public void deleteFavorite(Favorite favorite, Restaurant restaurant) {
-        Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
-        Log.i("Restuarant: ", "favorite object is " + favorite);
-        ParseUser currentUser = User.getCurrentUser();
-        favorite.setUser(currentUser);
-        //existingRestaurant = new FavoriteRestaurant();
-        queryForRestaurant(restaurant.getRestaurantName());
-        Log.i(TAG, "Restaurant pointer:" + existingRestaurant);
-//        setUser(currentUser);
-//        setRestaurant(restaurant.getRestaurantName());
-//        Log.i(TAG, "Restaurant is: " + getRestaurantNameFromParse());
-//        ParseObject curRestaurant = getRestaurantObject();
-//        Log.i(TAG, "Restaurant is: " + curRestaurant);
-        if(existingRestaurant != null) {
-            favorite.setRestaurant(existingRestaurant);
-            favorite.deleteInBackground(new DeleteCallback() {
+        FavoriteRestaurant favoriteRestaurant;
+        if (queryForRestaurant(restaurant.getRestaurantName())) {
+            favoriteRestaurant = existingRestaurant;
+        }
+        else {
+            favoriteRestaurant = new FavoriteRestaurant();
+            favoriteRestaurant.setRestaurant(restaurant.getRestaurantName());
+            favoriteRestaurant.setUser(currentUser);
+            favoriteRestaurant.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    if (e != null) {
-                        Log.e("Favorite", "Error saving delete", e);
+                    if (e != null ) {
+                        Log.e("Restaurant", "Error saving", e);
                     }
                 }
             });
         }
+        return favoriteRestaurant;
+    }
+
+
+    public void deleteFavorite(Favorite favorite, FavoriteRestaurant restaurant) {
+        Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
+        Log.i("Restuarant: ", "favorite object is " + favorite.getRestaurantNameFromParse());
+        ParseUser currentUser = User.getCurrentUser();
+        favorite.setUser(currentUser);
+        favorite.setRestaurant(restaurant);
+        favorite.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("Favorite", "Error saving delete", e);
+                }
+            }
+        });
 
     }
 
