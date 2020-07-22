@@ -41,9 +41,9 @@ public class Review extends ParseObject {
         put(KEY_USER, user);
     }
 
-    public int getRating() { return getInt(KEY_RATING);}
+    public float getRating() { return getLong(KEY_RATING);}
 
-    public void setRating(int rating) { put(KEY_RATING, rating);}
+    public void setRating(float rating) { put(KEY_RATING, rating);}
 
     public ParseObject getRestaurant() { return getParseObject(KEY_RESTAURANT);}
 

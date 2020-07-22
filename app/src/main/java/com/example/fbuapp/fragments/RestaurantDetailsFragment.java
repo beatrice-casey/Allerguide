@@ -8,6 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -21,12 +24,19 @@ import android.widget.TextView;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
+import com.example.fbuapp.adapters.FavoritesAdapter;
+import com.example.fbuapp.adapters.ReviewsAdapter;
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
+import com.example.fbuapp.models.Review;
+import com.example.fbuapp.viewmodels.FavoritesViewModel;
+import com.example.fbuapp.viewmodels.ReviewsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -34,7 +44,7 @@ import okhttp3.Headers;
 
 public class RestaurantDetailsFragment extends Fragment {
 
-    public static final String TAG = "tDetailsFragment";
+    public static final String TAG = "DetailsFragment";
 
     Context context;
     Restaurant restaurant;
@@ -49,6 +59,11 @@ public class RestaurantDetailsFragment extends Fragment {
     private RecyclerView rvReviews;
     private String RESTAURANT_WEBSITE_URL;
     private String restaurantWebsite;
+    protected ReviewsAdapter adapter;
+    private List<Review> reviews;
+
+    private ReviewsViewModel mViewModel;
+    LinearLayoutManager linearLayoutManager;
 
 
     public RestaurantDetailsFragment() {
@@ -64,6 +79,7 @@ public class RestaurantDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProviders().of(this).get(ReviewsViewModel.class);
 
     }
 
@@ -89,6 +105,23 @@ public class RestaurantDetailsFragment extends Fragment {
 
         tvRestaurant.setText(restaurant.getRestaurantName());
         tvLocation.setText(restaurant.getLocation());
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        rvReviews.setLayoutManager(linearLayoutManager);
+
+        reviews = new ArrayList<>();
+        adapter = new ReviewsAdapter(getContext(), reviews);
+        rvReviews.setAdapter(adapter);
+
+
+        mViewModel.getReviews(restaurant).observe(getViewLifecycleOwner(), new Observer<List<Review>>() {
+            @Override
+            public void onChanged(List<Review> reviewsResults) {
+                // update UI
+                adapter.setReviews(reviewsResults);
+                Log.i(TAG, "got reviews: " + reviewsResults.get(0).getDescription());
+            }
+        });
 
         //tvMenu.setText(getRestaurantWebsite());
         Log.i(TAG, "Done setting elements");
