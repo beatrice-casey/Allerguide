@@ -6,6 +6,7 @@ import com.example.fbuapp.models.Allergies;
 import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
+import com.example.fbuapp.models.Review;
 import com.example.fbuapp.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -25,6 +26,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(Favorite.class);
         ParseObject.registerSubclass(FavoriteRestaurant.class);
         ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(Review.class);
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured
         // any network interceptors must be added with the Configuration Builder given this syntax
