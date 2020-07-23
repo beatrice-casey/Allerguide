@@ -57,6 +57,16 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public float getRating(List<Review> reviews) {
+        int i;
+        float rating = 0;
+        for (i = 0; i < reviews.size(); i ++) {
+            rating += reviews.get(i).getRating();
+        }
+        rating = rating/reviews.size();
+        return rating;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder  {
 
         protected TextView tvUsername;

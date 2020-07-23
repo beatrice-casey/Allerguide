@@ -63,6 +63,7 @@ public class RestaurantDetailsFragment extends Fragment {
     private String restaurantWebsite;
     protected ReviewsAdapter adapter;
     private List<Review> reviews;
+    private float rating;
 
     private ReviewsViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
@@ -122,12 +123,15 @@ public class RestaurantDetailsFragment extends Fragment {
             public void onChanged(List<Review> reviewsResults) {
                 // update UI
                 adapter.setReviews(reviewsResults);
+                rating = adapter.getRating(reviewsResults);
+                ratingBar.setRating(rating);
 
             }
         });
 
         //tvMenu.setText(getRestaurantWebsite());
         Log.i(TAG, "Done setting elements");
+
 
 
 

@@ -20,6 +20,7 @@ import com.example.fbuapp.activities.RestaurantDetailsActivity;
 import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
+import com.example.fbuapp.models.Review;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -42,6 +43,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private Favorite favorite;
     private FavoriteRestaurant newFavoriteRestaurant;
     private FavoriteRestaurant favoriteRestaurant;
+    private float rating;
 
     public RestaurantsAdapter(Context context, List<Restaurant> restaurants) {
         this.context = context;
@@ -152,8 +154,42 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             else {
                 btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
             }
+            getRestaurantRating(restaurant);
+            Log.i(TAG, "The rating before setting it is: " + rating);
 
 
+
+        }
+
+        private float getRestaurantRating(Restaurant restaurant) {
+            rating = 0;
+            //Specify which class to query
+            ParseQuery<Review> query = ParseQuery.getQuery(Review.class);
+            //get the user who's review it is
+            query.include(Review.KEY_RESTAURANT);
+            query.include(Review.KEY_RESTAURANT_NAME);
+            query.whereEqualTo(Review.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
+            query.addDescendingOrder(Review.KEY_CREATED);
+            query.findInBackground(new FindCallback<Review>() {
+                @Override
+                public void done(List<Review> parseReviews, ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, "Issue with getting reviews", e);
+                        return;
+                    }
+                    if (parseReviews.size() != 0) {
+                        int i;
+                        for (i = 0; i < parseReviews.size(); i ++) {
+                            rating += parseReviews.get(i).getRating();
+                            Log.i(TAG, "Rating is: " + rating);
+                        }
+                        rating = rating/parseReviews.size();
+                        ratingBar.setRating(rating);
+                    }
+                }
+            });
+
+            return rating;
         }
 
         private void checkFavorite() {
