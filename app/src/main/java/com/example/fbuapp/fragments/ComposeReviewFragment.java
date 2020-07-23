@@ -189,16 +189,8 @@ public class ComposeReviewFragment extends Fragment {
                     Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
                 }
                 Log.i(TAG, "Successfully saved post");
-                Fragment fragment = new RestaurantDetailsFragment(getContext(), restaurant);
-                replaceFragment(fragment);
+                getFragmentManager().popBackStackImmediate();
             }
         });
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContainerReview, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }
