@@ -74,6 +74,7 @@
         android:id="@+id/rbDetails"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="98dp"
+        android:numStars="5"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnFavorites"
         android:layout_alignParentEnd="true"

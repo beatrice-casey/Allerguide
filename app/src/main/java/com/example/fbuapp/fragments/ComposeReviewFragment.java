@@ -178,7 +178,7 @@ public class ComposeReviewFragment extends Fragment {
             review.setImage(new ParseFile(photoFile));
         }
         review.setUser(currentUser);
-        review.setRating(ratingBar.getNumStars());
+        review.setRating(ratingBar.getRating());
         review.setRestaurant(reviewedRestaurant);
         review.setRestaurantName(restaurant.getRestaurantName());
         review.saveInBackground(new SaveCallback() {

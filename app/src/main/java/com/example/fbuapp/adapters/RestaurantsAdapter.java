@@ -207,7 +207,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                         for (i = 0; i < parseReviews.size(); i ++) {
                             rating += parseReviews.get(i).getRating();
                         }
-                        rating = rating/parseReviews.size();
+                        rating = (rating/parseReviews.size());
                         ratingBar.setRating(rating);
                     }
                 }
