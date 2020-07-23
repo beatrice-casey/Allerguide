@@ -1,6 +1,8 @@
 package com.example.fbuapp.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +44,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.Headers;
 
@@ -64,6 +71,10 @@ public class RestaurantDetailsFragment extends Fragment {
     protected ReviewsAdapter adapter;
     private List<Review> reviews;
     private float rating;
+    Matcher m;
+    Pattern p = Pattern.compile("www.* *.com*");
+    Spanned restaurantHyperlink;
+    String htmlText;
 
     private ReviewsViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
@@ -101,7 +112,11 @@ public class RestaurantDetailsFragment extends Fragment {
         tvLocation = view.findViewById(R.id.tvLocation);
         btnFavorites = view.findViewById(R.id.btnFavorites);
         ivRestaurantImages = view.findViewById(R.id.ivRestaurantImages);
+
         tvMenu = view.findViewById(R.id.tvMenu);
+        tvMenu.setClickable(true);
+        tvMenu.setMovementMethod(LinkMovementMethod.getInstance());
+
         tvReviews = view.findViewById(R.id.tvReviewTag);
         btnCreateReview = view.findViewById(R.id.btnAddReview);
         rvReviews = view.findViewById(R.id.rvReviews);
@@ -129,12 +144,15 @@ public class RestaurantDetailsFragment extends Fragment {
             }
         });
 
-        //tvMenu.setText(getRestaurantWebsite());
-        Log.i(TAG, "Done setting elements");
-
-
-
-
+        getRestaurantWebsite();
+        tvMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+                browserIntent.setData(Uri.parse("https://" + htmlText));
+                startActivity(browserIntent);
+            }
+        });
 
         btnCreateReview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,11 +187,19 @@ public class RestaurantDetailsFragment extends Fragment {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     restaurantWebsite = jsonObject.getString("result");
-                    Log.i(TAG, restaurantWebsite);
+                    m = p.matcher(restaurantWebsite);
+                    if (m.find()) {
+                        htmlText = m.group();
+                        restaurantHyperlink = Html.fromHtml("<a href='" + htmlText + "'> " + restaurant.getRestaurantName() + "</a>");
+                        //restaurantHyperlink = Html.fromHtml(htmlText);
+                        tvMenu.setText(restaurantHyperlink);
+
+                    }
+                    Log.i(TAG, String.valueOf(m));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                //tvMenu.setText(restaurantWebsite);
 
             }
 
