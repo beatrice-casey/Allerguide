@@ -3,13 +3,16 @@ package com.example.fbuapp.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +32,8 @@ import com.parse.ParseUser;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import static com.parse.Parse.getApplicationContext;
 
 /**
  * This is the adapter that binds the data from the view model to the view. It also updates the view based on new data from the view model.
@@ -96,6 +101,26 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             Log.i(TAG, "Setting up elements");
             itemView.setOnClickListener(this);
 
+            itemView.setOnTouchListener(new View.OnTouchListener() {
+                private GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
+                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                    return super.onDoubleTap(e);
+                }
+
+            });
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+
+                    gestureDetector.onTouchEvent(event);
+                    return true;
+                }
+            });
+
+
+
             btnFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -103,9 +128,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     if (!isFavorite) {
                         isFavorite = true;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-                        favoriteRestaurant = newFavoriteRestaurant.saveRestaurant(restaurants.get(getAdapterPosition()), ParseUser.getCurrentUser());
+                        favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
                         Log.i(TAG, "Restaurant that is saved is: " + favoriteRestaurant);
-                        favorite = newFavoriteRestaurant.saveFavorite(ParseUser.getCurrentUser(), favoriteRestaurant);
+
 
                     }
                     else {
@@ -117,6 +142,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
                 }
             });
+
+        }
+
+        private FavoriteRestaurant addRestaurantToFavorites(Restaurant restaurant) {
+            favoriteRestaurant = newFavoriteRestaurant.saveRestaurant(restaurant, ParseUser.getCurrentUser());
+            favorite = newFavoriteRestaurant.saveFavorite(ParseUser.getCurrentUser(), favoriteRestaurant);
+            return favoriteRestaurant;
 
         }
 
@@ -181,7 +213,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                         int i;
                         for (i = 0; i < parseReviews.size(); i ++) {
                             rating += parseReviews.get(i).getRating();
-                            Log.i(TAG, "Rating is: " + rating);
                         }
                         rating = rating/parseReviews.size();
                         ratingBar.setRating(rating);
