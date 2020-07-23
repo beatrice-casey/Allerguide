@@ -103,10 +103,6 @@ public class ComposeReviewFragment extends Fragment {
                     Toast.makeText(getContext(), "Description cannot be empty.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (photoFile == null || ivReviewImage.getDrawable() == null) {
-                    Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 saveReview(description, currentUser, photoFile);
             }
@@ -172,7 +168,9 @@ public class ComposeReviewFragment extends Fragment {
     private void saveReview(String description, ParseUser currentUser, File photoFile) {
         Review review = new Review();
         review.setDescription(description);
-        review.setImage(new ParseFile(photoFile));
+        if (photoFile != null) {
+            review.setImage(new ParseFile(photoFile));
+        }
         review.setUser(currentUser);
         review.setRating(ratingBar.getNumStars());
         review.setRestaurant(reviewedRestaurant);

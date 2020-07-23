@@ -1,6 +1,7 @@
 package com.example.fbuapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fbuapp.R;
+import com.example.fbuapp.activities.RestaurantDetailsActivity;
 import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
@@ -22,6 +24,8 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -81,6 +85,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             ratingBar = itemView.findViewById(R.id.ratingBar);
             favorite = new Favorite();
             Log.i(TAG, "Setting up elements");
+            //itemView.setOnClickListener(this);
 
             btnFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -167,6 +172,22 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         @Override
         public void onClick(View view) {
+
+            //getting adapter position
+            int position = getAdapterPosition();
+            //make sure position is valid (it exists in view)
+            if (position != RecyclerView.NO_POSITION) {
+                //get the movie at that position
+                FavoriteRestaurant restaurant = restaurants.get(position);
+                Log.i(TAG, "Restaurant is:" + restaurant.getRestaurantNameFromParse());
+                //make an intent to display RestaurantDetails
+                Intent intent = new Intent(context, RestaurantDetailsActivity.class);
+                //serialize the restaurant using parceler, use short name as key
+                intent.putExtra(FavoriteRestaurant.class.getSimpleName(), Parcels.wrap(restaurant));
+                //intent.putExtra("restaurant", restaurant);
+                //show the activity
+                context.startActivity(intent);
+            }
 
         }
     }
