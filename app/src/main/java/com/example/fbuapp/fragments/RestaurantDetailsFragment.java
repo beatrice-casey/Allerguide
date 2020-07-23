@@ -33,12 +33,17 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
 import com.example.fbuapp.adapters.FavoritesAdapter;
 import com.example.fbuapp.adapters.ReviewsAdapter;
+import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.example.fbuapp.viewmodels.FavoritesViewModel;
 import com.example.fbuapp.viewmodels.ReviewsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,6 +81,7 @@ public class RestaurantDetailsFragment extends Fragment {
     Pattern p = Pattern.compile("www.* *.com*");
     Spanned restaurantHyperlink;
     String htmlText;
+    boolean isFavorite;
 
     private String RESTAURANT_PHOTO_URL;
 
@@ -148,6 +154,7 @@ public class RestaurantDetailsFragment extends Fragment {
 
             }
         });
+        checkFavorite(restaurant);
 
         getRestaurantWebsite();
         tvMenu.setOnClickListener(new View.OnClickListener() {
@@ -224,5 +231,39 @@ public class RestaurantDetailsFragment extends Fragment {
             }
         });
         return restaurantWebsite;
+    }
+
+    private void checkFavorite(Restaurant restaurant) {
+        ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
+        query.include(Favorite.KEY_RESTAURANT_NAME);
+        query.include(Favorite.KEY_RESTAURANT);
+        query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Favorite.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
+        query.findInBackground(new FindCallback<Favorite>() {
+            @Override
+            public void done(List<Favorite> favorites, ParseException e) {
+                if (e != null) {
+                    return;
+                }
+                if (favorites.isEmpty()) {
+                    isFavorite = false;
+                    //btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
+                } else {
+                    isFavorite = true;
+                    //favorite = favorites.get(0);
+                    Log.i(TAG, "This is the restaurant that was favorited: " + favorites.get(0).getRestaurantNameFromParse());
+                    //btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                }
+                if (isFavorite) {
+                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                }
+                else {
+                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
+                }
+
+            }
+
+        });
+
     }
 }

@@ -73,9 +73,4 @@ public class Restaurant {
 
     public String getPhotoID() { return photoID; }
 
-
-
-
-
-
 }
