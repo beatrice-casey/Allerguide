@@ -2,6 +2,7 @@ package com.example.fbuapp.models;
 
 import android.util.Log;
 
+import com.example.fbuapp.R;
 import com.parse.DeleteCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -28,6 +29,8 @@ public class Restaurant {
     public String location;
     public String image;
     public String restaurantID;
+    public String photoID;
+    public String detailsPhoto;
 
     public Restaurant() { }
 
@@ -36,6 +39,15 @@ public class Restaurant {
         location = jsonObject.getString("formatted_address");
         image = jsonObject.getString("icon");
         restaurantID = jsonObject.getString("place_id");
+
+        if (jsonObject.has("photos")) {
+            JSONArray photosArray = jsonObject.getJSONArray("photos");
+            JSONObject photoObject = photosArray.getJSONObject(0);
+            photoID = photoObject.getString("photo_reference");
+            detailsPhoto = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" +
+                    photoID + "&key=" + R.string.google_maps_API_key;
+
+        }
 
     }
 
@@ -58,6 +70,8 @@ public class Restaurant {
     public String getLocation() { return location;}
 
     public String getRestaurantID() { return restaurantID; }
+
+    public String getPhotoID() { return photoID; }
 
 
 

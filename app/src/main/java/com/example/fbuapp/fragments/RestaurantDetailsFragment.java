@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
@@ -75,6 +76,8 @@ public class RestaurantDetailsFragment extends Fragment {
     Pattern p = Pattern.compile("www.* *.com*");
     Spanned restaurantHyperlink;
     String htmlText;
+
+    private String RESTAURANT_PHOTO_URL;
 
     private ReviewsViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
@@ -132,6 +135,8 @@ public class RestaurantDetailsFragment extends Fragment {
         adapter = new ReviewsAdapter(getContext(), reviews);
         rvReviews.setAdapter(adapter);
 
+        getRestaurantPhoto();
+
 
         mViewModel.getReviews(restaurant).observe(getViewLifecycleOwner(), new Observer<List<Review>>() {
             @Override
@@ -162,6 +167,16 @@ public class RestaurantDetailsFragment extends Fragment {
 
             }
         });
+
+
+    }
+
+    private void getRestaurantPhoto() {
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getPhotoID() +
+                "&key=" + getString(R.string.google_maps_API_key);
+        Glide.with(context).load(RESTAURANT_PHOTO_URL).into(ivRestaurantImages);
 
 
     }
