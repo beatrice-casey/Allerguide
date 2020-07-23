@@ -44,11 +44,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private Context context;
     protected List<Restaurant> restaurants;
     public static final String TAG = "RestaurantsAdapter";
-    private boolean isFavorite;
+
     private Favorite favorite;
     private FavoriteRestaurant newFavoriteRestaurant;
     private FavoriteRestaurant favoriteRestaurant;
-    private float rating;
+
 
     public RestaurantsAdapter(Context context, List<Restaurant> restaurants) {
         this.context = context;
@@ -87,6 +87,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         protected TextView tvLocation;
         protected ImageView ivRestaurantImage;
         protected RatingBar ratingBar;
+        private boolean isFavorite;
+        private float rating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,7 +100,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             favorite = new Favorite();
             newFavoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant = new FavoriteRestaurant();
-            Log.i(TAG, "Setting up elements");
             itemView.setOnClickListener(this);
 
             itemView.setOnTouchListener(new View.OnTouchListener() {
@@ -109,8 +110,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                     return super.onDoubleTap(e);
                 }
-
-            });
+                });
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     gestureDetector.onTouchEvent(event);
@@ -123,9 +123,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             btnFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    checkFavorite();
+                    checkFavorite(restaurants.get(getAdapterPosition()));
                     if (!isFavorite) {
-                        isFavorite = true;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                         favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
                         Log.i(TAG, "Restaurant that is saved is: " + favoriteRestaurant);
@@ -147,6 +146,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         private FavoriteRestaurant addRestaurantToFavorites(Restaurant restaurant) {
             favoriteRestaurant = newFavoriteRestaurant.saveRestaurant(restaurant, ParseUser.getCurrentUser());
             favorite = newFavoriteRestaurant.saveFavorite(ParseUser.getCurrentUser(), favoriteRestaurant);
+            isFavorite = true;
             return favoriteRestaurant;
 
         }
@@ -178,21 +178,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             Glide.with(context)
                     .load(restaurant.getImage())
                     .into(ivRestaurantImage);
-            checkFavorite();
-            if (isFavorite) {
-                btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-            }
-            else {
-                btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
-            }
-            getRestaurantRating(restaurant);
+            checkFavorite(restaurant);
             Log.i(TAG, "The rating before setting it is: " + rating);
-
-
+            getRestaurantRating(restaurant);
 
         }
 
-        private float getRestaurantRating(Restaurant restaurant) {
+        private void getRestaurantRating(Restaurant restaurant) {
             rating = 0;
             //Specify which class to query
             ParseQuery<Review> query = ParseQuery.getQuery(Review.class);
@@ -218,14 +210,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     }
                 }
             });
-
-            return rating;
         }
 
-        private void checkFavorite() {
+        private void checkFavorite(Restaurant restaurant) {
             ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
+            query.include(Favorite.KEY_RESTAURANT_NAME);
+            query.include(Favorite.KEY_RESTAURANT);
             query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
-            query.whereEqualTo(Favorite.KEY_RESTAURANT, restaurants.get(getAdapterPosition()));
+            query.whereEqualTo(Favorite.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
             query.findInBackground(new FindCallback<Favorite>() {
                 @Override
                 public void done(List<Favorite> favorites, ParseException e) {
@@ -234,12 +226,22 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     }
                     if (favorites.isEmpty()) {
                         isFavorite = false;
+                        //btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
                     } else {
                         isFavorite = true;
                         favorite = favorites.get(0);
+                        Log.i(TAG, "This is the restaurant that was favorited: " + favorites.get(0).getRestaurantNameFromParse());
+                        //btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                    }
+                    if (isFavorite) {
+                        btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                    }
+                    else {
+                        btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
                     }
 
                 }
+
             });
 
         }
