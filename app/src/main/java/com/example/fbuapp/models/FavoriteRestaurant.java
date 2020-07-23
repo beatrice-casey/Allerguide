@@ -14,6 +14,12 @@ import com.parse.SaveCallback;
 
 import java.util.List;
 
+/**
+ * This class creates a new object in the Parse database for favorite restaurants. It takes the data from
+ * the API and saves it to parse. It also saves a new favorite and deletes a favorite. Finally, it
+ * checks the database to see if the restaurant already is there so it doesn't make a duplicate entry.
+ */
+
 @ParseClassName("Restaurant")
 public class FavoriteRestaurant extends ParseObject {
 
@@ -31,7 +37,6 @@ public class FavoriteRestaurant extends ParseObject {
 
     public String getRestaurantNameFromParse() {return getString(KEY_RESTAURANT); }
 
-    public ParseObject getRestaurantObject() {return getParseObject(KEY_RESTAURANT);}
 
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
@@ -105,7 +110,7 @@ public class FavoriteRestaurant extends ParseObject {
     private boolean queryForRestaurant(final String restaurantName) {
         //Specify which class to query
         ParseQuery<FavoriteRestaurant> query = ParseQuery.getQuery(FavoriteRestaurant.class);
-        query.include(Favorite.KEY_RESTAURANT);
+        query.include(FavoriteRestaurant.KEY_RESTAURANT);
         query.whereEqualTo(FavoriteRestaurant.KEY_RESTAURANT, restaurantName);
         //query.addDescendingOrder(Favorite.KEY_CREATED);
         query.findInBackground(new FindCallback<FavoriteRestaurant>() {

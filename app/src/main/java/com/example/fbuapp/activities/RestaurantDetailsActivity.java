@@ -29,6 +29,10 @@ import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
+/**
+ * This class sets up the details activity. It shows the RestaurantDetailsFragment.
+ */
+
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "RestaurantDetails";

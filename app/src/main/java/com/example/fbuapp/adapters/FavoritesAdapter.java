@@ -29,6 +29,12 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+
+/**
+ * This class is the adapter that binds the data received from the Parse database to the view. This
+ * adapter is for the Favorites tab, which shows all of the user's favorite restaurants.
+ */
+
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private Context context;
@@ -104,7 +110,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         }
 
-        public void bind(FavoriteRestaurant restaurant) {
+        private void bind(FavoriteRestaurant restaurant) {
             //Log.i(TAG, "binding data");
             tvRestaurant.setText(restaurant.getRestaurantNameFromParse());
             //tvLocation.setText(restaurant.getLocation());

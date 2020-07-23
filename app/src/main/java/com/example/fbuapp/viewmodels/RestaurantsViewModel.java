@@ -139,7 +139,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
                     JSONArray results = jsonObject.getJSONArray("results");
                     int i;
                     for(i = 0; i < Restaurant.fromJSONArray(results).size(); i++) {
-                        if (listRestaurants.contains(Restaurant.fromJSONArray(results).get(i).restaurantName)) {
+                        if (listRestaurants.contains(Restaurant.fromJSONArray(results).get(i).getRestaurantName())) {
                             results.remove(i);
                         }
                     }

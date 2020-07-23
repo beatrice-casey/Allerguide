@@ -37,6 +37,8 @@ import static com.parse.Parse.getApplicationContext;
 
 /**
  * This is the adapter that binds the data from the view model to the view. It also updates the view based on new data from the view model.
+ * Additionally, it listens for a double tap or a click on the heart button (btnFavorites) and adds the restaurant to the Parse database and
+ * to the user's favorites tab.
  */
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {

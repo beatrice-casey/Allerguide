@@ -30,9 +30,9 @@ import static com.google.android.gms.location.LocationServices.getFusedLocationP
 public class RestaurantsFragment extends Fragment {
 
     public static final String TAG = "RestaurantsFragment";
-    protected RecyclerView rvRestaurants;
-    protected List<Restaurant> restaurants;
-    protected RestaurantsAdapter adapter;
+    private RecyclerView rvRestaurants;
+    private List<Restaurant> restaurants;
+    private RestaurantsAdapter adapter;
 
     private RestaurantsViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;

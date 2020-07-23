@@ -23,6 +23,10 @@ import com.example.fbuapp.models.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class sets the view for the favorites tab, which shows which restaurants are the user's favorite
+ * It uses a view model to get an updated list of favorite restaurants to pass to the adapter.
+ */
 
 public class FavoritesFragment extends Fragment {
 

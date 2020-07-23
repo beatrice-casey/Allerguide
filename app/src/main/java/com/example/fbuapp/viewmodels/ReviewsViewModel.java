@@ -21,6 +21,12 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for getting the data from parse regarding reviews. It queries parse
+ * to find the list of reviews for a specific restaurant and passes this information back to the
+ * view, where this information can populate the view elements.
+ */
+
 public class ReviewsViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Review>> reviews;

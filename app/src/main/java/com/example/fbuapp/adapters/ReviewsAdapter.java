@@ -21,6 +21,13 @@ import com.parse.ParseFile;
 
 import java.util.List;
 
+/**
+ * This class is the adapter for the reviews of a restaurant. The reviews for this app come from the
+ * parse dashboard, so it is not loaded from any API. This is because since the app is made for
+ * people with food restrictions, it wouldn't make sense if they saw a review complimenting a
+ * restaurant's steak, for example, when that's a food that they cannot eat.
+ */
+
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
     private Context context;
@@ -85,7 +92,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         }
 
 
-        public void bind(Review review) {
+        private void bind(Review review) {
 
             tvUsername.setText(review.getUser().getUsername());
             tvDescription.setText(review.getDescription());

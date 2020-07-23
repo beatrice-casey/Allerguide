@@ -6,6 +6,10 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+/**
+ * This class handles getting and setting information from the Review model in the parse database.
+ */
+
 @ParseClassName("Review")
 public class Review extends ParseObject {
 

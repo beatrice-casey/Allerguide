@@ -19,6 +19,11 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for getting the data for the Favorites tab. It makes a query to parse
+ * to find restaurants that the current user has added to their favorites.
+ */
+
 public class FavoritesViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<FavoriteRestaurant>> restaurants;

@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class creates a list of Restaurant objects from the JSON array and also adds the restaurant to the Parse database if it it favorited
- *
+ * This class creates a list of Restaurant objects from the JSON array
  */
+
 @Parcel
 public class Restaurant {
 

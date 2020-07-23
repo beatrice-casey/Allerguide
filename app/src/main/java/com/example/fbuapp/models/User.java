@@ -7,6 +7,10 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+/**
+ * This class handles getting and setting values for users from the User model in the parse database
+ */
+
 @ParseClassName("User")
 public class User extends ParseUser {
 

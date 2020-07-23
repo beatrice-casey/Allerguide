@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -36,6 +37,11 @@ import java.io.File;
 
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * This class shows the compose review view. It allows the user to type a review and take a photo using
+ * the camera,though a photo is not required to post the review. It saves the written review to the parse
+ * database.
+ */
 
 public class ComposeReviewFragment extends Fragment {
 
@@ -183,9 +189,16 @@ public class ComposeReviewFragment extends Fragment {
                     Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
                 }
                 Log.i(TAG, "Successfully saved post");
-                etDescription.setText("");
-                ivReviewImage.setImageResource(0);
+                Fragment fragment = new RestaurantDetailsFragment(getContext(), restaurant);
+                replaceFragment(fragment);
             }
         });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContainerReview, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

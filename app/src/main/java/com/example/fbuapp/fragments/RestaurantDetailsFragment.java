@@ -55,6 +55,12 @@ import java.util.regex.Pattern;
 
 import okhttp3.Headers;
 
+/**
+ * This class sets up the view for a detailed view of a specific restaurant. It uses a view model to handle getting a list of reviews from parse.
+ * This class also gets the link to the restaurant's website and creates a link that the user can click to go to that website. It also gets a photo
+ * preview from the restaurant (a photo of food that the restaurant has posted). Finally, it sets up the button to allow the user to make a review.
+ * When that button is clicked, the ComposeReviewFragment is started so the user can make their review.
+ */
 
 public class RestaurantDetailsFragment extends Fragment {
 
@@ -77,11 +83,11 @@ public class RestaurantDetailsFragment extends Fragment {
     protected ReviewsAdapter adapter;
     private List<Review> reviews;
     private float rating;
-    Matcher m;
-    Pattern p = Pattern.compile("www.* *.com*");
-    Spanned restaurantHyperlink;
-    String htmlText;
-    boolean isFavorite;
+    private Matcher m;
+    private Pattern p = Pattern.compile("www.* *.com*");
+    private Spanned restaurantHyperlink;
+    private String htmlText;
+    private boolean isFavorite;
 
     private String RESTAURANT_PHOTO_URL;
 
@@ -188,7 +194,7 @@ public class RestaurantDetailsFragment extends Fragment {
 
     }
 
-    public void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.flContainerReview, fragment);
         transaction.addToBackStack(null);
