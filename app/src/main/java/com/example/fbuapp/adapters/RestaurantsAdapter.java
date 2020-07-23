@@ -113,9 +113,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             });
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-
                     gestureDetector.onTouchEvent(event);
-                    return true;
+                    return false;
                 }
             });
 
