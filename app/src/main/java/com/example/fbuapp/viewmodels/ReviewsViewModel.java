@@ -49,7 +49,8 @@ public class ReviewsViewModel extends AndroidViewModel {
         //get the user who's review it is
         query.include(Review.KEY_USER);
         query.include(Review.KEY_RESTAURANT);
-        query.whereEqualTo(Review.KEY_RESTAURANT, restaurant.getRestaurantName());
+        query.include(Review.KEY_RESTAURANT_NAME);
+        query.whereEqualTo(Review.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
         query.addDescendingOrder(Review.KEY_CREATED);
         query.findInBackground(new FindCallback<Review>() {
             @Override

@@ -15,6 +15,7 @@ public class Review extends ParseObject {
     public static final String KEY_CREATED = "createdAt";
     public static final String KEY_RATING = "Rating";
     public static final String KEY_RESTAURANT = "Restaurant";
+    public static final String KEY_RESTAURANT_NAME = "restaurantName";
 
 
     public String getDescription() {
@@ -48,5 +49,9 @@ public class Review extends ParseObject {
     public ParseObject getRestaurant() { return getParseObject(KEY_RESTAURANT);}
 
     public void setRestaurant(ParseObject restaurant) {put(KEY_RESTAURANT, restaurant);}
+
+    public String getRestaurantName() {return getString(KEY_RESTAURANT_NAME);}
+
+    public void setRestaurantName(String restaurantName) {put(KEY_RESTAURANT_NAME, restaurantName);}
 
 }

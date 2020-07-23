@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -57,6 +58,7 @@ public class RestaurantDetailsFragment extends Fragment {
     private TextView tvReviews;
     private FloatingActionButton btnCreateReview;
     private RecyclerView rvReviews;
+    private RatingBar ratingBar;
     private String RESTAURANT_WEBSITE_URL;
     private String restaurantWebsite;
     protected ReviewsAdapter adapter;
@@ -102,6 +104,7 @@ public class RestaurantDetailsFragment extends Fragment {
         tvReviews = view.findViewById(R.id.tvReviewTag);
         btnCreateReview = view.findViewById(R.id.btnAddReview);
         rvReviews = view.findViewById(R.id.rvReviews);
+        ratingBar = view.findViewById(R.id.rbDetails);
 
         tvRestaurant.setText(restaurant.getRestaurantName());
         tvLocation.setText(restaurant.getLocation());
@@ -119,7 +122,7 @@ public class RestaurantDetailsFragment extends Fragment {
             public void onChanged(List<Review> reviewsResults) {
                 // update UI
                 adapter.setReviews(reviewsResults);
-                Log.i(TAG, "got reviews: " + reviewsResults.get(0).getDescription());
+
             }
         });
 
@@ -132,7 +135,7 @@ public class RestaurantDetailsFragment extends Fragment {
         btnCreateReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new ComposeReviewFragment();
+                Fragment fragment = new ComposeReviewFragment(restaurant);
                 replaceFragment(fragment);
 
             }

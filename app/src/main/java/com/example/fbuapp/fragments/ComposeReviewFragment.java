@@ -60,7 +60,7 @@ public class ComposeReviewFragment extends Fragment {
         // Required empty public constructor
         this.restaurant = restaurant;
         reviewedRestaurant.saveRestaurant(restaurant, ParseUser.getCurrentUser());
-
+        Log.i(TAG, "The restaurant name for this review is:" + this.restaurant.getRestaurantName());
 
     }
 
@@ -176,6 +176,7 @@ public class ComposeReviewFragment extends Fragment {
         review.setUser(currentUser);
         review.setRating(ratingBar.getNumStars());
         review.setRestaurant(reviewedRestaurant);
+        review.setRestaurantName(restaurant.getRestaurantName());
         review.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
