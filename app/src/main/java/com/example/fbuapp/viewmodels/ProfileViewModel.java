@@ -4,50 +4,25 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-
-import com.example.fbuapp.models.Favorite;
-import com.example.fbuapp.models.FavoriteRestaurant;
-import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * This class is responsible for getting the data from parse regarding reviews. It queries parse
- * to find the list of reviews for a specific restaurant and passes this information back to the
- * view, where this information can populate the view elements.
- */
+public class ProfileViewModel extends ReviewsViewModel {
 
-public class ReviewsViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<Review>> reviews;
-    public List<Review> listReviews;
-    public static final String TAG = "ReviewsViewModel";
-    public Restaurant restaurant;
-
-    public ReviewsViewModel(@NonNull Application application) {
+    public ProfileViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public LiveData<List<Review>> getReviews(Restaurant restaurant) {
-        reviews = new MutableLiveData<>();
-        listReviews = new ArrayList<>();
-        this.restaurant = restaurant;
-        Log.i(TAG, "Getting reviews");
-        queryReviews();
 
-        return reviews;
-    }
 
+    @Override
     protected void queryReviews() {
 
         //Specify which class to query
@@ -56,7 +31,7 @@ public class ReviewsViewModel extends AndroidViewModel {
         query.include(Review.KEY_USER);
         query.include(Review.KEY_RESTAURANT);
         query.include(Review.KEY_RESTAURANT_NAME);
-        query.whereEqualTo(Review.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
+        query.whereEqualTo(Review.KEY_USER, ParseUser.getCurrentUser());
         query.addDescendingOrder(Review.KEY_CREATED);
         query.findInBackground(new FindCallback<Review>() {
             @Override

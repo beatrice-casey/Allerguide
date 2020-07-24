@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.fbuapp.R;
 import com.example.fbuapp.fragments.FavoritesFragment;
+import com.example.fbuapp.fragments.ProfileFragment;
 import com.example.fbuapp.fragments.RestaurantsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         //menuItem.setIcon(R.drawable.ic_profile);
                         break;
                     case R.id.action_profile:
-                        fragment = new RestaurantsFragment();
+                        fragment = new ProfileFragment();
                         //menuItem.setIcon(R.drawable.ic_profile);
                         break;
                     default:

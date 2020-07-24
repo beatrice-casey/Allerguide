@@ -30,7 +30,7 @@ import java.util.List;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
-    private Context context;
+    protected Context context;
     protected List<Review> reviews;
     public static final String TAG = "RestaurantsAdapter";
 
@@ -92,7 +92,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         }
 
 
-        private void bind(Review review) {
+        protected void bind(Review review) {
 
             tvUsername.setText(review.getUser().getUsername());
             tvDescription.setText(review.getDescription());
