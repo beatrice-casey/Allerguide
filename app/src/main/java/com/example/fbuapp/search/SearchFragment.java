@@ -91,11 +91,13 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
 
-                if (keyCode == EditorInfo.IME_ACTION_SEARCH || keyCode == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-                        keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    query = etEnterLocation.getText().toString();
+                if (keyCode == EditorInfo.IME_ACTION_SEARCH
+                        || keyCode == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(etEnterLocation.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    query = etEnterLocation.getText().toString();
                     mViewModel.getRestaurantsAtLocation(query).observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
                         @Override
                         public void onChanged(List<Restaurant> restaurants) {
@@ -109,6 +111,7 @@ public class SearchFragment extends Fragment {
 
                         }
                     });
+                    return true;
                 }
                 return false;
             }

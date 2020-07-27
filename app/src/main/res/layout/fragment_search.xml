@@ -25,9 +25,11 @@
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivSearchIcon"
         android:ems="10"
+        android:inputType="text"
+        android:privateImeOptions="actionDone"
         android:gravity="start|top"
         android:singleLine="true"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionGo"
         android:hint="Enter a location" />
 
     <Button

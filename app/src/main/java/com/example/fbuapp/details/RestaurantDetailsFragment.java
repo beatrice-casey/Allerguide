@@ -31,6 +31,7 @@ import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
 import com.example.fbuapp.models.Favorite;
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -82,6 +83,10 @@ public class RestaurantDetailsFragment extends Fragment {
     private Spanned restaurantHyperlink;
     private String htmlText;
     private boolean isFavorite;
+    private Favorite favorite;
+    private FavoriteRestaurant newFavoriteRestaurant;
+    private FavoriteRestaurant favoriteRestaurant;
+
 
     private String RESTAURANT_PHOTO_URL;
 
@@ -141,6 +146,10 @@ public class RestaurantDetailsFragment extends Fragment {
         adapter = new ReviewsAdapter(getContext(), reviews);
         rvReviews.setAdapter(adapter);
 
+        favorite = new Favorite();
+        newFavoriteRestaurant = new FavoriteRestaurant();
+        favoriteRestaurant = new FavoriteRestaurant();
+
         getRestaurantPhoto();
 
 
@@ -175,6 +184,33 @@ public class RestaurantDetailsFragment extends Fragment {
             }
         });
 
+        btnFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isFavorite) {
+                    favoriteRestaurant = addRestaurantToFavorites(restaurant);
+                    Log.i(TAG, "Restaurant that is saved is: " + favoriteRestaurant);
+                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+
+                }
+                else {
+                    isFavorite = false;
+                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
+                    Log.i(TAG, "Restaurant to delete: " + favoriteRestaurant.getRestaurantNameFromParse());
+                    newFavoriteRestaurant.deleteFavorite(favorite, favoriteRestaurant);
+                }
+
+            }
+        });
+
+
+    }
+
+    private FavoriteRestaurant addRestaurantToFavorites(Restaurant restaurant) {
+        favoriteRestaurant = newFavoriteRestaurant.saveRestaurant(restaurant, ParseUser.getCurrentUser());
+        favorite = newFavoriteRestaurant.saveFavorite(ParseUser.getCurrentUser(), favoriteRestaurant);
+        isFavorite = true;
+        return favoriteRestaurant;
 
     }
 
