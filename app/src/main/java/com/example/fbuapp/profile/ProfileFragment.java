@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,9 +19,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.fbuapp.R;
+import com.example.fbuapp.details.ComposeReviewFragment;
 import com.example.fbuapp.login.LoginActivity;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
+import com.example.fbuapp.settings.SettingsFragment;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ public class ProfileFragment extends Fragment {
     protected RecyclerView rvReviews;
     protected ProfileAdapter adapter;
     protected List<Review> reviews;
-    private Button btnLogout;
+    private Button btnSettings;
     private TextView tvUsername;
     private ProfileViewModel mViewModel;
     private Restaurant restaurant;
@@ -61,7 +64,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvReviews = view.findViewById(R.id.rvUserReviews);
-        btnLogout = view.findViewById(R.id.btnLogout);
+        btnSettings = view.findViewById(R.id.btnSettings);
         tvUsername = view.findViewById(R.id.tvUsername);
 
         reviews = new ArrayList<>();
@@ -81,18 +84,21 @@ public class ProfileFragment extends Fragment {
         });
 
         tvUsername.setText(ParseUser.getCurrentUser().getUsername());
-        btnLogout.setBackgroundResource(R.drawable.ic_baseline_settings_24);
+        btnSettings.setBackgroundResource(R.drawable.ic_baseline_settings_24);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ParseUser.logOut();
-                //compose icon has been selected
-                //navigate to the compose activity
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                //start activity
-                startActivity(intent);
+                Fragment fragment = new SettingsFragment();
+                replaceFragment(fragment);
             }
         });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContainer, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

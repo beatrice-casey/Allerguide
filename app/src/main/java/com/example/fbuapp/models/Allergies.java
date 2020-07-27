@@ -49,7 +49,6 @@ public class Allergies extends ParseObject {
         put(KEY_LACTOSE_FREE, lactoseFree);
     }
 
-
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
     }
