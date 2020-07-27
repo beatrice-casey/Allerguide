@@ -88,6 +88,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         protected RatingBar ratingBar;
         private boolean isFavorite;
         private float rating;
+        private String RESTAURANT_PHOTO_URL;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -173,12 +174,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             Log.i(TAG, "binding data");
             tvRestaurant.setText(restaurant.getRestaurantName());
             tvLocation.setText(restaurant.getLocation());
-            Glide.with(context)
-                    .load(restaurant.getImage())
-                    .into(ivRestaurantImage);
             checkFavorite(restaurant);
             Log.i(TAG, "The rating before setting it is: " + rating);
             getRestaurantRating(restaurant);
+            getRestaurantPhoto(restaurant);
 
         }
 
@@ -242,6 +241,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
             });
             return isFavorite;
+
+        }
+
+        private void getRestaurantPhoto(Restaurant restaurant) {
+            RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getPhotoID() +
+                    "&key=" + context.getString(R.string.google_maps_API_key);
+            Glide.with(context).load(RESTAURANT_PHOTO_URL).into(ivRestaurantImage);
 
         }
     }

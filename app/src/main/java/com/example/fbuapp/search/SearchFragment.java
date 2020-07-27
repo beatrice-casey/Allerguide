@@ -128,10 +128,6 @@ public class SearchFragment extends Fragment {
        //CharSequence query = searchLocation.getQuery();
         Log.i(TAG, "Location queried is: " + query);
 
-
-
-
-
     }
 
 }
