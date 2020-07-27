@@ -92,7 +92,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         private boolean isFavorite;
         private float rating;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             btnFavorites = itemView.findViewById(R.id.btnFavorites);
             tvRestaurant = itemView.findViewById(R.id.tvRestaurant);
@@ -102,7 +102,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             favorite = new Favorite();
             newFavoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant = new FavoriteRestaurant();
-            itemView.setOnClickListener(this);
 
             itemView.setOnTouchListener(new View.OnTouchListener() {
                 private GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -113,24 +112,24 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                     return super.onDoubleTap(e);
                 }
                 });
+
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     gestureDetector.onTouchEvent(event);
                     return false;
                 }
             });
+            itemView.setOnClickListener(this);
 
 
 
             btnFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    checkFavorite(restaurants.get(getAdapterPosition()));
                     if (!isFavorite) {
-                        btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                         favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
                         Log.i(TAG, "Restaurant that is saved is: " + favoriteRestaurant);
-
+                        btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
 
                     }
                     else {
@@ -214,7 +213,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             });
         }
 
-        private void checkFavorite(Restaurant restaurant) {
+        private boolean checkFavorite(Restaurant restaurant) {
             ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
             query.include(Favorite.KEY_RESTAURANT_NAME);
             query.include(Favorite.KEY_RESTAURANT);
@@ -245,6 +244,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 }
 
             });
+            return isFavorite;
 
         }
     }
