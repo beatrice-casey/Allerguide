@@ -1,6 +1,5 @@
-package com.example.fbuapp.fragments;
+package com.example.fbuapp.search;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -24,19 +21,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.fbuapp.R;
-import com.example.fbuapp.adapters.RestaurantsAdapter;
+import com.example.fbuapp.home.RestaurantsAdapter;
 import com.example.fbuapp.models.Restaurant;
-import com.example.fbuapp.viewmodels.RestaurantsViewModel;
-import com.example.fbuapp.viewmodels.SearchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 
 public class SearchFragment extends Fragment {

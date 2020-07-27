@@ -1,4 +1,4 @@
-package com.example.fbuapp.activities;
+package com.example.fbuapp.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +10,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.fbuapp.R;
-import com.example.fbuapp.fragments.FavoritesFragment;
-import com.example.fbuapp.fragments.ProfileFragment;
-import com.example.fbuapp.fragments.RestaurantsFragment;
-import com.example.fbuapp.fragments.SearchFragment;
+import com.example.fbuapp.favorites.FavoritesFragment;
+import com.example.fbuapp.profile.ProfileFragment;
+import com.example.fbuapp.search.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;

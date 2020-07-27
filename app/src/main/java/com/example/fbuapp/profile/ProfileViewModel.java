@@ -1,10 +1,11 @@
-package com.example.fbuapp.viewmodels;
+package com.example.fbuapp.profile;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.fbuapp.details.ReviewsViewModel;
 import com.example.fbuapp.models.Review;
 import com.parse.FindCallback;
 import com.parse.ParseException;

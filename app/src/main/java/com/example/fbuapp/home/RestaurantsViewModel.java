@@ -1,4 +1,4 @@
-package com.example.fbuapp.viewmodels;
+package com.example.fbuapp.home;
 
 import android.Manifest;
 import android.app.Activity;

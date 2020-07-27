@@ -1,4 +1,4 @@
-package com.example.fbuapp.adapters;
+package com.example.fbuapp.favorites;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,10 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fbuapp.R;
-import com.example.fbuapp.activities.RestaurantDetailsActivity;
+import com.example.fbuapp.details.RestaurantDetailsActivity;
 import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
-import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.parse.FindCallback;
 import com.parse.ParseException;

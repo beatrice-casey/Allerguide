@@ -1,10 +1,9 @@
-package com.example.fbuapp.adapters;
+package com.example.fbuapp.details;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.fbuapp.R;
-import com.example.fbuapp.models.Favorite;
-import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Review;
 import com.parse.ParseFile;
 

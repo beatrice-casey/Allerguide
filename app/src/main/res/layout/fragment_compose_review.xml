@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    tools:context=".fragments.ComposeReviewFragment">
+    tools:context=".details.ComposeReviewFragment">
 
     <Button
         android:id="@+id/btnPhoto"

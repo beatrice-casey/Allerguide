@@ -1,4 +1,4 @@
-package com.example.fbuapp.adapters;
+package com.example.fbuapp.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.fbuapp.R;
-import com.example.fbuapp.activities.RestaurantDetailsActivity;
+import com.example.fbuapp.details.RestaurantDetailsActivity;
 import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
@@ -32,8 +31,6 @@ import com.parse.ParseUser;
 import org.parceler.Parcels;
 
 import java.util.List;
-
-import static com.parse.Parse.getApplicationContext;
 
 /**
  * This is the adapter that binds the data from the view model to the view. It also updates the view based on new data from the view model.

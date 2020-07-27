@@ -1,4 +1,4 @@
-package com.example.fbuapp.activities;
+package com.example.fbuapp.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.fbuapp.R;
-import com.example.fbuapp.fragments.RestaurantsFragment;
+import com.example.fbuapp.home.MainActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;

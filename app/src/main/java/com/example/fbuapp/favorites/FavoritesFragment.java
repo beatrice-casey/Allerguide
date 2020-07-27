@@ -1,9 +1,6 @@
-package com.example.fbuapp.fragments;
+package com.example.fbuapp.favorites;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,39 +10,40 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.R;
-import com.example.fbuapp.models.Restaurant;
-import com.example.fbuapp.adapters.RestaurantsAdapter;
-import com.example.fbuapp.viewmodels.RestaurantsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
-
 /**
- * This class is the fragment that shows the user the list of restaurants near them. This class handles ONLY the view.
+ * This class sets the view for the favorites tab, which shows which restaurants are the user's favorite
+ * It uses a view model to get an updated list of favorite restaurants to pass to the adapter.
  */
 
-public class RestaurantsFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
     public static final String TAG = "RestaurantsFragment";
-    private RecyclerView rvRestaurants;
-    private List<Restaurant> restaurants;
-    private RestaurantsAdapter adapter;
+    protected RecyclerView rvRestaurants;
+    protected List<FavoriteRestaurant> restaurants;
+    protected FavoritesAdapter adapter;
 
-    private RestaurantsViewModel mViewModel;
+    private FavoritesViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
 
 
-    public RestaurantsFragment() {
+    public FavoritesFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProviders().of(this).get(RestaurantsViewModel.class);
+        mViewModel = new ViewModelProviders().of(this).get(FavoritesViewModel.class);
 
     }
 
@@ -64,13 +62,13 @@ public class RestaurantsFragment extends Fragment {
         rvRestaurants.setLayoutManager(linearLayoutManager);
 
         restaurants = new ArrayList<>();
-        adapter = new RestaurantsAdapter(getContext(), restaurants);
+        adapter = new FavoritesAdapter(getContext(), restaurants);
         rvRestaurants.setAdapter(adapter);
 
 
-        mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
+        mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<FavoriteRestaurant>>() {
             @Override
-            public void onChanged(List<Restaurant> restaurants) {
+            public void onChanged(List<FavoriteRestaurant> restaurants) {
                 // update UI
                 adapter.setRestaurants(restaurants);
             }
@@ -78,4 +76,5 @@ public class RestaurantsFragment extends Fragment {
 
 
     }
+
 }

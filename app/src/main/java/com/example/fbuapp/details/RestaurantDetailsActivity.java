@@ -1,33 +1,17 @@
-package com.example.fbuapp.activities;
+package com.example.fbuapp.details;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
-import com.example.fbuapp.fragments.ComposeReviewFragment;
-import com.example.fbuapp.fragments.RestaurantDetailsFragment;
 import com.example.fbuapp.models.Restaurant;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.parceler.Parcels;
-
-import okhttp3.Headers;
 
 /**
  * This class sets up the details activity. It shows the RestaurantDetailsFragment.

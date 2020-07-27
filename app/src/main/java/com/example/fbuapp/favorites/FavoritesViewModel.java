@@ -1,4 +1,4 @@
-package com.example.fbuapp.viewmodels;
+package com.example.fbuapp.favorites;
 
 import android.app.Application;
 import android.util.Log;
@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.fbuapp.models.FavoriteRestaurant;
-import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Favorite;
 import com.parse.FindCallback;
 import com.parse.ParseException;

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.RestaurantDetailsFragment">
+    tools:context=".details.RestaurantDetailsFragment">
 
     <TextView
         android:id="@+id/tvRestaurant"

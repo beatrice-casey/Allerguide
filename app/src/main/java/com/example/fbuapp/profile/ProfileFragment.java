@@ -1,4 +1,4 @@
-package com.example.fbuapp.fragments;
+package com.example.fbuapp.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,14 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.fbuapp.R;
-import com.example.fbuapp.activities.LoginActivity;
-import com.example.fbuapp.adapters.ProfileAdapter;
-import com.example.fbuapp.adapters.ReviewsAdapter;
+import com.example.fbuapp.login.LoginActivity;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
-import com.example.fbuapp.models.User;
-import com.example.fbuapp.viewmodels.ProfileViewModel;
-import com.example.fbuapp.viewmodels.ReviewsViewModel;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;

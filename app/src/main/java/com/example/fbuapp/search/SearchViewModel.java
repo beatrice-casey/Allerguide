@@ -1,4 +1,4 @@
-package com.example.fbuapp.viewmodels;
+package com.example.fbuapp.search;
 
 import android.app.Application;
 import android.util.Log;

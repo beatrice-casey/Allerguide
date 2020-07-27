@@ -1,4 +1,4 @@
-package com.example.fbuapp.adapters;
+package com.example.fbuapp.profile;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fbuapp.R;
+import com.example.fbuapp.details.ReviewsAdapter;
 import com.example.fbuapp.models.Review;
 
 import java.util.List;

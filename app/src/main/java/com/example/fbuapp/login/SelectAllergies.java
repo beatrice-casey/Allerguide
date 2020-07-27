@@ -1,4 +1,4 @@
-package com.example.fbuapp.activities;
+package com.example.fbuapp.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.fbuapp.home.MainActivity;
 import com.example.fbuapp.models.Allergies;
 import com.example.fbuapp.R;
 import com.google.android.material.button.MaterialButton;
