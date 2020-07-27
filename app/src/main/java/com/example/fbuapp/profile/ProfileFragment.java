@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel mViewModel;
     private Restaurant restaurant;
     private LinearLayoutManager linearLayoutManager;
+    private TextView tvEmptyProfile;
 
 
     public ProfileFragment() {
@@ -63,6 +64,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvEmptyProfile = view.findViewById(R.id.tvEmptyProfile);
         rvReviews = view.findViewById(R.id.rvUserReviews);
         btnSettings = view.findViewById(R.id.btnSettings);
         tvUsername = view.findViewById(R.id.tvUsername);
@@ -72,12 +74,16 @@ public class ProfileFragment extends Fragment {
         rvReviews.setAdapter(adapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         rvReviews.setLayoutManager(linearLayoutManager);
+        tvEmptyProfile.setText("You haven't made any reviews yet! Create a review of a restaurant to find it here");
 
         mViewModel.getReviews(restaurant).observe(getViewLifecycleOwner(), new Observer<List<Review>>() {
             @Override
             public void onChanged(List<Review> reviewsResults) {
                 // update UI
-                adapter.setReviews(reviewsResults);
+                if (!reviewsResults.isEmpty()) {
+                    tvEmptyProfile.setText("");
+                    adapter.setReviews(reviewsResults);
+                }
 
 
             }

@@ -86,6 +86,7 @@ public class RestaurantDetailsFragment extends Fragment {
     private Favorite favorite;
     private FavoriteRestaurant newFavoriteRestaurant;
     private FavoriteRestaurant favoriteRestaurant;
+    private TextView tvEmptyReviewsNote;
 
 
     private String RESTAURANT_PHOTO_URL;
@@ -131,6 +132,7 @@ public class RestaurantDetailsFragment extends Fragment {
         tvMenu.setClickable(true);
         tvMenu.setMovementMethod(LinkMovementMethod.getInstance());
 
+        tvEmptyReviewsNote = view.findViewById(R.id.tvEmptyTextNote);
         tvReviews = view.findViewById(R.id.tvReviewTag);
         btnCreateReview = view.findViewById(R.id.btnAddReview);
         rvReviews = view.findViewById(R.id.rvReviews);
@@ -152,14 +154,18 @@ public class RestaurantDetailsFragment extends Fragment {
 
         getRestaurantPhoto();
 
+        tvEmptyReviewsNote.setText("There are no reviews for this restaurant yet");
 
         mViewModel.getReviews(restaurant).observe(getViewLifecycleOwner(), new Observer<List<Review>>() {
             @Override
             public void onChanged(List<Review> reviewsResults) {
                 // update UI
+
+                tvEmptyReviewsNote.setText("");
                 adapter.setReviews(reviewsResults);
                 rating = adapter.getRating(reviewsResults);
                 ratingBar.setRating(rating);
+
 
             }
         });
