@@ -13,6 +13,7 @@ import com.example.fbuapp.R;
 import com.example.fbuapp.fragments.FavoritesFragment;
 import com.example.fbuapp.fragments.ProfileFragment;
 import com.example.fbuapp.fragments.RestaurantsFragment;
+import com.example.fbuapp.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         //menuItem.setIcon(R.drawable.ic_create_fill);
                         break;
                     case R.id.action_search:
-                        fragment = new RestaurantsFragment();
+                        fragment = new SearchFragment();
                         //menuItem.setIcon(R.drawable.ic_profile);
                         break;
                     case R.id.action_profile:

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    tools:context=".fragments.SearchFragment">
+
+    <ImageView
+        android:id="@+id/ivSearchIcon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_baseline_search_24"
+        app:srcCompat="@drawable/ic_baseline_search_24" />
+
+    <EditText
+        android:id="@+id/etEnterLocation"
+        android:layout_width="309dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ivSearchIcon"
+        android:ems="10"
+        android:gravity="start|top"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:hint="Enter a location" />
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="34dp"
+        android:layout_height="37dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@+id/etEnterLocation"
+        android:backgroundTint="@android:color/transparent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRestaurants"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/etEnterLocation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/tvEmptyScreenNote"
+        android:layout_width="231dp"
+        android:layout_height="69dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="266dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        tools:text="Please enter a location" />
+</RelativeLayout>
