@@ -28,26 +28,26 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 
 **Required Must-have Stories**
 
-* user login/sign up
-* set/select allergies/food restrictions
-* set location
-* use Google Maps to find local restaurants + filter out ones that offer foods the user can eat
-* reviews page
-    * Detailed view of a restaurant
-    * user can read/write reviews of a restaurant
-    * user can take pictures of stuff they've eaten/their experience
-* Clean UI
-* User can add a restaurant to their favorites tab
-* user can see posts they have made on their profile page
-* User can share their review of a restaurant
+- [x]  user login/sign up
+- [x]  set/select allergies/food restrictions
+- [x]  set location
+- [x]  use Google Maps to find local restaurants + filter out ones that offer foods the user can eat
+- [x]  reviews page
+    - [x]  Detailed view of a restaurant
+    - [x]  user can read/write reviews of a restaurant
+    - [x]  user can take pictures of stuff they've eaten/their experience
+- [ ]  Clean UI
+- [x]  User can add a restaurant to their favorites tab
+- [x]  user can see posts they have made on their profile page
+- [x]  User can share their review of a restaurant
 
 **Optional Nice-to-have Stories**
 
-* View a map view of restaurants and see their location
-* Users can take a picture of a food item in grocery stores and be told if the food was processed in a factory that handles other foods that contain their allergen/if the food itself contains their allergens
-* User can add and change their profile picture
-* User can upload an image from their camera roll for either a review or their profile picture
-* User can search for restaurants in a different location that meet their requirements
+- [ ] View a map view of restaurants and see their location
+- [ ] Users can take a picture of a food item in grocery stores and be told if the food was processed in a factory that handles other foods that contain their allergen/if the food itself contains their allergens
+- [ ] User can add and change their profile picture
+- [ ] User can upload an image from their camera roll for either a review or their profile picture
+- [x] User can search for restaurants in a different location that meet their requirements
 
 
 ### 2. Screen Archetypes
