@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.fbuapp.EndlessRecyclerViewScrollListener;
 import com.example.fbuapp.R;
 import com.example.fbuapp.home.RestaurantsAdapter;
 import com.example.fbuapp.models.Restaurant;
@@ -44,6 +45,8 @@ public class SearchFragment extends Fragment {
 
     private SearchViewModel mViewModel;
     private LinearLayoutManager linearLayoutManager;
+
+    protected EndlessRecyclerViewScrollListener scrollListener;
 
     public static final String TAG = "SearchFragment";
 
@@ -121,12 +124,36 @@ public class SearchFragment extends Fragment {
        btnClear.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+
                etEnterLocation.setText("");
+               adapter.clear();
            }
        });
 
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadMoreData();
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvRestaurants.addOnScrollListener(scrollListener);
+
+
        //CharSequence query = searchLocation.getQuery();
         Log.i(TAG, "Location queried is: " + query);
+
+    }
+    private void loadMoreData() {
+        mViewModel.loadMoreRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
+            @Override
+            public void onChanged(List<Restaurant> restaurants) {
+                // update UI
+                adapter.addAll(restaurants);
+            }
+        });
 
     }
 

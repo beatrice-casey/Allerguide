@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
 import com.example.fbuapp.models.Allergies;
@@ -35,6 +36,7 @@ public class SearchViewModel extends AndroidViewModel {
     public String LOCATION_URL;
     public String MAPS_API_KEY = getApplication().getString(R.string.google_maps_API_key);
     private String location;
+    private AsyncHttpClient client = new AsyncHttpClient();
 
     public SearchViewModel(@NonNull Application application) {
         super(application);
@@ -45,6 +47,14 @@ public class SearchViewModel extends AndroidViewModel {
         listRestaurants = new ArrayList<>();
         queryAllergies();
         location = query;
+
+        return restaurants;
+    }
+
+    public LiveData<List<Restaurant>> loadMoreRestaurants() {
+        restaurants = new MutableLiveData<>();
+        listRestaurants = new ArrayList<>();
+        loadNextPageRestaurants();
 
         return restaurants;
     }
@@ -99,7 +109,6 @@ public class SearchViewModel extends AndroidViewModel {
     }
 
     private void loadRestaurants() {
-        AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(LOCATION_URL, new JsonHttpResponseHandler() {
             @Override
@@ -130,4 +139,41 @@ public class SearchViewModel extends AndroidViewModel {
         });
 
     }
+
+    private void loadNextPageRestaurants() {
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        params.put("since_id", 1);
+        params.put("truncated", false);
+        params.put("include_entities", true);
+        Log.i(TAG, "loading more data with this URL: " + LOCATION_URL);
+        client.get(LOCATION_URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "onSuccess for loadMoreData " + json.toString());
+                //2. Deserialize and construct new model objects from the API response
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    if (jsonArray != null) {
+                        List<Restaurant> newRestaurants = Restaurant.fromJSONArray(jsonArray);
+                        //3. Append the new data objects to the existing set of items inside the array of items
+                        //4. Notify the adapter of new items made with notifyItemsRangeInserted()
+                        listRestaurants.addAll(newRestaurants);
+                        restaurants.setValue(listRestaurants);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e(TAG, "Hit json exception ", throwable);
+            }
+        });
+
+
+    }
+
 }

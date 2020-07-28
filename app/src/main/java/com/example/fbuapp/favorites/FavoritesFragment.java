@@ -9,12 +9,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.fbuapp.EndlessRecyclerViewScrollListener;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.R;
 
@@ -33,6 +36,8 @@ public class FavoritesFragment extends Fragment {
     protected List<FavoriteRestaurant> restaurants;
     protected FavoritesAdapter adapter;
     private TextView tvEmptyFavorites;
+    protected SwipeRefreshLayout swipeContainer;
+    protected EndlessRecyclerViewScrollListener scrollListener;
 
     private FavoritesViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
@@ -84,7 +89,42 @@ public class FavoritesFragment extends Fragment {
             }
         });
 
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<FavoriteRestaurant>>() {
+                    @Override
+                    public void onChanged(List<FavoriteRestaurant> restaurants) {
+                        // update UI
+                        if (!restaurants.isEmpty()) {
+                            tvEmptyFavorites.setText("");
+                            adapter.setRestaurants(restaurants);
+                        } else {
+                            tvEmptyFavorites.setText("You have no favorites yet! Click the heart next to a restaurant to add it to this tab");
+                        }
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Stop animation (This will be after 3 seconds)
+                                swipeContainer.setRefreshing(false);
+                            }
+                        }, 4000); // Delay in millis
 
+                    }
+                });
+                // Configure the refreshing colors
+                swipeContainer.setColorSchemeResources(android.R.color.holo_orange_dark,
+                        android.R.color.holo_green_dark,
+                        android.R.color.holo_orange_light,
+                        android.R.color.holo_red_dark);
+
+
+            }
+        });
     }
-
 }

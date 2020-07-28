@@ -1,6 +1,7 @@
 package com.example.fbuapp.home;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.fbuapp.EndlessRecyclerViewScrollListener;
 import com.example.fbuapp.R;
+import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 
 import java.util.ArrayList;
@@ -34,6 +38,9 @@ public class RestaurantsFragment extends Fragment {
 
     private RestaurantsViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
+
+    protected SwipeRefreshLayout swipeContainer;
+    protected EndlessRecyclerViewScrollListener scrollListener;
 
 
     public RestaurantsFragment() {
@@ -74,6 +81,60 @@ public class RestaurantsFragment extends Fragment {
             }
         });
 
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
+                    @Override
+                    public void onChanged(List<Restaurant> restaurants) {
+                        // update UI
+                        adapter.setRestaurants(restaurants);
+                    }
+                });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Stop animation (This will be after 3 seconds)
+                                swipeContainer.setRefreshing(false);
+                            }
+                        }, 4000); // Delay in millis
+
+                    }
+                });
+                // Configure the refreshing colors
+                swipeContainer.setColorSchemeResources(android.R.color.holo_orange_dark,
+                        android.R.color.holo_green_dark,
+                        android.R.color.holo_orange_light,
+                        android.R.color.holo_red_dark);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadMoreData();
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvRestaurants.addOnScrollListener(scrollListener);
+            }
+
+    private void loadMoreData() {
+        mViewModel.loadMoreRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
+            @Override
+            public void onChanged(List<Restaurant> restaurants) {
+                // update UI
+                adapter.addAll(restaurants);
+            }
+        });
 
     }
+
+
 }
+

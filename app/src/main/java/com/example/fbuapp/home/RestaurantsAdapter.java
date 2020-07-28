@@ -79,6 +79,16 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         notifyDataSetChanged();
     }
 
+    public void addAll(List<Restaurant> newRestaurants) {
+        restaurants.addAll(newRestaurants);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        restaurants.clear();
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         protected Button btnFavorites;
