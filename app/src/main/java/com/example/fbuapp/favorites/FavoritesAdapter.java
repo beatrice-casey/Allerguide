@@ -92,7 +92,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             ratingBar = itemView.findViewById(R.id.ratingBar);
             favorite = new Favorite();
             Log.i(TAG, "Setting up elements");
-            //itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
             btnFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,7 +103,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                     } else {
                         isFavorite = false;
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
-                        //restaurants.get(getAdapterPosition()).deleteFavorite(favorite, restaurants.get(getAdapterPosition()));
+                        restaurants.get(getAdapterPosition()).deleteFavorite(favorite, restaurants.get(getAdapterPosition()));
                     }
 
                 }
