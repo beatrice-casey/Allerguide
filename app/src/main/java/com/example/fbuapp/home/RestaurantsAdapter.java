@@ -189,6 +189,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             query.include(Review.KEY_RESTAURANT);
             query.include(Review.KEY_RESTAURANT_NAME);
             query.whereEqualTo(Review.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
+            query.whereEqualTo(Review.KEY_LOCATION, restaurant.getLocation());
             query.addDescendingOrder(Review.KEY_CREATED);
             query.findInBackground(new FindCallback<Review>() {
                 @Override
@@ -245,9 +246,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         }
 
         private void getRestaurantPhoto(Restaurant restaurant) {
-            RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getPhotoID() +
-                    "&key=" + context.getString(R.string.google_maps_API_key);
-            Glide.with(context).load(RESTAURANT_PHOTO_URL).into(ivRestaurantImage);
+            if (restaurant.getPhotoID() != null) {
+                RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getPhotoID() +
+                        "&key=" + context.getString(R.string.google_maps_API_key);
+                Glide.with(context).load(RESTAURANT_PHOTO_URL).into(ivRestaurantImage);
+            }
 
         }
     }

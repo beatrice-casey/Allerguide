@@ -221,9 +221,11 @@ public class RestaurantDetailsFragment extends Fragment {
     }
 
     private void getRestaurantPhoto() {
-        RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getPhotoID() +
-                "&key=" + getString(R.string.google_maps_API_key);
-        Glide.with(context).load(RESTAURANT_PHOTO_URL).into(ivRestaurantImages);
+        if (restaurant.getPhotoID() != null) {
+            RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getPhotoID() +
+                    "&key=" + getString(R.string.google_maps_API_key);
+            Glide.with(context).load(RESTAURANT_PHOTO_URL).into(ivRestaurantImages);
+        }
 
     }
 

@@ -54,6 +54,7 @@ public class ReviewsViewModel extends AndroidViewModel {
         query.include(Review.KEY_RESTAURANT);
         query.include(Review.KEY_RESTAURANT_NAME);
         query.whereEqualTo(Review.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
+        query.whereEqualTo(Review.KEY_LOCATION, restaurant.getLocation());
         query.addDescendingOrder(Review.KEY_CREATED);
         query.findInBackground(new FindCallback<Review>() {
             @Override

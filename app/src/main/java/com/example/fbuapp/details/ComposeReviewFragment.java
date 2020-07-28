@@ -180,6 +180,7 @@ public class ComposeReviewFragment extends Fragment {
         review.setRating(ratingBar.getRating());
         review.setRestaurant(reviewedRestaurant);
         review.setRestaurantName(restaurant.getRestaurantName());
+        review.setLocation(restaurant.getLocation());
         review.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

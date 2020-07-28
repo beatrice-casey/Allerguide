@@ -115,11 +115,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             //Log.i(TAG, "binding data");
             tvRestaurant.setText(restaurant.getRestaurantNameFromParse());
             tvLocation.setText(restaurant.getLocation());
-            RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getImage() +
-                    "&key=" + context.getString(R.string.google_maps_API_key);
-            Glide.with(context)
-                    .load(RESTAURANT_PHOTO_URL)
-                    .into(ivRestaurantImage);
+            if(restaurant.getImage() != null) {
+                RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getImage() +
+                        "&key=" + context.getString(R.string.google_maps_API_key);
+                Glide.with(context)
+                        .load(RESTAURANT_PHOTO_URL)
+                        .into(ivRestaurantImage);
+            }
             btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
             getRestaurantRating(restaurant);
 
