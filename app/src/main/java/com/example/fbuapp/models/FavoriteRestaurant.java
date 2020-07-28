@@ -7,6 +7,7 @@ import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -26,6 +27,8 @@ public class FavoriteRestaurant extends ParseObject {
     public static final String TAG = "FavoriteRestaurant";
     public static final String KEY_RESTAURANT = "restaurantName";
     public static final String KEY_USER = "User";
+    public static final String KEY_LOCATION = "Location";
+    public static final String KEY_PHOTO = "restaurantImage";
     boolean queryResult;
     FavoriteRestaurant existingRestaurant;
 
@@ -37,7 +40,6 @@ public class FavoriteRestaurant extends ParseObject {
 
     public String getRestaurantNameFromParse() {return getString(KEY_RESTAURANT); }
 
-
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
     }
@@ -45,6 +47,19 @@ public class FavoriteRestaurant extends ParseObject {
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
     }
+
+    public String getLocation() {return getString(KEY_LOCATION);}
+
+    public void setLocation(String location) { put(KEY_LOCATION, location);}
+
+    public String getImage() {
+        return getString(KEY_PHOTO);
+    }
+
+    public void setImage(String photoID) {
+        put(KEY_PHOTO, photoID);
+    }
+
 
 
 
@@ -76,6 +91,8 @@ public class FavoriteRestaurant extends ParseObject {
         else {
             favoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant.setRestaurant(restaurant.getRestaurantName());
+            favoriteRestaurant.setLocation(restaurant.getLocation());
+            favoriteRestaurant.setImage(restaurant.getPhotoID());
             favoriteRestaurant.setUser(currentUser);
             favoriteRestaurant.saveInBackground(new SaveCallback() {
                 @Override

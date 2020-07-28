@@ -13,10 +13,9 @@
         android:id="@+id/btnFavorites"
         android:layout_width="20dp"
         android:layout_height="18dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/tvRestaurant"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ratingBar"
         android:backgroundTint="@android:color/transparent" />
 

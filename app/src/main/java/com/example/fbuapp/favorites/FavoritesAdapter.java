@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.fbuapp.R;
 import com.example.fbuapp.details.RestaurantDetailsActivity;
 import com.example.fbuapp.models.Favorite;
@@ -42,6 +43,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     private boolean isFavorite;
     private Favorite favorite;
     float rating;
+    private String RESTAURANT_PHOTO_URL;
 
 
     public FavoritesAdapter(Context context, List<FavoriteRestaurant> restaurants) {
@@ -112,10 +114,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         private void bind(FavoriteRestaurant restaurant) {
             //Log.i(TAG, "binding data");
             tvRestaurant.setText(restaurant.getRestaurantNameFromParse());
-            //tvLocation.setText(restaurant.getLocation());
-//            Glide.with(context)
-//                    .load(restaurant.getImage())
-//                    .into(ivRestaurantImage);
+            tvLocation.setText(restaurant.getLocation());
+            RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getImage() +
+                    "&key=" + context.getString(R.string.google_maps_API_key);
+            Glide.with(context)
+                    .load(RESTAURANT_PHOTO_URL)
+                    .into(ivRestaurantImage);
             btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
             getRestaurantRating(restaurant);
 
