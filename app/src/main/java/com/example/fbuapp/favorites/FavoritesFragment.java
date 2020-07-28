@@ -107,6 +107,8 @@ public class FavoritesFragment extends Fragment {
                         } else {
                             tvEmptyFavorites.setText("You have no favorites yet! Click the heart next to a restaurant to add it to this tab");
                         }
+                    }
+                });
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -124,7 +126,5 @@ public class FavoritesFragment extends Fragment {
                         android.R.color.holo_red_dark);
 
 
-            }
-        });
     }
 }

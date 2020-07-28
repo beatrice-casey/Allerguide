@@ -54,7 +54,7 @@ public class FavoritesViewModel extends AndroidViewModel {
             @Override
             public void done(List<Favorite> favorites, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
+                    Log.e(TAG, "Issue with getting favorites", e);
                     return;
                 }
                 if (favorites.size() != 0) {

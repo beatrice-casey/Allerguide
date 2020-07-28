@@ -92,12 +92,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             ratingBar = itemView.findViewById(R.id.ratingBar);
             favorite = new Favorite();
             Log.i(TAG, "Setting up elements");
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
 
             btnFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    checkFavorite();
                     if (!isFavorite) {
 
                     } else {
@@ -122,7 +121,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                         .load(RESTAURANT_PHOTO_URL)
                         .into(ivRestaurantImage);
             }
-            btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+            checkFavorite();
             getRestaurantRating(restaurant);
 
 
@@ -171,9 +170,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                     }
                     if (favorites.isEmpty()) {
                         isFavorite = false;
+                        btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
                     } else {
                         isFavorite = true;
                         favorite = favorites.get(0);
+                        btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                     }
 
                 }
