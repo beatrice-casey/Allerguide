@@ -3,33 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    tools:context=".settings.SettingsFragment">
-
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="144dp"
-        android:layout_marginBottom="1dp"
-        android:gravity="center"
-        android:text="Logout" />
-
-    <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="Username" />
+    tools:context=".details.TagsFragment">
 
     <LinearLayout
         android:id="@+id/selectionLayout"
@@ -43,10 +17,10 @@
 
         <!-- Title, secondary and supporting text -->
         <TextView
-            android:id="@+id/tvAllergies"
+            android:id="@+id/tvTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your restrictions"
+            android:text="Current Tags"
             android:textAppearance="?attr/textAppearanceHeadline6" />
 
         <CheckBox
@@ -87,27 +61,28 @@
 
 
         <!-- Buttons -->
-            <LinearLayout
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUpdateTags"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="173dp"
                 android:layout_height="56dp"
+
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="vertical">
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="312dp"
+                android:text="Update Tags" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnUpdateAllergies"
-                    style="?attr/borderlessButtonStyle"
-                    android:layout_width="173dp"
-                    android:layout_height="56dp"
-
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="312dp"
-                    android:text="Update Allergies" />
-
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
+

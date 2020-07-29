@@ -87,6 +87,7 @@ public class RestaurantDetailsFragment extends Fragment {
     private FavoriteRestaurant newFavoriteRestaurant;
     private FavoriteRestaurant favoriteRestaurant;
     private TextView tvEmptyReviewsNote;
+    private Button btnAddTag;
 
 
     private String RESTAURANT_PHOTO_URL;
@@ -137,6 +138,7 @@ public class RestaurantDetailsFragment extends Fragment {
         btnCreateReview = view.findViewById(R.id.btnAddReview);
         rvReviews = view.findViewById(R.id.rvReviews);
         ratingBar = view.findViewById(R.id.rbDetails);
+        btnAddTag = view.findViewById(R.id.btnAddTags);
 
         tvRestaurant.setText(restaurant.getRestaurantName());
         tvLocation.setText(restaurant.getLocation());
@@ -208,8 +210,20 @@ public class RestaurantDetailsFragment extends Fragment {
 
             }
         });
+        
+        btnAddTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addTags();
+            }
+        });
 
 
+    }
+
+    private void addTags() {
+        Fragment fragment = new TagsFragment(restaurant);
+        replaceFragment(fragment);
     }
 
     private FavoriteRestaurant addRestaurantToFavorites(Restaurant restaurant) {
