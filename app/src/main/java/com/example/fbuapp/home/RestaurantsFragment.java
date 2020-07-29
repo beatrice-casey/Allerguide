@@ -69,7 +69,7 @@ public class RestaurantsFragment extends Fragment {
         rvRestaurants.setLayoutManager(linearLayoutManager);
 
         restaurants = new ArrayList<>();
-        adapter = new RestaurantsAdapter(getContext(), restaurants);
+        adapter = new RestaurantsAdapter(getContext(), restaurants, this);
         rvRestaurants.setAdapter(adapter);
 
 

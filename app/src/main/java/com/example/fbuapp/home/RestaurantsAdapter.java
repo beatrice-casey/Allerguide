@@ -14,6 +14,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +26,7 @@ import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
+import com.example.fbuapp.tags.TagsViewModel;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -42,22 +46,26 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     private Context context;
     protected List<Restaurant> restaurants;
+    private Fragment fragment;
     public static final String TAG = "RestaurantsAdapter";
 
     private Favorite favorite;
     private FavoriteRestaurant newFavoriteRestaurant;
     private FavoriteRestaurant favoriteRestaurant;
+    private TagsViewModel tagsViewModel;
 
 
-    public RestaurantsAdapter(Context context, List<Restaurant> restaurants) {
+    public RestaurantsAdapter(Context context, List<Restaurant> restaurants, Fragment fragment) {
         this.context = context;
         this.restaurants = restaurants;
+        this.fragment = fragment;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View restaurantView = LayoutInflater.from(context).inflate(R.layout.item_restaurant, parent, false);
+        tagsViewModel = new ViewModelProviders().of(fragment).get(TagsViewModel.class);
         return new ViewHolder(restaurantView);
     }
 
@@ -96,6 +104,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         protected TextView tvLocation;
         protected ImageView ivRestaurantImage;
         protected RatingBar ratingBar;
+        protected TextView tvTags;
         private boolean isFavorite;
         private float rating;
         private String RESTAURANT_PHOTO_URL;
@@ -107,6 +116,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             tvLocation = itemView.findViewById(R.id.tvLocation);
             ivRestaurantImage = itemView.findViewById(R.id.ivRestaurantImage);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+            tvTags = itemView.findViewById(R.id.tvTags);
             favorite = new Favorite();
             newFavoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant = new FavoriteRestaurant();
@@ -188,6 +198,12 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             Log.i(TAG, "The rating before setting it is: " + rating);
             getRestaurantRating(restaurant);
             getRestaurantPhoto(restaurant);
+            tagsViewModel.getTags(restaurant).observe(fragment.getViewLifecycleOwner(), new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    tvTags.setText(s);
+                }
+            });
 
         }
 

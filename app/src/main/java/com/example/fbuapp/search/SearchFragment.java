@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment {
        linearLayoutManager = new LinearLayoutManager(getContext());
        rvRestaurants.setLayoutManager(linearLayoutManager);
        restaurants = new ArrayList<>();
-       adapter = new RestaurantsAdapter(getContext(), restaurants);
+       adapter = new RestaurantsAdapter(getContext(), restaurants, this);
        rvRestaurants.setAdapter(adapter);
 
 

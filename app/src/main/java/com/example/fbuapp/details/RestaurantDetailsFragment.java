@@ -34,6 +34,8 @@ import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
+import com.example.fbuapp.tags.TagsFragment;
+import com.example.fbuapp.tags.TagsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.ParseException;

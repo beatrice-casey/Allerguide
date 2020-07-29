@@ -1,4 +1,4 @@
-package com.example.fbuapp.details;
+package com.example.fbuapp.tags;
 
 import android.app.Application;
 import android.util.Log;
