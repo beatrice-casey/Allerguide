@@ -173,7 +173,7 @@ Review/Post
 - [x] Your app uses gesture recognizers (e.g. double tap to like, e.g. pinch to scale)
     - Double tap to add to favorites
 - [x] Your app use an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
-    - Click on an image and it grows
+    - Transitions between activities and fragments
 - [x] Your app incorporates an external library to add visual polish
     - Glide to show pictures
     - Material Design
