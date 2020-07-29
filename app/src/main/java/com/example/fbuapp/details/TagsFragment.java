@@ -84,7 +84,6 @@ public class TagsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 createTags();
-                getFragmentManager().popBackStackImmediate();
             }
         });
     }
@@ -184,6 +183,7 @@ public class TagsFragment extends Fragment {
                                 return;
                             }
                             Toast.makeText(getContext(), "Tags updated", Toast.LENGTH_SHORT).show();
+                            getFragmentManager().popBackStackImmediate();
                         }
                     });
                 }
