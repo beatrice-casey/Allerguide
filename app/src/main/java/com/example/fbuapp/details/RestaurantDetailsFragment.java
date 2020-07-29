@@ -231,6 +231,7 @@ public class RestaurantDetailsFragment extends Fragment {
 
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         transaction.replace(R.id.flContainerReview, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

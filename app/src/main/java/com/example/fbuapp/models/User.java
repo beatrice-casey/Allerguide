@@ -18,6 +18,7 @@ public class User extends ParseUser {
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_ALLERGIES = "allergies";
     public static final String KEY_FAVORITES = "favorites";
+    public static final String KEY_PROFILE_PHOTO = "profilePhoto";
 
     public String getUsername() {
         return getString(KEY_USERNAME);
@@ -42,4 +43,13 @@ public class User extends ParseUser {
     public ParseObject getAllergies() {return getParseObject(KEY_ALLERGIES);}
 
     public ParseObject getFavorites() {return getParseObject(KEY_FAVORITES);}
+
+    public ParseFile getProfilePhoto() {
+        return getParseFile(KEY_PROFILE_PHOTO);
+    }
+
+    public void setProfilePhoto(ParseFile parseFile) {
+        put(KEY_PROFILE_PHOTO, parseFile);
+    }
+
 }

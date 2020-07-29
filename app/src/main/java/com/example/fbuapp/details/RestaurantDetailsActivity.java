@@ -42,9 +42,6 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.flContainerReview, fragment).commit();
 
 
-
-
     }
-
 
 }

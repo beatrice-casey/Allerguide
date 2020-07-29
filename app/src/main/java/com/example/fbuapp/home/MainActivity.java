@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -25,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final String TAG = "MainActivity";
-
-
 
 
     private BottomNavigationView bottomNavigationView;
@@ -71,7 +70,13 @@ public class MainActivity extends AppCompatActivity {
                         //menuItem.setIcon(R.drawable.ic_home);
                         break;
                 }
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                //fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                final FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+                transaction.replace(R.id.flContainer, fragment).commit();
+
+
+
                 return true;
             }
         });
