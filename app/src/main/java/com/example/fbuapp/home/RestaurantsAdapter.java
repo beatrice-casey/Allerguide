@@ -26,6 +26,7 @@ import com.example.fbuapp.models.Favorite;
 import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
+import com.example.fbuapp.models.Tags;
 import com.example.fbuapp.tags.TagsViewModel;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -52,7 +53,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private Favorite favorite;
     private FavoriteRestaurant newFavoriteRestaurant;
     private FavoriteRestaurant favoriteRestaurant;
-    private TagsViewModel tagsViewModel;
 
 
     public RestaurantsAdapter(Context context, List<Restaurant> restaurants, Fragment fragment) {
@@ -65,7 +65,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View restaurantView = LayoutInflater.from(context).inflate(R.layout.item_restaurant, parent, false);
-        tagsViewModel = new ViewModelProviders().of(fragment).get(TagsViewModel.class);
         return new ViewHolder(restaurantView);
     }
 
@@ -108,6 +107,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         private boolean isFavorite;
         private float rating;
         private String RESTAURANT_PHOTO_URL;
+        private String tagsString;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -198,13 +198,48 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             Log.i(TAG, "The rating before setting it is: " + rating);
             getRestaurantRating(restaurant);
             getRestaurantPhoto(restaurant);
-            tagsViewModel.getTags(restaurant).observe(fragment.getViewLifecycleOwner(), new Observer<String>() {
-                @Override
-                public void onChanged(String s) {
-                    tvTags.setText(s);
-                }
-            });
+            getRestaurantTags(restaurant);
 
+        }
+
+        private void getRestaurantTags(Restaurant restaurant) {
+            tagsString = "";
+            //Specify which class to query
+            ParseQuery<Tags> query = ParseQuery.getQuery(Tags.class);
+            query.include(Tags.KEY_RESTAURANT_NAME);
+            query.whereEqualTo(Tags.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
+            query.findInBackground(new FindCallback<Tags>() {
+                @Override
+                public void done(List<Tags> tags, ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, "Issue with getting allergies", e);
+                        return;
+                    }
+                    for (Tags tag : tags) {
+                        Log.i(TAG, "Vegan: " + tag.getVegan() + " Vegetarian: " + tag.getVegetarian()
+                                + " GF: " + tag.getGlutenFree() + " LF: " + tag.getLactoseFree());
+                    }
+                    if (!tags.isEmpty()) {
+
+                        if (tags.get(0).getVegan()) {
+                            tagsString += "Vegan ";
+                        }
+                        if (tags.get(0).getVegetarian()) {
+                            tagsString += "Vegetarian ";
+                        }
+                        if (tags.get(0).getGlutenFree()) {
+                            tagsString += "GF ";
+                        }
+                        if (tags.get(0).getLactoseFree()) {
+                            tagsString += "Lactose Free ";
+                        }
+
+                    }
+                    tvTags.setText(tagsString);
+
+                }
+
+            });
         }
 
         private void getRestaurantRating(Restaurant restaurant) {
