@@ -88,12 +88,16 @@ public class RestaurantDetailsFragment extends Fragment {
     private FavoriteRestaurant favoriteRestaurant;
     private TextView tvEmptyReviewsNote;
     private Button btnAddTag;
+    private TextView tvTags;
 
 
     private String RESTAURANT_PHOTO_URL;
 
     private ReviewsViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
+
+    private TagsViewModel tagsViewModel;
+    private String tags;
 
 
     public RestaurantDetailsFragment() {
@@ -110,6 +114,7 @@ public class RestaurantDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProviders().of(this).get(ReviewsViewModel.class);
+        tagsViewModel = new ViewModelProviders().of(this).get(TagsViewModel.class);
 
     }
 
@@ -139,6 +144,7 @@ public class RestaurantDetailsFragment extends Fragment {
         rvReviews = view.findViewById(R.id.rvReviews);
         ratingBar = view.findViewById(R.id.rbDetails);
         btnAddTag = view.findViewById(R.id.btnAddTags);
+        tvTags = view.findViewById(R.id.tvTags);
 
         tvRestaurant.setText(restaurant.getRestaurantName());
         tvLocation.setText(restaurant.getLocation());
@@ -215,6 +221,13 @@ public class RestaurantDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 addTags();
+            }
+        });
+
+        tagsViewModel.getTags(restaurant).observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                tvTags.setText(s);
             }
         });
 

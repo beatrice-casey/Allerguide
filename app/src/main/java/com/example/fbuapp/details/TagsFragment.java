@@ -84,6 +84,7 @@ public class TagsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 createTags();
+                getFragmentManager().popBackStackImmediate();
             }
         });
     }
@@ -188,7 +189,6 @@ public class TagsFragment extends Fragment {
                 }
             }
         });
-        getFragmentManager().popBackStackImmediate();
 
     }
 }
