@@ -20,6 +20,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.fbuapp.R;
 import com.example.fbuapp.models.Allergies;
 import com.example.fbuapp.models.Restaurant;
+import com.example.fbuapp.models.Tags;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -52,6 +53,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Restaurant>> restaurants;
     public List<Restaurant> listRestaurants;
+    public List<Restaurant> sortedRestaurants;
     public static final String TAG = "RestaurantsViewModel";
     public String LOCATION_URL;
     public String MAPS_API_KEY;
@@ -63,6 +65,8 @@ public class RestaurantsViewModel extends AndroidViewModel {
     private static final int COARSE_LOCATION_PERMISSION_CODE = 100;
     private static final int FINE_LOCATION_PERMISSION_CODE = 101;
     private AsyncHttpClient client = new AsyncHttpClient();
+    private String tagsString;
+    private String restrictions = "";
 
 
 
@@ -105,7 +109,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
                     Log.i(TAG, "Vegan: " + allergy.getVegan() + " Vegetarian: " + allergy.getVegetarian()
                             + " GF: " + allergy.getGlutenFree() + " LF: " + allergy.getLactoseFree());
                 }
-                String restrictions = "";
                 if(allergies.get(0).getVegan()) {
                     restrictions += "vegan+";
                 }
@@ -152,7 +155,8 @@ public class RestaurantsViewModel extends AndroidViewModel {
                         }
                     }
                     listRestaurants.addAll(Restaurant.fromJSONArray(results));
-                    restaurants.setValue(listRestaurants);
+                    sortByTags(listRestaurants);
+                    restaurants.setValue(sortedRestaurants);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -248,6 +252,59 @@ public class RestaurantsViewModel extends AndroidViewModel {
         });
 
 
+    }
+
+    private void sortByTags(List<Restaurant> restaurants) {
+        sortedRestaurants = new ArrayList<>();
+        int i;
+        for (i = 0; i < restaurants.size(); i++) {
+            queryTags(restaurants.get(i));
+        }
+        sortedRestaurants.addAll(listRestaurants);
+
+    }
+
+    private void queryTags(final Restaurant queryRestaurant) {
+        //Specify which class to query
+        ParseQuery<Tags> query = ParseQuery.getQuery(Tags.class);
+        query.include(Tags.KEY_RESTAURANT_NAME);
+        query.whereEqualTo(Tags.KEY_RESTAURANT_NAME, queryRestaurant.getRestaurantName());
+        query.findInBackground(new FindCallback<Tags>() {
+            @Override
+            public void done(List<Tags> tags, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting allergies", e);
+                    return;
+                }
+                for (Tags tag : tags) {
+                    Log.i(TAG, "Vegan: " + tag.getVegan() + " Vegetarian: " + tag.getVegetarian()
+                            + " GF: " + tag.getGlutenFree() + " LF: " + tag.getLactoseFree());
+                }
+                if (!tags.isEmpty()) {
+
+                    if (tags.get(0).getVegan()) {
+                        tagsString += "vegan+";
+                    }
+                    if (tags.get(0).getVegetarian()) {
+                        tagsString += "vegetarian+";
+                    }
+                    if (tags.get(0).getGlutenFree()) {
+                        tagsString += "gluten+free+";
+                    }
+                    if (tags.get(0).getLactoseFree()) {
+                        tagsString += "lactose+free+";
+                    }
+
+                    if (tagsString.equals(restrictions)) {
+                        sortedRestaurants.add(queryRestaurant);
+                        listRestaurants.remove(queryRestaurant);
+                    }
+
+                }
+
+            }
+
+        });
     }
 
 }
