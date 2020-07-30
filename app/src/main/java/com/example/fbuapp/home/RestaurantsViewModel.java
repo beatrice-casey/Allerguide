@@ -3,6 +3,7 @@ package com.example.fbuapp.home;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Looper;
@@ -13,6 +14,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
@@ -54,6 +60,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
     public MutableLiveData<List<Restaurant>> restaurants;
     public List<Restaurant> listRestaurants;
     public List<Restaurant> sortedRestaurants;
+    public List<Restaurant> noMatchRestaurants;
     public static final String TAG = "RestaurantsViewModel";
     public String LOCATION_URL;
     public String MAPS_API_KEY;
@@ -67,7 +74,6 @@ public class RestaurantsViewModel extends AndroidViewModel {
     private AsyncHttpClient client = new AsyncHttpClient();
     private String tagsString;
     private String restrictions = "";
-
 
 
     public LiveData<List<Restaurant>> getRestaurants() {
@@ -148,14 +154,8 @@ public class RestaurantsViewModel extends AndroidViewModel {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
-                    int i;
-                    for(i = 0; i < Restaurant.fromJSONArray(results).size(); i++) {
-                        if (listRestaurants.contains(Restaurant.fromJSONArray(results).get(i).getRestaurantName())) {
-                            results.remove(i);
-                        }
-                    }
                     listRestaurants.addAll(Restaurant.fromJSONArray(results));
-                    sortByTags(listRestaurants);
+                    sortedRestaurants = sortByTags(listRestaurants);
                     restaurants.setValue(sortedRestaurants);
 
                 } catch (JSONException e) {
@@ -254,15 +254,21 @@ public class RestaurantsViewModel extends AndroidViewModel {
 
     }
 
-    private void sortByTags(List<Restaurant> restaurants) {
+    private List<Restaurant> sortByTags(final List<Restaurant> restaurantsToSort) {
+
         sortedRestaurants = new ArrayList<>();
+        noMatchRestaurants = new ArrayList<>();
+
         int i;
-        for (i = 0; i < restaurants.size(); i++) {
-            queryTags(restaurants.get(i));
+        for (i = 0; i < restaurantsToSort.size(); i++) {
+
+            queryTags(restaurantsToSort.get(i));
         }
         sortedRestaurants.addAll(listRestaurants);
+        return sortedRestaurants;
 
     }
+
 
     private void queryTags(final Restaurant queryRestaurant) {
         //Specify which class to query
@@ -283,22 +289,22 @@ public class RestaurantsViewModel extends AndroidViewModel {
                 if (!tags.isEmpty()) {
 
                     if (tags.get(0).getVegan()) {
-                        tagsString += "vegan+";
+                        tagsString += "Vegan ";
                     }
                     if (tags.get(0).getVegetarian()) {
-                        tagsString += "vegetarian+";
+                        tagsString += "Vegetarian ";
                     }
                     if (tags.get(0).getGlutenFree()) {
-                        tagsString += "gluten+free+";
+                        tagsString += "GF ";
                     }
                     if (tags.get(0).getLactoseFree()) {
-                        tagsString += "lactose+free+";
+                        tagsString += "Lactose Free ";
                     }
-
-                    if (tagsString.equals(restrictions)) {
+                    if (tagsString.contains(restrictions)) {
                         sortedRestaurants.add(queryRestaurant);
-                        listRestaurants.remove(queryRestaurant);
+                        listRestaurants.remove(listRestaurants.indexOf(queryRestaurant));
                     }
+                    tagsString = "";
 
                 }
 
@@ -307,4 +313,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
         });
     }
 
+
+
 }
+
