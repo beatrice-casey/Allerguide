@@ -244,7 +244,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
                         //3. Append the new data objects to the existing set of items inside the array of items
                         //4. Notify the adapter of new items made with notifyItemsRangeInserted()
                         listRestaurants.addAll(newRestaurants);
-                        //restaurants.setValue(listRestaurants);
+                        restaurants.setValue(listRestaurants);
                     }
 
                 } catch (JSONException e) {
@@ -264,15 +264,11 @@ public class RestaurantsViewModel extends AndroidViewModel {
     private List<Restaurant> sortByTags(final List<Restaurant> restaurantsToSort) {
 
         sortedRestaurants = new ArrayList<>();
-        //noMatchRestaurants = new ArrayList<>();
-        //sortRestaurants();
 
         int i;
         for (i = 0; i < listRestaurants.size(); i++) {
             queryTags(restaurantsToSort.get(i));
         }
-
-        //sortedRestaurants.addAll(listRestaurants);
         return sortedRestaurants;
 
     }

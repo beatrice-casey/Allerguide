@@ -2,10 +2,10 @@ package com.example.fbuapp.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -27,7 +25,6 @@ import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.example.fbuapp.models.Tags;
-import com.example.fbuapp.tags.TagsViewModel;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -53,6 +50,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private Favorite favorite;
     private FavoriteRestaurant newFavoriteRestaurant;
     private FavoriteRestaurant favoriteRestaurant;
+    private static final long DOUBLE_CLICK_INTERVAL = 250; //in millis
+    private long lastClickTime = 0;
 
 
     public RestaurantsAdapter(Context context, List<Restaurant> restaurants, Fragment fragment) {
@@ -121,22 +120,22 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             newFavoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant = new FavoriteRestaurant();
 
-            itemView.setOnTouchListener(new View.OnTouchListener() {
-                private GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                    @Override
-                public boolean onDoubleTap(MotionEvent e) {
-                    favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
-                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-                    return super.onDoubleTap(e);
-                }
-                });
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    gestureDetector.onTouchEvent(event);
-                    return false;
-                }
-            });
+//            itemView.setOnTouchListener(new View.OnTouchListener() {
+//                private GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+//                    @Override
+//                public boolean onDoubleTap(MotionEvent e) {
+//                    favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
+//                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+//                    return super.onDoubleTap(e);
+//                }
+//                });
+//
+//                @Override
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    gestureDetector.onTouchEvent(event);
+//                    return false;
+//                }
+//            });
             itemView.setOnClickListener(this);
 
 
@@ -172,20 +171,30 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         @Override
         public void onClick(View view) {
-            //getting adapter position
-            int position = getAdapterPosition();
-            //make sure position is valid (it exists in view)
-            if (position != RecyclerView.NO_POSITION) {
-                //get the movie at that position
-                Restaurant restaurant = restaurants.get(position);
-                Log.i(TAG, "Restaurant is:" + restaurant.getRestaurantName());
-                //make an intent to display RestaurantDetails
-                Intent intent = new Intent(context, RestaurantDetailsActivity.class);
-                //serialize the restaurant using parceler, use short name as key
-                intent.putExtra(Restaurant.class.getSimpleName(), Parcels.wrap(restaurant));
-                //intent.putExtra("restaurant", restaurant);
-                //show the activity
-                context.startActivity(intent);
+            long currentTime = SystemClock.elapsedRealtime();
+            if (currentTime - lastClickTime < DOUBLE_CLICK_INTERVAL) {
+                lastClickTime = currentTime;
+                favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
+                btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+
+            } else {
+                lastClickTime = currentTime;
+                //getting adapter position
+                int position = getAdapterPosition();
+                //make sure position is valid (it exists in view)
+                if (position != RecyclerView.NO_POSITION) {
+                    //get the movie at that position
+                    Restaurant restaurant = restaurants.get(position);
+                    Log.i(TAG, "Restaurant is:" + restaurant.getRestaurantName());
+                    //make an intent to display RestaurantDetails
+                    Intent intent = new Intent(context, RestaurantDetailsActivity.class);
+                    //serialize the restaurant using parceler, use short name as key
+                    intent.putExtra(Restaurant.class.getSimpleName(), Parcels.wrap(restaurant));
+                    //intent.putExtra("restaurant", restaurant);
+                    //show the activity
+                    context.startActivity(intent);
+                }
+
             }
 
         }
