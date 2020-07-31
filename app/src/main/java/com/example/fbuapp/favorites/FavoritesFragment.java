@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.fbuapp.EndlessRecyclerViewScrollListener;
@@ -38,6 +39,7 @@ public class FavoritesFragment extends Fragment {
     private TextView tvEmptyFavorites;
     protected SwipeRefreshLayout swipeContainer;
     protected EndlessRecyclerViewScrollListener scrollListener;
+    private ProgressBar progressBar;
 
     private FavoritesViewModel mViewModel;
     LinearLayoutManager linearLayoutManager;
@@ -73,6 +75,8 @@ public class FavoritesFragment extends Fragment {
         adapter = new FavoritesAdapter(getContext(), restaurants);
         rvRestaurants.setAdapter(adapter);
         tvEmptyFavorites.setText("You have no favorites yet! Click the heart next to a restaurant to add them to this tab");
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
 
         mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<FavoriteRestaurant>>() {
@@ -81,8 +85,10 @@ public class FavoritesFragment extends Fragment {
                 // update UI
                 if(!restaurants.isEmpty()) {
                     tvEmptyFavorites.setText("");
+                    progressBar.setVisibility(View.GONE);
                     adapter.setRestaurants(restaurants);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     tvEmptyFavorites.setText("You have no favorites yet! Click the heart next to a restaurant to add it to this tab");
                 }
 

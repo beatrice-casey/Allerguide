@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +43,8 @@ public class RestaurantsFragment extends Fragment {
     protected SwipeRefreshLayout swipeContainer;
     protected EndlessRecyclerViewScrollListener scrollListener;
 
+    private ProgressBar progressBar;
+
 
     public RestaurantsFragment() {
         // Required empty public constructor
@@ -51,6 +54,7 @@ public class RestaurantsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProviders().of(this).get(RestaurantsViewModel.class);
+
 
     }
 
@@ -67,6 +71,8 @@ public class RestaurantsFragment extends Fragment {
         rvRestaurants = view.findViewById(R.id.rvRestaurants);
         linearLayoutManager = new LinearLayoutManager(getContext());
         rvRestaurants.setLayoutManager(linearLayoutManager);
+        progressBar = view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         restaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), restaurants, this);
@@ -77,6 +83,7 @@ public class RestaurantsFragment extends Fragment {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
                 // update UI
+                progressBar.setVisibility(View.GONE);
                 adapter.setRestaurants(restaurants);
             }
         });

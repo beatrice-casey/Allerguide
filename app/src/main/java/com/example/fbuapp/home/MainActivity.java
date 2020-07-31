@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
+        //final FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -73,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 //fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
-                transaction.replace(R.id.flContainer, fragment).commit();
+                transaction.replace(R.id.flContainer, fragment);
+                transaction.commit();
+
 
 
 

@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.fbuapp.EndlessRecyclerViewScrollListener;
@@ -42,6 +43,7 @@ public class SearchFragment extends Fragment {
     private RestaurantsAdapter adapter;
     String query;
     private TextView tvEmptyScreenNote;
+    private ProgressBar progressBar;
 
     private SearchViewModel mViewModel;
     private LinearLayoutManager linearLayoutManager;
@@ -80,6 +82,8 @@ public class SearchFragment extends Fragment {
        ivSearchIcon = view.findViewById(R.id.ivSearchIcon);
        tvEmptyScreenNote = view.findViewById(R.id.tvEmptyScreenNote);
        tvEmptyScreenNote.setText("Please enter a location to find restaurants for you!");
+       progressBar = view.findViewById(R.id.progressBar);
+       progressBar.setVisibility(View.GONE);
 
        rvRestaurants = view.findViewById(R.id.rvRestaurants);
        linearLayoutManager = new LinearLayoutManager(getContext());
@@ -98,6 +102,7 @@ public class SearchFragment extends Fragment {
                         || keyCode == EditorInfo.IME_ACTION_DONE
                         || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                         && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    progressBar.setVisibility(View.VISIBLE);
                     InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(etEnterLocation.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     query = etEnterLocation.getText().toString();
@@ -108,6 +113,7 @@ public class SearchFragment extends Fragment {
                             if (!restaurants.isEmpty()) {
                                 tvEmptyScreenNote.setText("");
                                 adapter.setRestaurants(restaurants);
+                                progressBar.setVisibility(View.GONE);
                             } else {
                                 tvEmptyScreenNote.setText("There are no restaurants fitting your food restrictions at this location.");
                             }
