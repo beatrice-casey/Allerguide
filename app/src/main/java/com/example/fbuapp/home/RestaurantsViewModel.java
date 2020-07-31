@@ -154,9 +154,16 @@ public class RestaurantsViewModel extends AndroidViewModel {
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
+                    int i;
+                    for(i = 0; i < Restaurant.fromJSONArray(results).size(); i++) {
+                        if (listRestaurants.contains(Restaurant.fromJSONArray(results).get(i).getRestaurantName())) {
+                            results.remove(i);
+                        }
+                    }
                     listRestaurants.addAll(Restaurant.fromJSONArray(results));
-                    sortedRestaurants = sortByTags(listRestaurants);
-                    restaurants.setValue(sortedRestaurants);
+                    List<Restaurant> finalSort;
+                    finalSort = sortByTags(listRestaurants);
+                    restaurants.setValue(finalSort);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -237,7 +244,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
                         //3. Append the new data objects to the existing set of items inside the array of items
                         //4. Notify the adapter of new items made with notifyItemsRangeInserted()
                         listRestaurants.addAll(newRestaurants);
-                        restaurants.setValue(listRestaurants);
+                        //restaurants.setValue(listRestaurants);
                     }
 
                 } catch (JSONException e) {
@@ -258,13 +265,14 @@ public class RestaurantsViewModel extends AndroidViewModel {
 
         sortedRestaurants = new ArrayList<>();
         noMatchRestaurants = new ArrayList<>();
+        //sortRestaurants();
 
         int i;
-        for (i = 0; i < restaurantsToSort.size(); i++) {
-
+        for (i = 0; i < listRestaurants.size(); i++) {
             queryTags(restaurantsToSort.get(i));
         }
-        sortedRestaurants.addAll(listRestaurants);
+
+        //sortedRestaurants.addAll(listRestaurants);
         return sortedRestaurants;
 
     }
@@ -286,34 +294,40 @@ public class RestaurantsViewModel extends AndroidViewModel {
                     Log.i(TAG, "Vegan: " + tag.getVegan() + " Vegetarian: " + tag.getVegetarian()
                             + " GF: " + tag.getGlutenFree() + " LF: " + tag.getLactoseFree());
                 }
+                Log.i(TAG, "Restrictions are: " +restrictions);
                 if (!tags.isEmpty()) {
 
                     if (tags.get(0).getVegan()) {
-                        tagsString += "Vegan ";
+                        tagsString += "vegan+";
                     }
                     if (tags.get(0).getVegetarian()) {
-                        tagsString += "Vegetarian ";
+                        tagsString += "vegetarian+";
                     }
                     if (tags.get(0).getGlutenFree()) {
-                        tagsString += "GF ";
+                        tagsString += "gluten+free+";
                     }
                     if (tags.get(0).getLactoseFree()) {
-                        tagsString += "Lactose Free ";
+                        tagsString += "lactose+free+";
                     }
+                    Log.i(TAG, "Tags are: " + tagsString);
                     if (tagsString.contains(restrictions)) {
-                        sortedRestaurants.add(queryRestaurant);
-                        listRestaurants.remove(listRestaurants.indexOf(queryRestaurant));
+                        Log.i(TAG, "Tags contained restrictions for : " + queryRestaurant.getRestaurantName());
+                        sortedRestaurants.add(0, queryRestaurant);
+                        listRestaurants.remove(queryRestaurant);
                     }
                     tagsString = "";
 
                 }
-
             }
 
         });
+        if (!sortedRestaurants.contains(queryRestaurant)) {
+            Log.i(TAG, "This restaurant was not added: " + queryRestaurant.getRestaurantName());
+            sortedRestaurants.add(queryRestaurant);
+        }
+
+
     }
-
-
 
 }
 
