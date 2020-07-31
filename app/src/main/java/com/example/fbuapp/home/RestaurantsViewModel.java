@@ -264,7 +264,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
     private List<Restaurant> sortByTags(final List<Restaurant> restaurantsToSort) {
 
         sortedRestaurants = new ArrayList<>();
-        noMatchRestaurants = new ArrayList<>();
+        //noMatchRestaurants = new ArrayList<>();
         //sortRestaurants();
 
         int i;
@@ -318,13 +318,14 @@ public class RestaurantsViewModel extends AndroidViewModel {
                     tagsString = "";
 
                 }
+                if (!sortedRestaurants.contains(queryRestaurant)) {
+                    Log.i(TAG, "This restaurant was not added: " + queryRestaurant.getRestaurantName());
+                    sortedRestaurants.add(queryRestaurant);
+                }
             }
 
         });
-        if (!sortedRestaurants.contains(queryRestaurant)) {
-            Log.i(TAG, "This restaurant was not added: " + queryRestaurant.getRestaurantName());
-            sortedRestaurants.add(queryRestaurant);
-        }
+
 
 
     }
