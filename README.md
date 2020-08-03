@@ -36,7 +36,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
     - [x]  Detailed view of a restaurant
     - [x]  user can read/write reviews of a restaurant
     - [x]  user can take pictures of stuff they've eaten/their experience
-- [ ]  Clean UI
+- [x]  Clean UI
 - [x]  User can add a restaurant to their favorites tab
 - [x]  user can see posts they have made on their profile page
 - [x]  User can share their review of a restaurant
