@@ -53,8 +53,7 @@ public class RestaurantsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProviders().of(this).get(RestaurantsViewModel.class);
-
+        setRetainInstance(true);
 
     }
 
@@ -77,6 +76,7 @@ public class RestaurantsFragment extends Fragment {
         restaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), restaurants, this);
         rvRestaurants.setAdapter(adapter);
+        mViewModel = new ViewModelProviders().of(this).get(RestaurantsViewModel.class);
 
 
         mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {

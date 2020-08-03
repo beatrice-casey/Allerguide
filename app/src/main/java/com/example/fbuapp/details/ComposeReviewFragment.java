@@ -1,13 +1,17 @@
 package com.example.fbuapp.details;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -32,7 +36,11 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -52,7 +60,9 @@ public class ComposeReviewFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
     private ImageView ivReviewImage;
+    private Button btnUploadImage;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    public static final int UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE = 50;
     Restaurant restaurant;
     FavoriteRestaurant reviewedRestaurant = new FavoriteRestaurant();
 
@@ -88,15 +98,16 @@ public class ComposeReviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         etDescription = view.findViewById(R.id.etDescription);
-        btnAddImage = view.findViewById(R.id.btnPhoto);
+        btnAddImage = view.findViewById(R.id.btnAddPhoto);
         btnPost = view.findViewById(R.id.btnPost);
         ivReviewImage = view.findViewById(R.id.ivReviewImage);
         ratingBar = view.findViewById(R.id.rbCompose);
 
+
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchCamera();
+                    selectImage();
             }
         });
 
@@ -115,6 +126,32 @@ public class ComposeReviewFragment extends Fragment {
 
         
     }
+
+    private void selectImage() {
+        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Add Photo");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Take Photo"))
+                {
+                    launchCamera();
+                }
+                else if (options[item].equals("Choose from Gallery"))
+                {
+                    Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE);
+                }
+                else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+
 
     private void launchCamera() {
         // create Intent to take a picture and return control to the calling application
@@ -139,18 +176,51 @@ public class ComposeReviewFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
                 // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
                 ivReviewImage.setImageBitmap(takenImage);
 
-            } else { // Result was a failure
-                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            }
+            else if (requestCode == UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE) {
+                Uri photoUri = data.getData();
+
+                // Load the image located at photoUri into selectedImage
+                Bitmap selectedImage = loadFromUri(photoUri);
+
+                Log.w(TAG, "path of image from gallery" + selectedImage+"");
+                ivReviewImage.setImageBitmap(selectedImage);
+
+            }
+            else { // Result was a failure
+                Toast.makeText(getContext(), "Error getting picture", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private Bitmap loadFromUri(Uri photoUri) {
+        Bitmap image = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            // check version of Android on device
+            if(Build.VERSION.SDK_INT > 27){
+                // on newer versions of Android, use the new decodeBitmap method
+                ImageDecoder.Source source = ImageDecoder.createSource(getContext().getContentResolver(), photoUri);
+                image = ImageDecoder.decodeBitmap(source);
+                photoFile = getPhotoFileUri(photoFileName);
+            } else {
+                // support older versions of Android by using getBitmap
+                image = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoUri);
+                photoFile = getPhotoFileUri(photoFileName);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 
     private File getPhotoFileUri(String fileName) {

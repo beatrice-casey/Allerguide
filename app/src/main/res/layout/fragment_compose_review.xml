@@ -10,7 +10,7 @@
     tools:context=".details.ComposeReviewFragment">
 
     <Button
-        android:id="@+id/btnPhoto"
+        android:id="@+id/btnAddPhoto"
         android:layout_width="wrap_content"
         android:layout_height="59dp"
         android:layout_above="@id/rbCompose"
