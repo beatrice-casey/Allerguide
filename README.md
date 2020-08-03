@@ -17,7 +17,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 [Evaluation of your app across the following attributes]
 - **Category:** Lifestyle
 - **Mobile:** maps, camera, and location.
-- **Story:** There are a lot of people with food allergies and restrictions, and it can be very difficult for these people to find places where they will be able to have some good food while also avoiding their allergens.
+- **Story:** There are a lot of people with food allergies and restrictions, and it can be very difficult for these people to find places where they will be able to have some good food while also avoiding their allergens. The goal of this app is to help these people find places where they can have a good meal that will accomodate their restrictions.
 - **Market:** This app is good for anyone who has or knows someone with dietary restrictions.
 - **Habit:** Whenever people want to go out to eat, or buy food, they can use this app. Users can provide feedback about the restaurants/eateries they have tried and their experience with them.
 - **Scope:** This app will contain many of the elements that have been learned throughout the course. I think it will be pretty challenging to implement, but not impossible. The product is pretty well defined thus far.
@@ -45,8 +45,8 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 
 - [ ] View a map view of restaurants and see their location
 - [ ] Users can take a picture of a food item in grocery stores and be told if the food was processed in a factory that handles other foods that contain their allergen/if the food itself contains their allergens
-- [ ] User can add and change their profile picture
-- [ ] User can upload an image from their camera roll for either a review or their profile picture
+- [x] User can add and change their profile picture
+- [x] User can upload an image from their camera roll for either a review or their profile picture
 - [x] User can search for restaurants in a different location that meet their requirements
 
 
@@ -89,12 +89,11 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 * Restaurants list
    * Details view
 * Favorites
-   * Details view
 * Search
     * Restaurants list
         * Details View
 * Profile
-    * Details View
+    * Settings View
 
 ## Wireframes
 ![](https://i.imgur.com/DnGllNv.jpg)
@@ -136,6 +135,7 @@ Review/Post
 | Review image | File             | Image from user of experience|
 | Rating       | Number           | Rating of place out of 5|
 | createdAt    | DateTime         | Time a review was made  |
+| location     | String           | Location of restaurant  |
 
 
 
