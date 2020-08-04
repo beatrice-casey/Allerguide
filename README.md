@@ -11,7 +11,7 @@ Original App Design Project
 
 ## Overview
 ### Description
-This app will allow users to find restaurants, bakeries, grocery stores, etc. that have foods/options for people with food allergies. For example, people who cannot eat gluten can specify that gluten is their allergy, and the app will show restaurants and other places that offer options that are gluten free. Users can rate the places they go to, upload picutres of the foods they eat and add comments to let other people know of their experience at a certain place. 
+This app will allow users to find restaurants, bakeries, grocery stores, etc. that have foods/options for people with food allergies. For example, people who cannot eat gluten can specify that gluten is their allergy, and the app will show restaurants and other places that offer options that are gluten free. Users can rate the places they go to, upload pictures of the foods they eat and add comments to let other people know of their experience at a certain place. 
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
@@ -20,7 +20,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 - **Story:** There are a lot of people with food allergies and restrictions, and it can be very difficult for these people to find places where they will be able to have some good food while also avoiding their allergens. The goal of this app is to help these people find places where they can have a good meal that will accomodate their restrictions.
 - **Market:** This app is good for anyone who has or knows someone with dietary restrictions.
 - **Habit:** Whenever people want to go out to eat, or buy food, they can use this app. Users can provide feedback about the restaurants/eateries they have tried and their experience with them.
-- **Scope:** This app will contain many of the elements that have been learned throughout the course. I think it will be pretty challenging to implement, but not impossible. The product is pretty well defined thus far.
+- **Scope:** This app will contain many of the elements that have been learned throughout the first three weeks of the internship, plus additional elements that I will explore. I think it will be pretty challenging to implement, and the product is pretty well defined thus far.
 
 ## Product Spec
 
@@ -32,6 +32,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 - [x]  set/select allergies/food restrictions
 - [x]  set location
 - [x]  use Google Maps to find local restaurants + filter out ones that offer foods the user can eat
+- [x]  allow users to tag restaurants as being friendly for a specific allergy, and show those tagged restaurants at the top of the list of restaurants in the home view.
 - [x]  reviews page
     - [x]  Detailed view of a restaurant
     - [x]  user can read/write reviews of a restaurant
@@ -65,11 +66,11 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
     * reviews
 * Creation
     * add a review
+    * add a tag
 * Profile
     * Profile picture
     * posts
 * Settings
-    * change location
     * change profile picture
     * change allergies/restrictions
 * Search
@@ -96,11 +97,8 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
     * Settings View
 
 ## Wireframes
-![](https://i.imgur.com/DnGllNv.jpg)
+![](https://i.imgur.com/zRlhdKL.jpg)
 
-### [BONUS] Digital Wireframes & Mockups
-
-### [BONUS] Interactive Prototype
 
 ## Schema 
 
@@ -116,6 +114,15 @@ Restaurant
 | Rating       | Number           | Rating of place out of 5|
 | Location     | JSON Object      | Location of restaurant  |
 
+Favorites
+
+| Property     |       Type       |       Description       |
+|  --------    |     --------     |       --------          |
+| Restaurant name| String         | Name of Restaurant      |
+| Restaurant   | Pointer to Restaurant| The restaurant that is the favorite|
+| User         | Pointer to User  | The user who made the favorite  |
+
+
 User
 
 | Property     |       Type       |       Description       |
@@ -123,6 +130,7 @@ User
 | Username     | String           | Name of user            |
 | Allergies    | List of Strings  | List of allergies of user|
 | Password     | String           | User's password for app    |
+| Profile Picture| File           | User's profile picture   |
  
  
 Review/Post
@@ -137,6 +145,25 @@ Review/Post
 | createdAt    | DateTime         | Time a review was made  |
 | location     | String           | Location of restaurant  |
 
+Allergies
+
+| Property     |       Type       |       Description       |
+|  --------    |     --------     |       --------          |
+| Vegan        | Boolean          | Restriction is Vegan    |
+| Vegetarian   | Boolean          | Restriction is Vegetarian|
+| Gluten Free  | Boolean          | Restriction is Gluten Free|
+| Lactose Free | Boolean          | Restriction is Lactose Free|
+| User         | Pointer to User  | The user who has these restrictions|
+
+Tags
+
+| Property     |       Type       |       Description       |
+|  --------    |     --------     |       --------          |
+| Vegan        | Boolean          | Restriction is Vegan    |
+| Vegetarian   | Boolean          | Restriction is Vegetarian|
+| Gluten Free  | Boolean          | Restriction is Gluten Free|
+| Lactose Free | Boolean          | Restriction is Lactose Free|
+| restaurantName | String         | The restaurant who has these tags|
 
 
                                   
@@ -158,7 +185,7 @@ Review/Post
 ## App Expectations
 
 - [x]  Your app has multiple views
-    - Main view, details view, favorites view, profile
+    - Main view, details view, favorites view, profile, settings
 - [x] Your app interacts with a database (e.g. Parse)
     - will use Parse to hold user data
 - [x] You can log in/log out of your app as a user
@@ -168,11 +195,10 @@ Review/Post
 - [x] Your app integrates with a SDK (e.g. Google Maps SDK, Facebook SDK)
     - Google Maps SDK
 - [x] Your app contains at least one more complex algorithm (talk over this with your manager)
-    - Filtering the API based on user input food restrictions
-    - Filtering by location
+    - Filtering by Tags
 - [x] Your app uses gesture recognizers (e.g. double tap to like, e.g. pinch to scale)
     - Double tap to add to favorites
-- [x] Your app use an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
+- [x] Your app uses an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
     - Transitions between activities and fragments
 - [x] Your app incorporates an external library to add visual polish
     - Glide to show pictures
