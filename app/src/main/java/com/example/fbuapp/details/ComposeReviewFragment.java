@@ -38,9 +38,7 @@ import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -60,7 +58,6 @@ public class ComposeReviewFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
     private ImageView ivReviewImage;
-    private Button btnUploadImage;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final int UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE = 50;
     Restaurant restaurant;
@@ -98,7 +95,7 @@ public class ComposeReviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         etDescription = view.findViewById(R.id.etDescription);
-        btnAddImage = view.findViewById(R.id.btnAddPhoto);
+        btnAddImage = view.findViewById(R.id.btnAddProfilePhoto);
         btnPost = view.findViewById(R.id.btnPost);
         ivReviewImage = view.findViewById(R.id.ivReviewImage);
         ratingBar = view.findViewById(R.id.rbCompose);

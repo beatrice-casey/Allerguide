@@ -11,7 +11,7 @@ import com.parse.ParseUser;
  * This class handles getting and setting values for users from the User model in the parse database
  */
 
-@ParseClassName("User")
+@ParseClassName("_User")
 public class User extends ParseUser {
 
     public static final String KEY_USERNAME = "username";
