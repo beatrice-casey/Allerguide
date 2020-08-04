@@ -112,7 +112,7 @@ Restaurant
 | Image        | File             | Images of food/place    |
 | Description  | String           | Description of place    |
 | Rating       | Number           | Rating of place out of 5|
-| Location     | JSON Object      | Location of restaurant  |
+| Location     | String           | Location of restaurant  |
 
 Favorites
 
