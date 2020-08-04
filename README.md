@@ -54,7 +54,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 ### 2. Screen Archetypes
 
 * login 
-   * user login
+   * user login/signup
    * select food restrictions
    * set locations
 * Stream
