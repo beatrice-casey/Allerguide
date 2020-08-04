@@ -82,7 +82,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 
 * Restaurant list
 * Favorites
-* Searh
+* Search
 * Profile
 
 **Flow Navigation** (Screen to Screen)
