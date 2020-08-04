@@ -46,7 +46,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
 
 - [ ] View a map view of restaurants and see their location
 - [ ] Users can take a picture of a food item in grocery stores and be told if the food was processed in a factory that handles other foods that contain their allergen/if the food itself contains their allergens
-- [x] User can add and change their profile picture
+- [ ] User can add and change their profile picture
 - [x] User can upload an image from their camera roll for either a review or their profile picture
 - [x] User can search for restaurants in a different location that meet their requirements
 
@@ -68,10 +68,8 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
     * add a review
     * add a tag
 * Profile
-    * Profile picture
     * posts
 * Settings
-    * change profile picture
     * change allergies/restrictions
 * Search
     * User can search for restaurants in a location different from their current location
@@ -130,7 +128,6 @@ User
 | Username     | String           | Name of user            |
 | Allergies    | List of Strings  | List of allergies of user|
 | Password     | String           | User's password for app    |
-| Profile Picture| File           | User's profile picture   |
  
  
 Review/Post
