@@ -58,7 +58,7 @@ This app will allow users to find restaurants, bakeries, grocery stores, etc. th
    * select food restrictions
    * set locations
 * Stream
-   * List of places and previw information
+   * List of places and preview information
        * rating, name, picture
    * List of favorite places
 * Detail
