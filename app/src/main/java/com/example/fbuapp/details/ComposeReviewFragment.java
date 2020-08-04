@@ -2,6 +2,7 @@ package com.example.fbuapp.details;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
@@ -200,7 +201,6 @@ public class ComposeReviewFragment extends Fragment {
 
     private Bitmap loadFromUri(Uri photoUri) {
         Bitmap image = null;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             // check version of Android on device
             if(Build.VERSION.SDK_INT > 27){

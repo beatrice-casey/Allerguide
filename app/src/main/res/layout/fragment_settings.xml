@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +7,37 @@
     tools:context=".settings.SettingsFragment">
 
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="center"
+        android:text="Logout" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Username" />
+
     <LinearLayout
         android:id="@+id/selectionLayout"
         android:layout_width="match_parent"
-        android:layout_height="333dp"
-        android:layout_below="@+id/tvUsername"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -30,7 +53,7 @@
             android:id="@+id/cbVegan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="Vegan"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary" />
@@ -39,7 +62,7 @@
             android:id="@+id/cbVegetarian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="16dp"
             android:text="Vegetarian"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary" />
@@ -48,7 +71,7 @@
             android:id="@+id/cbGlutenFree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="16dp"
             android:text="Gluten Free"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary" />
@@ -57,7 +80,7 @@
             android:id="@+id/cbLactoseFree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="16dp"
             android:text="Lactose Free"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary" />
@@ -68,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
@@ -87,76 +110,4 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profileLayout"
-        android:layout_width="match_parent"
-        android:layout_height="206dp"
-        android:layout_below="@+id/selectionLayout"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Title, secondary and supporting text -->
-        <TextView
-            android:id="@+id/tvProfileInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Profile"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
-
-
-        <ImageView
-            android:id="@+id/ivProfilePhoto"
-            android:layout_width="153dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="100dp"
-            tools:src="@tools:sample/avatars" />
-
-        <LinearLayout
-            android:layout_width="276dp"
-            android:layout_height="65dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAddProfilePhoto"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="90dp"
-                android:layout_height="56dp"
-
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="0dp"
-                android:text="Add Photo" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnUpdateProfile"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="90dp"
-                android:layout_height="56dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="0dp"
-                android:text="Update Profile" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogout"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="90dp"
-                android:layout_height="56dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="0dp"
-                android:gravity="center"
-                android:text="Logout" />
-
-        </LinearLayout>
-    </LinearLayout>
-
 </RelativeLayout>
