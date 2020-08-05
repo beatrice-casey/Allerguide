@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "error logging in", e);
+                    Toast.makeText(LoginActivity.this, "Error: username or password is incorrrect. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 goMainActivity();

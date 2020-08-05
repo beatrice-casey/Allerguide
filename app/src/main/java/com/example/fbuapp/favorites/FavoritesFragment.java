@@ -88,7 +88,6 @@ public class FavoritesFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     adapter.setRestaurants(restaurants);
                 } else {
-                    progressBar.setVisibility(View.GONE);
                     tvEmptyFavorites.setText("You have no favorites yet! Click the heart next to a restaurant to add it to this tab");
                 }
 

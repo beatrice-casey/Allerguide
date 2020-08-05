@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -120,7 +122,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             newFavoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant = new FavoriteRestaurant();
 
-//            itemView.setOnTouchListener(new View.OnTouchListener() {
+            //itemView.setOnTouchListener(new View.OnTouchListener() {
+
+
 //                private GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 //                    @Override
 //                public boolean onDoubleTap(MotionEvent e) {
@@ -135,7 +139,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 //                    gestureDetector.onTouchEvent(event);
 //                    return false;
 //                }
-//            });
+
+          //  });
             itemView.setOnClickListener(this);
 
 
