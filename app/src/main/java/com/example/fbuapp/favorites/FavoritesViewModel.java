@@ -25,8 +25,8 @@ import java.util.List;
 
 public class FavoritesViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<FavoriteRestaurant>> restaurants;
-    public List<FavoriteRestaurant> listRestaurants;
+    private MutableLiveData<List<FavoriteRestaurant>> restaurants;
+    private List<FavoriteRestaurant> listRestaurants;
     public static final String TAG = "FavoritesViewModel";
 
     public FavoritesViewModel(@NonNull Application application) {

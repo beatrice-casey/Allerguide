@@ -20,8 +20,8 @@ import org.parceler.Parcels;
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "RestaurantDetails";
-    Context context;
-    Restaurant restaurant;
+    private Context context;
+    private Restaurant restaurant;
 
 
 

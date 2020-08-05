@@ -26,10 +26,10 @@ import java.util.List;
 
 public class ReviewsViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<Review>> reviews;
-    public List<Review> listReviews;
+    private MutableLiveData<List<Review>> reviews;
+    private List<Review> listReviews;
     public static final String TAG = "ReviewsViewModel";
-    public Restaurant restaurant;
+    private Restaurant restaurant;
 
     public ReviewsViewModel(@NonNull Application application) {
         super(application);

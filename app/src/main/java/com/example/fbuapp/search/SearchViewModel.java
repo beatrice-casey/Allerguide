@@ -35,11 +35,11 @@ import okhttp3.Headers;
 
 public class SearchViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<Restaurant>> restaurants;
-    public List<Restaurant> listRestaurants;
+    private MutableLiveData<List<Restaurant>> restaurants;
+    private List<Restaurant> listRestaurants;
     public static final String TAG = "RestaurantsViewModel";
-    public String LOCATION_URL;
-    public String MAPS_API_KEY = getApplication().getString(R.string.google_maps_API_key);
+    private String LOCATION_URL;
+    private String MAPS_API_KEY = getApplication().getString(R.string.google_maps_API_key);
     private String location;
     private AsyncHttpClient client = new AsyncHttpClient();
 

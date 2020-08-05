@@ -29,15 +29,15 @@ import com.parse.SaveCallback;
 public class SelectAllergies extends AppCompatActivity {
 
     private static final String TAG = "SelectAllergies";
-    MaterialCardView cardView;
-    CheckBox cbVegan;
-    CheckBox cbVegetarian;
-    CheckBox cbGlutenFree;
-    CheckBox cbLactoseFree;
-    MaterialButton btnSetAllergies;
-    TextView tvSelectAllergies;
-    TextView tvChangePreferences;
-    ParseUser user;
+    private MaterialCardView cardView;
+    private CheckBox cbVegan;
+    private CheckBox cbVegetarian;
+    private CheckBox cbGlutenFree;
+    private CheckBox cbLactoseFree;
+    private MaterialButton btnSetAllergies;
+    private TextView tvSelectAllergies;
+    private TextView tvChangePreferences;
+   private ParseUser user;
 
 
     @Override

@@ -38,16 +38,16 @@ import static com.example.fbuapp.models.Allergies.KEY_VEGETARIAN;
  */
 
 public class TagsFragment extends Fragment {
-    Restaurant restaurant;
+    private Restaurant restaurant;
     public static final String TAG = "TagsFragment";
     private String tagObjectID;
 
-    CheckBox cbVegan;
-    CheckBox cbVegetarian;
-    CheckBox cbGlutenFree;
-    CheckBox cbLactoseFree;
-    MaterialButton btnChangeTags;
-    TextView tvSelectAllergies;
+    private CheckBox cbVegan;
+    private CheckBox cbVegetarian;
+    private CheckBox cbGlutenFree;
+    private CheckBox cbLactoseFree;
+    private MaterialButton btnChangeTags;
+    private TextView tvSelectAllergies;
 
     public TagsFragment() {
         // Required empty public constructor

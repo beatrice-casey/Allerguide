@@ -69,8 +69,8 @@ public class ComposeReviewFragment extends Fragment {
     private ImageView ivReviewImage;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final int UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE = 50;
-    Restaurant restaurant;
-    FavoriteRestaurant reviewedRestaurant = new FavoriteRestaurant();
+    private Restaurant restaurant;
+    private FavoriteRestaurant reviewedRestaurant = new FavoriteRestaurant();
 
 
     public ComposeReviewFragment() {

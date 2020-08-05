@@ -58,15 +58,15 @@ import static com.google.android.gms.location.LocationServices.getFusedLocationP
 
 public class RestaurantsViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<Restaurant>> restaurants;
-    public List<Restaurant> listRestaurants;
-    public List<Restaurant> sortedRestaurants;
+    private MutableLiveData<List<Restaurant>> restaurants;
+    private List<Restaurant> listRestaurants;
+    private List<Restaurant> sortedRestaurants;
     public List<Restaurant> noMatchRestaurants;
     public static final String TAG = "RestaurantsViewModel";
-    public String LOCATION_URL;
-    public String MAPS_API_KEY;
-    public String latitude;
-    public String longitude;
+    private String LOCATION_URL;
+    private String MAPS_API_KEY;
+    private String latitude;
+    private String longitude;
     private LocationRequest mLocationRequest;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */

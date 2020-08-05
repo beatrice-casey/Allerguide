@@ -42,7 +42,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     public static final String TAG = "RestaurantsAdapter";
     private boolean isFavorite;
     private Favorite favorite;
-    float rating;
+    private float rating;
     private String RESTAURANT_PHOTO_URL;
 
 

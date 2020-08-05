@@ -66,15 +66,15 @@ import static com.example.fbuapp.models.Allergies.KEY_VEGETARIAN;
 public class SettingsFragment extends Fragment {
 
     public static final String TAG = "Settings";
-    CheckBox cbVegan;
-    CheckBox cbVegetarian;
-    CheckBox cbGlutenFree;
-    CheckBox cbLactoseFree;
-    MaterialButton btnChangeAllergies;
-    TextView tvSelectAllergies;
-    ParseUser user;
-    Button btnLogout;
-    String allergiesObjectID;
+    private CheckBox cbVegan;
+    private CheckBox cbVegetarian;
+    private CheckBox cbGlutenFree;
+    private CheckBox cbLactoseFree;
+    private MaterialButton btnChangeAllergies;
+    private TextView tvSelectAllergies;
+    private ParseUser user;
+    private Button btnLogout;
+    private String allergiesObjectID;
 
 
     public SettingsFragment() {

@@ -45,7 +45,7 @@ public class SearchFragment extends Fragment {
     private RecyclerView rvRestaurants;
     private List<Restaurant> restaurants;
     private RestaurantsAdapter adapter;
-    String query;
+    private String query;
     private TextView tvEmptyScreenNote;
     private ProgressBar progressBar;
 
