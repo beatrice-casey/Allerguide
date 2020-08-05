@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * This is the adapter that binds the data from the view model to the view. It also updates the view based on new data from the view model.
  * Additionally, it listens for a double tap or a click on the heart button (btnFavorites) and adds the restaurant to the Parse database and
- * to the user's favorites tab.
+ * to the user's favorites tab. Finally, it uses the TagsViewModel class to find the tags for this restaurant, and display them to the user.
  */
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
@@ -121,26 +121,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             favorite = new Favorite();
             newFavoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant = new FavoriteRestaurant();
-
-            //itemView.setOnTouchListener(new View.OnTouchListener() {
-
-
-//                private GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-//                    @Override
-//                public boolean onDoubleTap(MotionEvent e) {
-//                    favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
-//                    btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
-//                    return super.onDoubleTap(e);
-//                }
-//                });
-//
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    gestureDetector.onTouchEvent(event);
-//                    return false;
-//                }
-
-          //  });
             itemView.setOnClickListener(this);
 
 

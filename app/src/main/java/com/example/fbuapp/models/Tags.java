@@ -3,6 +3,10 @@ package com.example.fbuapp.models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+/**
+ * This class handles getting and setting Tag objects in the Parse database.
+ */
+
 @ParseClassName("Tags")
 public class Tags extends ParseObject {
 

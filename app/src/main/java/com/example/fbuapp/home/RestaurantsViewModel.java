@@ -51,7 +51,8 @@ import static com.google.android.gms.location.LocationServices.getFusedLocationP
 
 /**
  * This class is the View Model that handles getting the data that will be displayed. It makes the API call and queries to the parse
- * server to get the user's allergies in order to make the appropriate API call.
+ * server to get the user's allergies in order to make the appropriate API call. Once it receives the list of restaurants, it then sorts it
+ * to show the restaurants that have tags that match the user's specific allergies at the top of the list.
  * It also handles location updates and will update the API call according to location.
  */
 

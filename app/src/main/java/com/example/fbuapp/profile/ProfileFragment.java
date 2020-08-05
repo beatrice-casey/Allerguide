@@ -40,6 +40,11 @@ import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+/**
+ * This class handles the user's profile. It shows the username at the top, and then a list of all the reviews the user has made for different restaurants. It also has a
+ * button that, when clicked, takes the user to their settings.
+ */
+
 public class ProfileFragment extends Fragment {
 
     protected RecyclerView rvReviews;

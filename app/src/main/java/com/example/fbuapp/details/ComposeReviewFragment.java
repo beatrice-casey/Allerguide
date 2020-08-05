@@ -53,7 +53,7 @@ import static android.app.Activity.RESULT_OK;
 
 /**
  * This class shows the compose review view. It allows the user to type a review and take a photo using
- * the camera,though a photo is not required to post the review. It saves the written review to the parse
+ * the camera or upload a photo from the camera roll,though a photo is not required to post the review. It saves the review to the parse
  * database.
  */
 

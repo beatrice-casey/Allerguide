@@ -28,6 +28,11 @@ import java.util.List;
 
 import okhttp3.Headers;
 
+/**
+ * This class is responsible for getting the data that populates the view. It finds the user's allergies and makes a search using the google maps API
+ * for restaurants that fits their needs based on their allergies at the location that they specified in the search.
+ */
+
 public class SearchViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Restaurant>> restaurants;

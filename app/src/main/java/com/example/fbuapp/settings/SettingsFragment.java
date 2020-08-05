@@ -57,6 +57,12 @@ import static com.example.fbuapp.models.Allergies.KEY_VEGAN;
 import static com.example.fbuapp.models.Allergies.KEY_VEGETARIAN;
 
 
+/**
+ * This class is responsible for the settings feature. It finds the user's current allergies and shows them on the screen. It allows the user to update
+ * their allergy preferences, and once the preferences are updated, the results on the main tab and search tab return restaurants that match this new allergy.
+ * The user can also logout from their account from this page.
+ */
+
 public class SettingsFragment extends Fragment {
 
     public static final String TAG = "Settings";

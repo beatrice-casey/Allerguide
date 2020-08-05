@@ -32,6 +32,10 @@ import static com.example.fbuapp.models.Allergies.KEY_LACTOSE_FREE;
 import static com.example.fbuapp.models.Allergies.KEY_VEGAN;
 import static com.example.fbuapp.models.Allergies.KEY_VEGETARIAN;
 
+/**
+ * This class is responsible for the tags feature. It shows any selected tags for the restaurant and allows the user to update these tags based on their
+ * experience. If the restaurant has no tags, it creates a new tag object in the Parse database for this restaurant and saves the data there.
+ */
 
 public class TagsFragment extends Fragment {
     Restaurant restaurant;

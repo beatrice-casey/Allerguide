@@ -55,8 +55,9 @@ import okhttp3.Headers;
 /**
  * This class sets up the view for a detailed view of a specific restaurant. It uses a view model to handle getting a list of reviews from parse.
  * This class also gets the link to the restaurant's website and creates a link that the user can click to go to that website. It also gets a photo
- * preview from the restaurant (a photo of food that the restaurant has posted). Finally, it sets up the button to allow the user to make a review.
- * When that button is clicked, the ComposeReviewFragment is started so the user can make their review.
+ * preview from the restaurant (a photo of food that the restaurant has posted). Finally, it sets up the button to allow the user to make a review and add tags.
+ * When the create review button is clicked, the ComposeReviewFragment is started so the user can make their review and when the tags button is clicked, the TagsFragment
+ * is started to allow the user to add tags to the restaurant.
  */
 
 public class RestaurantDetailsFragment extends Fragment {

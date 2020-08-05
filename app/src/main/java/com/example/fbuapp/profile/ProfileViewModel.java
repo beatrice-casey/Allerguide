@@ -14,6 +14,11 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
+/**
+ * This class is a child of the ReviewsViewModel class. The only difference between this class and the ReviewsModel class is the specifications for the query it is making.
+ * Instead of searching for reviews that match a restaurant name, it searches for reviews that match the username of the current user.
+ */
+
 public class ProfileViewModel extends ReviewsViewModel {
 
 

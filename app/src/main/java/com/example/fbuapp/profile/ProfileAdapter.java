@@ -13,6 +13,11 @@ import com.example.fbuapp.models.Review;
 
 import java.util.List;
 
+/**
+ * This class is a child of the ReviewsAdapter class. The difference between this class and the ReviewsAdapter class is that this one gets all the reviews
+ * a specific user made, and instead of showing the name of the user who made the review, it shows the name of the restaurant the review is for.
+ */
+
 public class ProfileAdapter extends ReviewsAdapter {
 
     public ProfileAdapter(Context context, List<Review> reviews) {

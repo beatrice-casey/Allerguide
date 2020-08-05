@@ -18,6 +18,10 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class finds the tags (if any) a restaurant may have.
+ */
+
 public class TagsViewModel extends AndroidViewModel {
     public MutableLiveData<String> tagsMutableLiveData;
     private String tagsString;

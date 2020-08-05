@@ -32,6 +32,10 @@ import com.example.fbuapp.models.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implements the Search feature of the app. It takes the text from an edit box and passes that data to the view model, where it searches and returns
+ * a list of restaurants in that location matching the user's requirements.
+ */
 
 public class SearchFragment extends Fragment {
 
