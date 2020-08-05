@@ -37,9 +37,17 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -138,7 +146,7 @@ public class ComposeReviewFragment extends Fragment {
                 }
                 else if (options[item].equals("Choose from Gallery"))
                 {
-                    Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE);
                 }
                 else if (options[item].equals("Cancel")) {
@@ -202,22 +210,53 @@ public class ComposeReviewFragment extends Fragment {
     private Bitmap loadFromUri(Uri photoUri) {
         Bitmap image = null;
         try {
+            InputStream in = getContext().getContentResolver().openInputStream(photoUri);
             // check version of Android on device
             if(Build.VERSION.SDK_INT > 27){
                 // on newer versions of Android, use the new decodeBitmap method
                 ImageDecoder.Source source = ImageDecoder.createSource(getContext().getContentResolver(), photoUri);
                 image = ImageDecoder.decodeBitmap(source);
-                photoFile = getPhotoFileUri(photoFileName);
+
+                photoFile = createFileFromInputStream(in, photoFileName);
+
+
             } else {
                 // support older versions of Android by using getBitmap
                 image = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoUri);
-                photoFile = getPhotoFileUri(photoFileName);
+
+                photoFile = createFileFromInputStream(in, photoFileName);
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return image;
+    }
+
+    private File createFileFromInputStream(InputStream inputStream, String fileName) {
+        File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+
+        try {
+            File f = new File(mediaStorageDir.getPath() + File.separator + fileName);
+            f.setWritable(true, false);
+            OutputStream outputStream = new FileOutputStream(f);
+            byte buffer[] = new byte[1024];
+            int length = 0;
+
+            while((length=inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer,0,length);
+            }
+
+            outputStream.close();
+            inputStream.close();
+
+            return f;
+        } catch (IOException e) {
+            System.out.println("error in creating a file");
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private File getPhotoFileUri(String fileName) {
