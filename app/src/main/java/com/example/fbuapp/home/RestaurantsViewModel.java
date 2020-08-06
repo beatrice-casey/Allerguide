@@ -181,7 +181,7 @@ public class RestaurantsViewModel extends AndroidViewModel {
     }
 
     // Trigger new location updates at interval
-    public void startLocationUpdates() {
+    private void startLocationUpdates() {
 
         // Create the location request to start receiving updates
         mLocationRequest = new LocationRequest();
