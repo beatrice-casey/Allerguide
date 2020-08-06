@@ -26,8 +26,8 @@ import java.util.List;
 
 public class ReviewsViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<Review>> reviews;
-    private List<Review> listReviews;
+    protected MutableLiveData<List<Review>> reviews;
+    protected List<Review> listReviews;
     public static final String TAG = "ReviewsViewModel";
     private Restaurant restaurant;
 

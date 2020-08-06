@@ -97,7 +97,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, GestureDetector.OnDoubleTapListener {
 
         protected Button btnFavorites;
         protected TextView tvRestaurant;
@@ -109,6 +109,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         private float rating;
         private String RESTAURANT_PHOTO_URL;
         private String tagsString;
+        private GestureDetector gestureDetector;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -122,7 +123,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             newFavoriteRestaurant = new FavoriteRestaurant();
             favoriteRestaurant = new FavoriteRestaurant();
             itemView.setOnClickListener(this);
-
 
 
             btnFavorites.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +161,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 lastClickTime = currentTime;
                 favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
                 btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                return;
 
             } else {
                 lastClickTime = currentTime;
@@ -307,6 +308,37 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 Glide.with(context).load(RESTAURANT_PHOTO_URL).into(ivRestaurantImage);
             }
 
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+            int position = getAdapterPosition();
+            //make sure position is valid (it exists in view)
+            if (position != RecyclerView.NO_POSITION) {
+                //get the movie at that position
+                Restaurant restaurant = restaurants.get(position);
+                Log.i(TAG, "Restaurant is:" + restaurant.getRestaurantName());
+                //make an intent to display RestaurantDetails
+                Intent intent = new Intent(context, RestaurantDetailsActivity.class);
+                //serialize the restaurant using parceler, use short name as key
+                intent.putExtra(Restaurant.class.getSimpleName(), Parcels.wrap(restaurant));
+                //intent.putExtra("restaurant", restaurant);
+                //show the activity
+                context.startActivity(intent);
+            }
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent motionEvent) {
+            return false;
+        }
+
+        @Override
+        public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+            favoriteRestaurant = addRestaurantToFavorites(restaurants.get(getAdapterPosition()));
+            btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+            return true;
         }
     }
 
