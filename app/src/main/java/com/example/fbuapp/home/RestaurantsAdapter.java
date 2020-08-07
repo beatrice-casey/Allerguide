@@ -73,6 +73,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Log.i(TAG, "onBindViewHolder " + position);
         Restaurant restaurant = restaurants.get(position);
+        holder.setIsRecyclable(false);
         holder.bind(restaurant);
 
     }

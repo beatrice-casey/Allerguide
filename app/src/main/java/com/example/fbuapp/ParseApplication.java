@@ -27,7 +27,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(Allergies.class);
         ParseObject.registerSubclass(Favorite.class);
         ParseObject.registerSubclass(FavoriteRestaurant.class);
-        ParseUser.registerSubclass(User.class);
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Review.class);
         ParseObject.registerSubclass(Tags.class);
         // set applicationId, and server server based on the values in the Heroku settings.

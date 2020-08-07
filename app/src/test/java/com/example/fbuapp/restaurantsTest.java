@@ -44,7 +44,7 @@ public class restaurantsTest {
     @Test
     public void searchRestaurants_noQuery() {
         String searchQuery = null;
-        
+
 
     }
 

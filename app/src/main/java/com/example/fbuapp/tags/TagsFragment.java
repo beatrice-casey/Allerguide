@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fbuapp.R;
-import com.example.fbuapp.models.Allergies;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Tags;
 import com.google.android.material.button.MaterialButton;

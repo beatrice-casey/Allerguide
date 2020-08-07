@@ -20,8 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".details.RestaurantDetailsActivity"></activity>
-        <activity android:name=".login.SelectAllergies" />
         <activity android:name=".home.MainActivity" />
+        <activity android:name=".login.SelectAllergies" />
         <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
