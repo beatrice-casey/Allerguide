@@ -13,6 +13,9 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+
 /**
  * This class registers and initialises the parse model.
  */
@@ -22,20 +25,26 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-
-        //Register parse model
         ParseObject.registerSubclass(Allergies.class);
+        ParseObject.registerSubclass(Tags.class);
+        ParseObject.registerSubclass(Review.class);
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Favorite.class);
         ParseObject.registerSubclass(FavoriteRestaurant.class);
-        ParseObject.registerSubclass(User.class);
-        ParseObject.registerSubclass(Review.class);
-        ParseObject.registerSubclass(Tags.class);
-        // set applicationId, and server server based on the values in the Heroku settings.
-        // clientKey is not needed unless explicitly configured
+
+        // Use for monitoring Parse OkHttp traffic
+        // Can be Level.BASIC, Level.HEADERS, or Level.BODY
+        // See http://square.github.io/okhttp/3.x/logging-interceptor/ to see the options.
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.networkInterceptors().add(httpLoggingInterceptor);
+
+        // set applicationId, and server server based on the values in the back4app settings.
         // any network interceptors must be added with the Configuration Builder given this syntax
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("fbuAppId") // should correspond to APP_ID env variable
-                .clientKey("myMasterKeyforfbu")  // set explicitly unless clientKey is explicitly configured on Parse server
-                .server("https://fbuapp.herokuapp.com/parse/").build());
+                .applicationId("bTAfwfrF7kOhMv2Vl3bajH9zuIl9JidJec0XeFjO") // should correspond to Application Id env variable
+                .clientKey("Yov4RULB7Fh4xm9Jz8aA5oVtmzUX1BkHsL81qEKU")  // should correspond to Client key env variable
+                        .server("https://parseapi.back4app.com").build());
     }
 }
