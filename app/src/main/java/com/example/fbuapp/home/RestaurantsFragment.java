@@ -18,7 +18,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.fbuapp.EndlessRecyclerViewScrollListener;
 import com.example.fbuapp.R;
-import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 
 import java.util.ArrayList;

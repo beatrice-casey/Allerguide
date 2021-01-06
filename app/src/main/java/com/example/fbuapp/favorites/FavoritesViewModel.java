@@ -8,8 +8,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Favorite;
+import com.example.fbuapp.models.Restaurant;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -25,15 +25,15 @@ import java.util.List;
 
 public class FavoritesViewModel extends AndroidViewModel {
 
-    private MutableLiveData<List<FavoriteRestaurant>> restaurants;
-    private List<FavoriteRestaurant> listRestaurants;
+    private MutableLiveData<List<Restaurant>> restaurants;
+    private List<Restaurant> listRestaurants;
     public static final String TAG = "FavoritesViewModel";
 
     public FavoritesViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public LiveData<List<FavoriteRestaurant>> getRestaurants() {
+    public LiveData<List<Restaurant>> getRestaurants() {
         restaurants = new MutableLiveData<>();
         listRestaurants = new ArrayList<>();
         queryFavorites();
@@ -47,7 +47,7 @@ public class FavoritesViewModel extends AndroidViewModel {
         ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
         //get the user who's favorite it is
        //query.include(Favorite.KEY_USER);
-        query.include(Favorite.KEY_RESTAURANT);
+        query.include(Favorite.KEY_RESTAURANT_NAME);
         query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
         //query.addDescendingOrder(Favorite.KEY_CREATED);
         query.findInBackground(new FindCallback<Favorite>() {
@@ -60,11 +60,18 @@ public class FavoritesViewModel extends AndroidViewModel {
                 if (favorites.size() != 0) {
                     int i;
                     for (i = 0; i < favorites.size(); i++) {
-                        FavoriteRestaurant favoriteRestaurant = (FavoriteRestaurant) favorites.get(i).getRestaurant();
-                        listRestaurants.add(favoriteRestaurant);
+                        Favorite favoriteRestaurant = favorites.get(i);
+                        Restaurant restaurant = new Restaurant();
+                        restaurant.restaurantName = favoriteRestaurant.getRestaurantName();
+                        restaurant.location = favoriteRestaurant.getKeyLocation();
+                        restaurant.photoID = favoriteRestaurant.getKeyPhotoID();
+                        restaurant.restaurantID = favoriteRestaurant.getKeyRestaurantId();
+                        listRestaurants.add(restaurant);
+
                     }
+
                     restaurants.setValue(listRestaurants);
-                    Log.i("FavoritesViewModel", "Restaurants in Parse: " + favorites.get(0).getRestaurant());
+                    Log.i("FavoritesViewModel", "Restaurants in Parse: " + favorites.get(0).getRestaurantName());
 
                 }
             }

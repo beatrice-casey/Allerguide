@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.fbuapp.R;
 import com.example.fbuapp.details.RestaurantDetailsActivity;
 import com.example.fbuapp.models.Favorite;
-import com.example.fbuapp.models.FavoriteRestaurant;
+import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -38,7 +38,7 @@ import java.util.List;
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private Context context;
-    protected List<FavoriteRestaurant> restaurants;
+    protected List<Restaurant> restaurants;
     public static final String TAG = "RestaurantsAdapter";
     private boolean isFavorite;
     private Favorite favorite;
@@ -46,7 +46,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     private String RESTAURANT_PHOTO_URL;
 
 
-    public FavoritesAdapter(Context context, List<FavoriteRestaurant> restaurants) {
+    public FavoritesAdapter(Context context, List<Restaurant> restaurants) {
         this.context = context;
         this.restaurants = restaurants;
     }
@@ -63,14 +63,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         return restaurants.size();
     }
 
-    public void setRestaurants(List<FavoriteRestaurant> restaurants) {
+    public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants = restaurants;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FavoriteRestaurant restaurant = restaurants.get(position);
+        Restaurant restaurant = restaurants.get(position);
 
         holder.bind(restaurant);
     }
@@ -92,7 +92,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             ratingBar = itemView.findViewById(R.id.ratingBar);
             favorite = new Favorite();
             Log.i(TAG, "Setting up elements");
-            //itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
             btnFavorites.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,12 +110,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         }
 
-        private void bind(FavoriteRestaurant restaurant) {
+
+
+        private void bind(Restaurant restaurant) {
             //Log.i(TAG, "binding data");
-            tvRestaurant.setText(restaurant.getRestaurantNameFromParse());
+            tvRestaurant.setText(restaurant.getRestaurantName());
             tvLocation.setText(restaurant.getLocation());
             if(restaurant.getImage() != null) {
-                RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getImage() +
+                RESTAURANT_PHOTO_URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + restaurant.getPhotoID() +
                         "&key=" + context.getString(R.string.google_maps_API_key);
                 Glide.with(context)
                         .load(RESTAURANT_PHOTO_URL)
@@ -127,14 +129,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         }
 
-        private float getRestaurantRating(FavoriteRestaurant restaurant) {
+        private float getRestaurantRating(Restaurant restaurant) {
             rating = 0;
             //Specify which class to query
             ParseQuery<Review> query = ParseQuery.getQuery(Review.class);
             //get the user who's review it is
-            query.include(Review.KEY_RESTAURANT);
             query.include(Review.KEY_RESTAURANT_NAME);
-            query.whereEqualTo(Review.KEY_RESTAURANT_NAME, restaurant.getRestaurantNameFromParse());
+            query.whereEqualTo(Review.KEY_RESTAURANT_NAME, restaurant.getRestaurantName());
             query.addDescendingOrder(Review.KEY_CREATED);
             query.findInBackground(new FindCallback<Review>() {
                 @Override
@@ -161,7 +162,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         private void checkFavorite() {
             ParseQuery<Favorite> query = ParseQuery.getQuery(Favorite.class);
             query.whereEqualTo(Favorite.KEY_USER, ParseUser.getCurrentUser());
-            query.whereEqualTo(Favorite.KEY_RESTAURANT, restaurants.get(getAdapterPosition()));
+            query.whereEqualTo(Favorite.KEY_RESTAURANT_NAME, restaurants.get(getAdapterPosition()).getRestaurantName());
+            query.whereEqualTo(Favorite.KEY_LOCATION, restaurants.get(getAdapterPosition()).getLocation());
             query.findInBackground(new FindCallback<Favorite>() {
                 @Override
                 public void done(List<Favorite> favorites, ParseException e) {
@@ -173,7 +175,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24);
                     } else {
                         isFavorite = true;
-                        favorite = favorites.get(0);
                         btnFavorites.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                     }
 
@@ -190,12 +191,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
             //make sure position is valid (it exists in view)
             if (position != RecyclerView.NO_POSITION) {
                 //get the movie at that position
-                FavoriteRestaurant restaurant = restaurants.get(position);
-                Log.i(TAG, "Restaurant is:" + restaurant.getRestaurantNameFromParse());
+                Restaurant restaurant = restaurants.get(position);
+                Log.i(TAG, "Restaurant is:" + restaurant.getRestaurantName());
                 //make an intent to display RestaurantDetails
                 Intent intent = new Intent(context, RestaurantDetailsActivity.class);
                 //serialize the restaurant using parceler, use short name as key
-                intent.putExtra(FavoriteRestaurant.class.getSimpleName(), Parcels.wrap(restaurant));
+                intent.putExtra(Restaurant.class.getSimpleName(), Parcels.wrap(restaurant));
                 //intent.putExtra("restaurant", restaurant);
                 //show the activity
                 context.startActivity(intent);
@@ -203,6 +204,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         }
     }
+
+
 }
 
 

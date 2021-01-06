@@ -162,9 +162,9 @@ public class RestaurantsViewModel extends AndroidViewModel {
                         }
                     }
                     listRestaurants.addAll(Restaurant.fromJSONArray(results));
-                    List<Restaurant> finalSort;
-                    finalSort = sortByTags(listRestaurants);
-                    restaurants.setValue(finalSort);
+                    //List<Restaurant> finalSort;
+                    //finalSort = sortByTags(listRestaurants);
+                    restaurants.setValue(listRestaurants);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

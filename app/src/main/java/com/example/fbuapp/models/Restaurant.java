@@ -73,4 +73,45 @@ public class Restaurant {
 
     public String getPhotoID() { return photoID; }
 
+    public void deleteFavorite(Favorite favorite, Restaurant restaurant) {
+        Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
+        Log.i("Restuarant: ", "favorite object is " + favorite.getRestaurantName());
+        ParseUser currentUser = User.getCurrentUser();
+        favorite.setUser(currentUser);
+        favorite.setRestaurantName(restaurant.getRestaurantName());
+        favorite.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("Favorite", "Error saving delete", e);
+                }
+            }
+        });
+
+    }
+
+    public Favorite saveFavorite(ParseUser currentUser, Restaurant favoriteRestaurant) {
+        Log.i("Restuarant: ", "current user is " + ParseUser.getCurrentUser());
+        Favorite favorite = new Favorite();
+        favorite.setRestaurantName(favoriteRestaurant.getRestaurantName());
+        favorite.setKeyPhotoID(favoriteRestaurant.photoID);
+        favorite.setKeyLocation(favoriteRestaurant.getLocation());
+        favorite.setKeyImage(favoriteRestaurant.getImage());
+        favorite.setKeyRestaurantId(favoriteRestaurant.restaurantID);
+        favorite.setUser(currentUser);
+        favorite.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e("Favorite", "Error saving", e);
+                }
+            }
+        });
+
+        Log.i("Restuarant: ", "favorite object is " + favorite);
+
+        return favorite;
+    }
+
+
 }

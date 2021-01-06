@@ -19,8 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.fbuapp.EndlessRecyclerViewScrollListener;
-import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.R;
+import com.example.fbuapp.models.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class FavoritesFragment extends Fragment {
 
     public static final String TAG = "RestaurantsFragment";
     protected RecyclerView rvRestaurants;
-    protected List<FavoriteRestaurant> restaurants;
+    protected List<Restaurant> restaurants;
     protected FavoritesAdapter adapter;
     private TextView tvEmptyFavorites;
     protected SwipeRefreshLayout swipeContainer;
@@ -79,9 +79,9 @@ public class FavoritesFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
 
-        mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<FavoriteRestaurant>>() {
+        mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
             @Override
-            public void onChanged(List<FavoriteRestaurant> restaurants) {
+            public void onChanged(List<Restaurant> restaurants) {
                 // update UI
                 if(!restaurants.isEmpty()) {
                     tvEmptyFavorites.setText("");
@@ -102,9 +102,9 @@ public class FavoritesFragment extends Fragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<FavoriteRestaurant>>() {
+                mViewModel.getRestaurants().observe(getViewLifecycleOwner(), new Observer<List<Restaurant>>() {
                     @Override
-                    public void onChanged(List<FavoriteRestaurant> restaurants) {
+                    public void onChanged(List<Restaurant> restaurants) {
                         // update UI
                         if (!restaurants.isEmpty()) {
                             tvEmptyFavorites.setText("");

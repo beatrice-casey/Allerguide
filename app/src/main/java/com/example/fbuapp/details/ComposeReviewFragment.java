@@ -2,7 +2,6 @@ package com.example.fbuapp.details;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
@@ -29,7 +28,6 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.fbuapp.R;
-import com.example.fbuapp.models.FavoriteRestaurant;
 import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.parse.ParseException;
@@ -37,17 +35,11 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -70,7 +62,6 @@ public class ComposeReviewFragment extends Fragment {
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final int UPLOAD_IMAGE_ACTIVITY_REQUEST_CODE = 50;
     private Restaurant restaurant;
-    private FavoriteRestaurant reviewedRestaurant = new FavoriteRestaurant();
 
 
     public ComposeReviewFragment() {
@@ -80,7 +71,6 @@ public class ComposeReviewFragment extends Fragment {
     public ComposeReviewFragment(Restaurant restaurant) {
         // Required empty public constructor
         this.restaurant = restaurant;
-        reviewedRestaurant.saveRestaurant(restaurant, ParseUser.getCurrentUser());
         Log.i(TAG, "The restaurant name for this review is:" + this.restaurant.getRestaurantName());
 
     }
@@ -284,7 +274,6 @@ public class ComposeReviewFragment extends Fragment {
         }
         review.setUser(currentUser);
         review.setRating(ratingBar.getRating());
-        review.setRestaurant(reviewedRestaurant);
         review.setRestaurantName(restaurant.getRestaurantName());
         review.setLocation(restaurant.getLocation());
         review.saveInBackground(new SaveCallback() {

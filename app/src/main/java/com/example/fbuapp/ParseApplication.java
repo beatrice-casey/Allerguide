@@ -4,14 +4,11 @@ import android.app.Application;
 
 import com.example.fbuapp.models.Allergies;
 import com.example.fbuapp.models.Favorite;
-import com.example.fbuapp.models.FavoriteRestaurant;
-import com.example.fbuapp.models.Restaurant;
 import com.example.fbuapp.models.Review;
 import com.example.fbuapp.models.Tags;
 import com.example.fbuapp.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -30,7 +27,6 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(Review.class);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Favorite.class);
-        ParseObject.registerSubclass(FavoriteRestaurant.class);
 
         // Use for monitoring Parse OkHttp traffic
         // Can be Level.BASIC, Level.HEADERS, or Level.BODY
@@ -43,8 +39,8 @@ public class ParseApplication extends Application {
         // set applicationId, and server server based on the values in the back4app settings.
         // any network interceptors must be added with the Configuration Builder given this syntax
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("bTAfwfrF7kOhMv2Vl3bajH9zuIl9JidJec0XeFjO") // should correspond to Application Id env variable
-                .clientKey("Yov4RULB7Fh4xm9Jz8aA5oVtmzUX1BkHsL81qEKU")  // should correspond to Client key env variable
+                .applicationId("aaYp82IxA1rFWPEL3CdsFRoRh7eGMBj6BLvfMF5R") // should correspond to Application Id env variable
+                .clientKey("IZQtqUXSMaLVeUyffePEq5Qzzye71CGj2pG9Hdc5")  // should correspond to Client key env variable
                         .server("https://parseapi.back4app.com").build());
     }
 }
