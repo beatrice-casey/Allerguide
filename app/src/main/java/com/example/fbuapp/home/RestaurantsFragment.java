@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.fbuapp.EndlessRecyclerViewScrollListener;
 import com.example.fbuapp.R;
 import com.example.fbuapp.models.Restaurant;
+import com.startapp.sdk.ads.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,8 @@ public class RestaurantsFragment extends Fragment {
     protected EndlessRecyclerViewScrollListener scrollListener;
 
     private ProgressBar progressBar;
+
+    Banner banner;
 
 
     public RestaurantsFragment() {
@@ -71,6 +75,7 @@ public class RestaurantsFragment extends Fragment {
         rvRestaurants.setLayoutManager(linearLayoutManager);
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+        banner = view.findViewById(R.id.startAppBanner);
 
         restaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), restaurants, this);

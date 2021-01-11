@@ -87,8 +87,8 @@ public class RestaurantDetailsFragment extends Fragment {
     private boolean isFavorite;
     private Favorite favorite;
     private TextView tvEmptyReviewsNote;
-    private Button btnAddTag;
-    private TextView tvTags;
+//    private Button btnAddTag;
+//    private TextView tvTags;
 
 
     private String RESTAURANT_PHOTO_URL;
@@ -143,8 +143,8 @@ public class RestaurantDetailsFragment extends Fragment {
         btnCreateReview = view.findViewById(R.id.btnAddReview);
         rvReviews = view.findViewById(R.id.rvReviews);
         ratingBar = view.findViewById(R.id.rbDetails);
-        btnAddTag = view.findViewById(R.id.btnAddTags);
-        tvTags = view.findViewById(R.id.tvTags);
+        //btnAddTag = view.findViewById(R.id.btnAddTags);
+        //tvTags = view.findViewById(R.id.tvTags);
 
         tvRestaurant.setText(restaurant.getRestaurantName());
         tvLocation.setText(restaurant.getLocation());
@@ -215,19 +215,19 @@ public class RestaurantDetailsFragment extends Fragment {
             }
         });
         
-        btnAddTag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addTags();
-            }
-        });
-
-        tagsViewModel.getTags(restaurant).observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                tvTags.setText(s);
-            }
-        });
+//        btnAddTag.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addTags();
+//            }
+//        });
+//
+//        tagsViewModel.getTags(restaurant).observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(String s) {
+//                tvTags.setText(s);
+//            }
+//        });
 
 
     }
