@@ -45,7 +45,7 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.startapp.sdk.APPLICATION_ID"
-            android:value="200626877" />
+            android:value="@string/ads_key_id"/>
     </application>
 
 </manifest>
