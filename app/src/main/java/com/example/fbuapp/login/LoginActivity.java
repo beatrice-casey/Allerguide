@@ -35,8 +35,10 @@ public class LoginActivity extends AppCompatActivity {
     public static final String TAG = "LoginActivity";
     private EditText etUsername;
     private EditText etPassword;
+    private EditText etEmail;
     private Button btnLogin;
     private Button btnSignup;
+    private Button btnForgotPass;
     private static final int COARSE_LOCATION_PERMISSION_CODE = 100;
     private static final int FINE_LOCATION_PERMISSION_CODE = 101;
 
@@ -52,8 +54,10 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+        etEmail = findViewById(R.id.etEmail);
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignUp);
+        btnForgotPass = findViewById(R.id.btnForgotPass);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +72,20 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String email = etEmail.getText().toString();
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
+
+                if (ParseUser.getQuery().whereEqualTo("username", username) != null) {
+                    Toast.makeText(LoginActivity.this, "This username is already taken. Please choose another.", Toast.LENGTH_SHORT).show();
+                }
+
                 // Create the ParseUser
                 ParseUser user = new ParseUser();
                 // Set core properties
                 user.setUsername(username);
                 user.setPassword(password);
+                user.setEmail(email);
                 // Invoke signUpInBackground
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
@@ -92,6 +103,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPassword();
+            }
+        });
+
+    }
+
+    private void forgotPassword() {
+        Intent i = new Intent(this, ForgotPassword.class);
+        startActivity(i);
+        finish();
     }
 
     private void selectAllergies() {

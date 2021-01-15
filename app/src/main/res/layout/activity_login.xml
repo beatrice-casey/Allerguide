@@ -11,6 +11,14 @@
     tools:context=".login.LoginActivity">
 
     <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="email" />
+
+    <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +50,20 @@
         android:layout_weight="1"
         android:background="@color/colorPrimary"
         android:text="Sign Up" />
+
+    <Button
+        android:id="@+id/btnForgotPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:text="Forgot Password?" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Only enter email if you are signing up"
+        android:textAlignment="center" />
 
 
 

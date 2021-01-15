@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fbuapp">
+    package="com.example.fbuapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,16 +14,17 @@
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:icon="@drawable/ic_twotone_emoji_food_beverage_24"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_twotone_emoji_food_beverage_24"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".details.RestaurantDetailsActivity"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".details.RestaurantDetailsActivity" />
         <activity android:name=".home.MainActivity" />
+        <activity android:name=".login.ForgotPassword" />
         <activity android:name=".login.SelectAllergies" />
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,17 +36,18 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.allerguide.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
         </provider>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.startapp.sdk.APPLICATION_ID"
-            android:value="@string/ads_key_id"/>
+            android:value="@string/ads_key_id" />
     </application>
 
 </manifest>
