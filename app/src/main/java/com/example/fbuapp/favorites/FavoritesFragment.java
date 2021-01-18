@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,11 +84,13 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
                 // update UI
-                if(!restaurants.isEmpty()) {
+                Log.i("FaveFrag", "mutable data is " + restaurants);
+                if(restaurants != null) {
                     tvEmptyFavorites.setText("");
                     progressBar.setVisibility(View.GONE);
                     adapter.setRestaurants(restaurants);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     tvEmptyFavorites.setText("You have no favorites yet! Click the heart next to a restaurant to add it to this tab");
                 }
 

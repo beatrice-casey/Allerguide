@@ -57,6 +57,7 @@ public class FavoritesViewModel extends AndroidViewModel {
                     Log.e(TAG, "Issue with getting favorites", e);
                     return;
                 }
+                Log.i("FavoritesViewModel", "Size of favorites: " + favorites.size());
                 if (favorites.size() != 0) {
                     int i;
                     for (i = 0; i < favorites.size(); i++) {
@@ -73,6 +74,9 @@ public class FavoritesViewModel extends AndroidViewModel {
                     restaurants.setValue(listRestaurants);
                     Log.i("FavoritesViewModel", "Restaurants in Parse: " + favorites.get(0).getRestaurantName());
 
+                }
+                else {
+                    restaurants.setValue(null);
                 }
             }
         });
