@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:splitMotionEvents="false"
-    tools:context=".profile.ProfileFragment">
+    tools:context="com.example.allerguide.profile.ProfileFragment">
 
     <Button
         android:id="@+id/btnSettings"

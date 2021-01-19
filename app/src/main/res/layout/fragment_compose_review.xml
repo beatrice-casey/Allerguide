@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    tools:context=".details.ComposeReviewFragment">
+    tools:context="com.example.allerguide.details.ComposeReviewFragment">
 
     <Button
         android:id="@+id/btnAddProfilePhoto"

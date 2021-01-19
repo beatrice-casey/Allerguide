@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
-        android:name=".ParseApplication"
+        android:name="com.example.allerguide.ParseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_twotone_emoji_food_beverage_24"
         android:label="@string/app_name"
@@ -20,11 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
-        <activity android:name=".details.RestaurantDetailsActivity" />
-        <activity android:name=".home.MainActivity" />
-        <activity android:name=".login.ForgotPassword" />
-        <activity android:name=".login.SelectAllergies" />
-        <activity android:name=".login.LoginActivity" >
+        <activity android:name="com.example.allerguide.details.RestaurantDetailsActivity" />
+        <activity android:name="com.example.allerguide.home.MainActivity" />
+        <activity android:name="com.example.allerguide.login.ForgotPassword" />
+        <activity android:name="com.example.allerguide.login.SelectAllergies" />
+        <activity android:name="com.example.allerguide.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
