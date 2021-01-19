@@ -17,10 +17,18 @@ import android.widget.Toast;
 
 import com.example.fbuapp.R;
 import com.example.fbuapp.home.MainActivity;
+import com.example.fbuapp.models.Allergies;
+import com.example.fbuapp.models.User;
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.util.List;
+
+import static com.example.fbuapp.models.User.KEY_USERNAME;
 
 /**
  * This class is the login activity- the first screen the user sees the first time they open the app.
@@ -76,10 +84,6 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                if (ParseUser.getQuery().whereEqualTo("username", username) != null) {
-                    Toast.makeText(LoginActivity.this, "This username is already taken. Please choose another.", Toast.LENGTH_SHORT).show();
-                }
-
                 // Create the ParseUser
                 ParseUser user = new ParseUser();
                 // Set core properties
@@ -96,9 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign up didn't succeed. Look at the ParseException
                             // to figure out what went wrong
                             Log.e(TAG, "Issue with login", e);
+                            Toast.makeText(LoginActivity.this, "This username is already taken. Please choose another.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+
 
             }
         });
